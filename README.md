@@ -24,9 +24,11 @@ Va a presentar una serie de fichas donde los visitantes podrán ver información
 Su principal atractivo es la facilidad y la agrupación necesario de la información de cada planta. Así como la accesibilidad e intuitivo manejo que hace de la aplicación sea muy completa. Además de proporcionar un "jardin" a los usuarios registrados donde podran guardar las plantas que les interesa. 
 
 - **¿Qué problema concreto va a resolver?**
+
 El problema que cubre esta aplicación es evitar tener que realizar busquedas de más para obtener información sobre para el mantenimiento de las plantas que se tenga en casa. Evitanto así mismo el desplazamiento a invernaderos / floristerias en busqueda de una planta sin saber si la tendrán o no. 
 
 - **¿Qué necesidad va a cubrir?**
+
 Cubre la necesidad de faciliar la busqueda de información sobre plantas que se tienen en casa; evitando asi tener que pasar horas en una épica busqueda; asi como de facilitar la adquisición de las mismas. 
 
 ## Estructura del Proyecto
