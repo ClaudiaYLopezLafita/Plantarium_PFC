@@ -13,6 +13,7 @@ mongoose.connect(process.env.DB_URI,)
   .catch((err) => console.error(err));
 mongoose.connection;
 
+/// ROUTES
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 

@@ -22,5 +22,14 @@ router.post('/', (req, res) => {
 );
 
 /* POST login User */
+router.post('/signin', async (req,res) =>{
+  const{ email, password} = req.body;
+  const user = await User.findOne({email})
+  
+  if(!user) return res.status(401).send("El usuario no existe");
+  if(user.password !== password) return res.status(401).send("Contraseña erronea");
+
+  jwt.sign({_id: user.username}, "secretkey");
+})
 
 module.exports = router;
