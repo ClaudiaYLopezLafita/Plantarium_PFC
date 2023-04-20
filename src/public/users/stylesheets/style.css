@@ -58,11 +58,10 @@ footer button
 
 }
 
-#admin #action1 a,
+#action1 a,
 #action2 a, #action3 a{
   text-decoration:none;
   color: #006837;
-
 }
 
 /* FOOTER RULES*/
