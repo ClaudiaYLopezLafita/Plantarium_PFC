@@ -50,6 +50,21 @@ footer button
   color: #006837;
 }
 
+#admin #action1,
+#action2, #action3{
+  border-width: 2px;
+  border-style: solid;
+  border-color: #006837;
+
+}
+
+#admin #action1 a,
+#action2 a, #action3 a{
+  text-decoration:none;
+  color: #006837;
+
+}
+
 /* FOOTER RULES*/
 
 footer{

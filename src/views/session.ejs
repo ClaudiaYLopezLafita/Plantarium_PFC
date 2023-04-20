@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('partials/head');%>
+    </head>
+    <body id="session">
+    <!-- STAR HEADER -->
+        <header>
+            <%- include('partials/header');%>
+        </header>
+        <!-- END HEADER-->
+
+        <!-- STAR MAIN -->
+        <div class="container-fluid my-4 p-0" id="main">
+            <div class="row m-auto">
+                <!-- col login and info-->
+                <div class="col-sm-4 m-auto" >
+                        <!-- Login Form-->
+                        <div class="row py-3 rounded mb-5" id="loginForm">
+                            <h2 class="text-center">LOGIN</h2>
+                            <form method="post" action="/users/signin" class="my-2">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+                                    <label for="email">Correo electrónico</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+                                    <label for="password">Contraseña</label>
+                                </div>
+                                <div class="my-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="recordarLogin">
+                                    <label class="form-check-label" for="recordarLogin"><small>Recordar</small></label>
+                                    <small class=""><a href="">Forgot your password?</a></small>
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                    <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnLogin">LOGIN</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Info Premium Subscription-->
+                        <div class="row py-3 ">
+                            <h3 class="text-center">SUSCRIPCIÓN PREMIUM</h3>
+                            <div class="infoSuscription my-3">
+                                <p>Modifica tu suscripción desde el perfil para:</p>
+                                <p><i class="bi bi-check2-circle"></i> Plantas ilimiatadas en tu jardin</p>
+                                <p><i class="bi bi-check2-circle"></i> Todos los cuidados del jardin a tu disposicion</p>
+                                <p><i class="bi bi-check2-circle"></i> Todos los tratamientos del jardin a tu disposición</p>
+                                <p><i class="bi bi-check2-circle"></i> Se el primmero en ver las novedades</p>
+                            </div>
+                            <div class="d-md-flex justify-content-md-center">
+                                <img class="w-25" src="images/page/Logo_Small.png" alt="logo plantarium small">
+                            </div>
+                        </div>
+                </div>
+                <!-- col Register Form-->
+                <div class="col-sm-4 m-auto mt-0 py-3 rounded" id="registerForm">
+                    <h2 class="text-center">REGISTER</h2>
+                    <form method="post" action="/users" class="my-2">
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" name="fullname" id="full_name" placeholder="Nombre Apellido">
+                            <label for="full_name">Nombre Completo</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Nombre">
+                            <label for="username">Nombre de usuario</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="email" class="form-control" name="email" id="emaiL" placeholder="name@example.com">
+                            <label for="email">Correo electrónico</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+                            <label for="password">Contraseña</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="date" class="form-control" name="birthdate" id="birth_date" placeholder="dd/mm/yyyy">
+                            <label for="birth_date">Fecha nacimiento</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" name="address" id="address" placeholder="direccion">
+                            <label for="address">Dirección</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" name="locality" id="locality" placeholder="localidad">
+                            <label for="locality">Localidad</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Telefono">
+                            <label for="phone">Teléfono</label>
+                        </div>
+                        <div class="my-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="newsletter" checked>
+                            <label class="form-check-label" for="newsletter"><small>Quiero recibir información con las novedades</small></label>
+                        </div>
+                        <div class="my-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="recordarLogin">
+                            <label class="form-check-label" for="recordarLogin"><small>Acepto los Términos y Política de Privacidad</small></label>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnRegister">REGISTER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN-->
+
+        <!-- STAR FOOTER -->
+        <footer>
+            <%- include('partials/footer');%>
+        </footer>
+        <!-- END FOOTER -->
+    </body>
+</html>

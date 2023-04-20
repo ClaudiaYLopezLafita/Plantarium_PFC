@@ -15,17 +15,28 @@ var UserSchema = new Schema({
     role: {
         type: String,
         enum: ['admin', 'subscriber'],
-        default: 'subscriber '
+        default: 'subscriber'
     },
     birthdate: {type: Date, required: true},
     address: {type: String, required: true},
     locality: {type: String, required: true},
-    phone: {type: Number, required: false},
+    phone: {type: String, required: false},
+    dni:{type: String, required: false},
+    typeSubscription:{
+        type: String,
+        enum: ['general', 'premium'],
+        default: 'general'
+    },
     payments: [{
         type: Schema.ObjectId,
         ref: 'Pay',
         default: null
-    }]
+    }],
+    subscription: {
+        type: Schema.ObjectId,
+        ref: 'Subscription',
+        default: null
+    }
 })
 
 UserSchema.pre('save', function(next) {
@@ -46,7 +57,9 @@ UserSchema.pre('save', function(next) {
 });
 
 //Comprobación de contraseña
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
+UserSchema.methods.comparePassword = function(candidatePassword,cb) {
+    console.log(candidatePassword)
+    console.log(this.password)
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
         if (err) return cb(err);
         cb(null, isMatch);

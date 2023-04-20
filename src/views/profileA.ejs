@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('partials/head');%>
+    </head>
+    <body id="admin">
+    <!-- STAR HEADER -->
+        <header>
+            <%- include('partials/header');%>
+        </header>
+        <!-- END HEADER-->
+
+        <!-- STAR MAIN -->
+        <div class="container-fluid">
+            <div class="row m-5">
+                <div class="col-sm-4 m-auto">
+                    <img src="" alt="foto perfil usario">
+                </div>
+                <div class="col-sm-4 m-auto">
+                    <p>Nombre:</p>
+                    <p>Email:</p>
+                    <p>Direccion:</p>
+                    <p>Télefono:</p>
+                    <p>Localidad:</p>
+                    <p>Fecha de nacimiento:</p>
+                </div>
+            </div>
+            <hr class="mx-5">
+            <div class="row m-5 d-flex flex-column justify-content-center">
+                <h2 class="text-center">ACCIONES</h2>
+                <div class="icons_actions mt-3 d-flex flex- justify-content-around">
+                    <div class="rounded-circle shadow py-5 px-5" id="action1">
+                        <a href="" class="d-flex flex-column align-items-center">
+                            <span class="material-symbols-outlined mb-1">
+                                potted_plant
+                            </span>
+                            <p>PLANTAS</p>
+                        </a>
+                    </div>
+                    <div class="rounded-circle shadow py-5 px-4" id="action2">
+                        <a href="" class="d-flex flex-column align-items-center">
+                            <span class="material-symbols-outlined mb-1">
+                                inventory_2
+                            </span>
+                            <p>PROVEEDORES</p>
+                        </a>
+                    </div>
+                    <div class="rounded-circle shadow py-5 px-4" id="action3">
+                        <a href="" class="d-flex flex-column align-items-center">
+                            <i class="bi bi-graph-up-arrow mb-1"></i>
+                            <p>ESTADISTICAS</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN-->
+
+        <!-- STAR FOOTER -->
+        <footer>
+            <%- include('partials/footer');%>
+        </footer>
+        <!-- END FOOTER -->
+    </body>
+</html>
