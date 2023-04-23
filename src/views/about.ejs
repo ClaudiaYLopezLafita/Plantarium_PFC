@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('partials/head');%>
+    </head>
+    <body id="about">
+        <!-- STAR HEADER -->
+        <header>
+            <%- include('partials/header');%>
+        </header>
+        <!-- END HEADER-->
+
+        <!-- STAR BREADCRUMB -->
+        <div class="container-fluid py-1 mb-0" id="breadcrumb">
+            <nav class="mx-4 mt-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">You Are Currently Here!</li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">About Us</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- END BREADCRUMB -->
+
+        <!-- STAR MAIN -->
+        <div class="container-fluid mb-4 mt-0 p-0" id="main">
+            <!-- ROW 1 - Logo plantarium-->
+            <div class="row m-auto headerInfo p-5" aria-label="Logo completo plantarium">
+                <div class="m-auto fondo d-flex">
+                    <img src="images/page/logo_H.svg" class="w-50 m-auto" alt="logo completo plantariu, el tempo de las plantas">
+                </div>
+            </div>
+            <!-- ROW 2 - History Plantarium-->
+            <div class="row m-5" aria-label="Historia de plantarium">
+                <div class="m-auto text-center">
+                    <h5>La historia de nuestro servicio empieza con la pérdida de muchas plantas 
+                        y con el fin de ayudar a todos aquellos que han pasado por esta situación creamos Plantarium.</h5>
+                    <h5>Juntos haremos de tu casa un bosque verde que embellecera tu vida. </h5>
+                </div>
+            </div>
+            <!-- ROW 3 - Comment users carousel -->
+            <div class="row m-auto text-center comentarios py-4" aria-label="comentarios usuarios">
+                <div class="m-auto">
+                    <div class="my-2">
+                        <h3>QUE DICEN NUESTROS USUARIOS</h3>
+                    </div>
+                    <div class="row mt-2">
+                        <!-- Col start quote -->
+                        <div class="col-sm-3 quote d-flex justify-content-end">
+                            <i class="fa fa-quote-left fa-2x"></i>
+                        </div>
+                        <!-- Col carousel -->
+                        <div class="col-sm-5 m-auto">
+                            <div id="carouselCommentSlidesOnly" aria-label="carrusel comentarios usuarios" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner mt-3">
+                                    <div class="carousel-item active">
+                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
+                                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                                        </p>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
+                                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                                        </p>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
+                                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Col end quote -->
+                        <div class="col-sm-3 d-flex align-items-end">
+                            <i class="fa fa-quote-right fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ROW 4 - Services -->
+            <div class="row m-auto mt-2">
+                <div class=" my-4 text-center">
+                    <h2>NUESTROS SERVICIOS</h2>
+                </div>
+                <!-- Services -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col-sm-3 d-flex justify-content-around">
+                        <div class="service_1 p-4">
+                            <div class="row text-center mb-3">
+                                <i class="bi bi-info-circle-fill" style="font-size: 2.25rem;"></i>
+                                <h5>INFORMACION</h5>
+                            </div>
+                            <div class="row text-center">
+                                <p>
+                                    Información 100% profesional y actualizada para que conozcas tus plantas cientificamente
+                                    así como curiosidades que te pueden sorprender.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 d-flex justify-content-around">
+                        <div class="service_2 p-4">
+                            <div class="row text-center mb-3">
+                                <i class="bi bi-capsule" style="font-size: 2.25rem;"></i>
+                                <h5> CUIDADOS Y TRATAMIENTOS</h5>
+                            </div>
+                            <div class="row text-center">
+                                <p>
+                                    Para que tus plantas estén sanas y cuidadas, 
+                                    tendrás las pautas y tratamientos necesarios. 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 d-flex justify-content-around">
+                        <div class="service_3 p-4">
+                            <div class="row text-center mb-3">
+                                <i class="bi bi-basket-fill" style="font-size: 2.25rem;"></i>
+                                <h5>PROVEEDORES</h5>
+                            </div>
+                            <div class="row text-center">
+                                <p>
+                                    Listas de proveedores de tu localidad, donde puedes encontar las plantas que más 
+                                    te apetezcan sin tener que moverte mucho.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN -->
+
+        <!-- STAR FOOTER -->
+        <footer>
+            <%- include('partials/footer');%>
+        </footer>
+        <!-- END FOOTER -->
+    </body>
+</html>

@@ -6,6 +6,11 @@ router.get('/', function(req, res, next) {
   	res.render('index', { title: 'Plantarium' });
 });
 
+/* GET About US password page. */
+router.get('/about', function(req, res, next) {
+	res.render('about', { title: 'Plantarium' });
+});
+
 /* GET session page. */
 router.get('/session', function(req, res, next) {
   	res.render('session', { title: 'Plantarium' });
@@ -21,7 +26,7 @@ router.get('/profileS', verifyToken, function(req, res, next) {
   	res.render('profileS', { title: 'Plantarium', locals: res.locals});
 });
 
-/* GET profile subscriptor page. */
+/* GET profile Admin page. */
 router.get('/profileA', verifyToken, function(req, res, next) {
 	res.render('profileA', { title: 'Plantarium', locals: res.locals});
 });

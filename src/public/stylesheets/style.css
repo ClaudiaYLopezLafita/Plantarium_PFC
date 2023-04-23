@@ -71,6 +71,27 @@ img{
   color: #006837;
 }
 
+#about .headerInfo{
+  background-image: url("../images/plantas/fondo_plantas_bN.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+#about .headerInfo .fondo{
+  background-color: rgba(255, 255, 255, 0.5) ;
+}
+
+#about .comentarios{
+  background-color: #C5DFCA;
+}
+
+#about .service_1,
+#about .service_2,
+#about .service_3{
+  background-color: #C5DFCA;
+  border-radius: 10px;
+}
+
 /* FOOTER RULES*/
 
 footer{
