@@ -36,7 +36,27 @@ img{
   width: 90%;
 }
 
-/* 3. MAIN*/
+/* 3. BREADCRUM */
+
+#breadcrumb {
+  background-color: #759876;
+  color: #fff;
+}
+
+#breadcrumb a{
+  text-decoration: none;
+  color: #fff;
+}
+
+#breadcrumb .active{
+  font-weight: bolder;
+}
+
+#breadcrumb nav{
+  --bs-breadcrumb-divider: '>';
+}
+
+/* 4. MAIN*/
 
 #loginForm, #registerForm{
   background-color: #C5DFCA;
