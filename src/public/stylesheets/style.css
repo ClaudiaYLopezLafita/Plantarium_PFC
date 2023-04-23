@@ -62,8 +62,9 @@ img{
   background-color: #C5DFCA;
 }
 
-#session #btnLogin, #session #btnRegister,
-footer button
+#session #btnLogin, 
+#session #btnRegister,
+#reset #btnReset
 {
   background-color: #fff;
   border: 1.5px solid #006837;

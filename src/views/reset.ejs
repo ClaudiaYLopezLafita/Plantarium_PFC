@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('partials/head');%>
+    </head>
+    <body id="reset">
+        <!-- STAR HEADER -->
+        <header>
+            <%- include('partials/header');%>
+        </header>
+        <!-- END HEADER-->
+
+        <!-- STAR BREADCRUMB -->
+        <div class="container-fluid py-1 mb-1" id="breadcrumb">
+            <nav class="mx-4 mt-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">You Are Currently Here!</li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">RESET PASSWORD</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- END BREADCRUMB -->
+
+        <!-- STAR MAIN -->
+        <div class="container-fluid my-4 p-0" id="main">
+            <div class="row m-5">
+                <div class="col-sm-5 m-auto" >
+                    <!-- Reset Password Form-->
+                    <div class="row py-3 rounded mb-5" id="loginForm">
+                        <h2 class="text-center">RESET PASSWORD</h2>
+                        <form method="post" action="" class="my-2">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+                                <label for="email">Correo electrónico</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+                                <label for="password">Contraseña</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" name="passwordCf" id="passwordCf" placeholder="Contraseña">
+                                <label for="password"> Confirmar Contraseña</label>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnReset">SAVE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN-->
+        <!-- STAR FOOTER -->
+        <footer>
+            <%- include('partials/footer');%>
+        </footer>
+        <!-- END FOOTER -->
+    </body>
+</html>

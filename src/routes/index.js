@@ -11,9 +11,19 @@ router.get('/session', function(req, res, next) {
   	res.render('session', { title: 'Plantarium' });
 });
 
+/* GET reset password page. */
+router.get('/reset', function(req, res, next) {
+	res.render('reset', { title: 'Plantarium' });
+});
+
 /* GET profile subscriptor page. */
 router.get('/profileS', verifyToken, function(req, res, next) {
   	res.render('profileS', { title: 'Plantarium', locals: res.locals});
+});
+
+/* GET profile subscriptor page. */
+router.get('/profileA', verifyToken, function(req, res, next) {
+	res.render('profileA', { title: 'Plantarium', locals: res.locals});
 });
 
 async function verifyToken(req, res, next) {
