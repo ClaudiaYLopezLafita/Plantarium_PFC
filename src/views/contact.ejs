@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('partials/head');%>
+    </head>
+    <body id="contact">
+        <!-- STAR HEADER -->
+        <header>
+            <%- include('partials/header');%>
+        </header>
+        <!-- END HEADER-->
+
+        <!-- STAR BREADCRUMB -->
+        <div class="container-fluid py-1 mb-1" id="breadcrumb">
+            <nav class="mx-4 mt-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">You Are Currently Here!</li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">Contact Us</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- END BREADCRUMB -->
+
+        <!-- STAR MAIN -->
+        <div class="container-fluid my-4 p-0" id="main">
+            <div class="row m-auto">
+                <iframe class="responsive-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12681.179418684065!2d-6.0584269!3d37.3828587!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126cb0c66b619d%3A0x1ca80e208bb71b4d!2sInstituto%20de%20Educaci%C3%B3n%20Secundaria%20Alixar!5e0!3m2!1ses!2ses!4v1682272216269!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <hr class="m-5">
+            <div class="row m-auto d-flex justify-content-around">
+                <div class="col-sm-4 p-3 form_contact">
+                    <h3 class="text-center mb-3">Diganos sus problemas</h3>
+                    <form action="">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatName" placeholder="clodito">
+                            <label for="floatName">Nombre</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatEmail" placeholder="name@example.com">
+                            <label for="floatEmail">Correo electrónico</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                <option selected> </option>
+                                <option value="INFO">Información</option>
+                                <option value="SERVTECH">Servicio Técnico</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+                            <label for="floatingSelect">Tipo de Consulta</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Comentarios</label>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnContact">SEND</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 p-3 method_contact">
+                    <h3 class="text-center mb-3">Contacte con nosotros</h3>
+                    <div class="m-4">
+                        <div class="method-address mb-2 d-flex justify-content-around">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <p>Av. de la Unidad, 5, Castilleja de la Cuesta, Sevilla</p>
+                        </div>
+                        <div class="method-phone mb-2 d-flex">
+                            <div class="mx-2">
+                                <i class="bi bi-telephone-fill"></i>
+                            </div>
+                            <p>+34 955 62 25 66</p>
+                        </div>
+                        <div class="method-hour mb-2 d-flex">
+                            <div class="mx-2 d-flex align-self-center">
+                                <i class="bi bi-alarm-fill"></i>
+                            </div>
+                            <div class="mx-1">
+                                <p>Mañana: 08:00 - 14:30</p>
+                                <p>Tarde: 08:00 - 14:30</p>
+                            </div>
+                        </div>
+                        <div class="method-email mb-2 d-flex">
+                            <div class="mx-2">
+                                <i class="bi bi-envelope-at-fill"></i>
+                            </div>
+                            <p>secretaria@iesalixar.org</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN-->
+        <!-- STAR FOOTER -->
+        <footer>
+            <%- include('partials/footer');%>
+        </footer>
+        <!-- END FOOTER -->
+    </body>
+</html>

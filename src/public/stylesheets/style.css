@@ -64,7 +64,8 @@ img{
 
 #session #btnLogin, 
 #session #btnRegister,
-#reset #btnReset
+#reset #btnReset,
+#contact #btnContact
 {
   background-color: #fff;
   border: 1.5px solid #006837;
@@ -81,7 +82,9 @@ img{
   background-color: rgba(255, 255, 255, 0.5) ;
 }
 
-#about .comentarios{
+#about .comentarios,
+#contact .form_contact,
+#contact .method_contact{
   background-color: #C5DFCA;
 }
 
@@ -90,6 +93,12 @@ img{
 #about .service_3{
   background-color: #C5DFCA;
   border-radius: 10px;
+}
+
+#contact .method_phone,
+#contact .method_hour,
+#contact .method_email{
+  margin-left: 10px;
 }
 
 /* FOOTER RULES*/

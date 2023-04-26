@@ -11,6 +11,12 @@ router.get('/about', function(req, res, next) {
 	res.render('about', { title: 'Plantarium' });
 });
 
+/* GET Contact US password page. */
+router.get('/contact', function(req, res, next) {
+	res.render('contact', { title: 'Plantarium' });
+});
+
+
 /* GET session page. */
 router.get('/session', function(req, res, next) {
   	res.render('session', { title: 'Plantarium' });
