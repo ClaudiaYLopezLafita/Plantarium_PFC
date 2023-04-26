@@ -1,16 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
     <%- include('partials/head');%>
   </head>
-  <body>
+  <body id="home">
+    <!-- START HEADER-->
     <header>
       <%- include('partials/header');%>
     </header>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <!-- END HEADER-->
+
+    <!-- START BREADCRUM-->
+    <div class="container-fluid py-1 mb-1" id="breadcrumb">
+      <nav class="mx-4 mt-3" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item">You Are Currently Here!</li>
+              <li class="breadcrumb-item text-uppercase text-white active" aria-current="page"><a href="/">Home</a></li>
+          </ol>
+      </nav>
+  </div>
+    <!-- END BREADCRUM-->
+
+    <!-- START MAIN-->
+    <div class="container-fluid">
+      <!-- row 1 - carousel info-->
+      <div class="row m-0">
+        <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="images/page/flor_01.webp" class="d-block w-50" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="images/page/flor_02.jpg" class="d-block w-50" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="images/page/flor_07.jpg" class="d-block w-50 h-25" alt="...">
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <!-- row 2 - categories mosaic -->
+      <div class="row m-5">
+        <div class="row mb-4">
+          <h2 class="text-center">TOP CATEGORIAS</h2>
+          <h5 class="text-center">El amor por la jardinería es una semilla que una vez sembrada nunca muere -- Gertrude Jekyll.</h5>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <button class="btn rounded-pill btnViewMore"><a href="">VIEW MORE</a></button>
+          </div>
+        </div>
+        <div class="row m-auto">
+          <!-- col 1 - categoria exterior-->
+          <div class="col-lg-4 col-md-12 pt-4 pb-0 mb-lg-0 category_ext">
+            <h3 class="text-center">EXTERIOR</h3>
+            <img
+              src= "images/page/Categoria_Exterior.jpg"
+              class="img-fluid w-100 shadow-1-strong rounded"
+              alt="Maceta con arbol, representacion categoria exterior"
+            />
+          </div>
+          <!-- col 2 -->
+          <div class="col-lg-8 mb-4 mb-lg-0">
+            <!-- row 1 - categoria suculenta-->
+            <div class="row">
+              <div class="pt-3 pb-0 category_suc">
+                <h3 class="text-center">SUCULENTAS</h3>
+                <img
+                src="images/page/categoria_suculentas.jpg"
+                class="w-50 shadow-1-strong rounded mx-auto d-block center-block"
+                alt="macetas de suculentas" /> 
+              </div>
+            </div>
+            <!-- row 2 -->
+            <div class="row d-flex justify-content-around">
+              <!-- col 1 - categoria exotica-->
+              <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pt-4 pb-0 category_exo">
+                <div class="mx-5 pt-4 pb-0">
+                  <h3 class="text-center">EXÓTICAS</h3>
+                  <img
+                  src="images/page/categoria_exotica.jpg"
+                  class="w-75 shadow-1-strong rounded mx-auto d-block center-block"
+                  alt="Maceta Venus atrapamosca"
+                  />
+                </div>
+              </div>
+              <!-- col 2 - categoria interior-->
+              <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pt-4 pb-0 category_int">
+                <div class="mx-5 pt-4 pb-0">
+                  <h3 class="text-center">INTERIOR</h3>
+                <img
+              src="images/page/Category_Interior.png"
+              class="w-100 shadow-1-strong rounded mx-auto d-block"
+              alt="Boat on Calm Water"
+            />
+                </div>
+            <!--src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"-->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- row 3 - icons info-->
+      <div class="row d-flex justify-content-around iconInfo">
+        <div class="col-sm-3 py-4">
+          <div class="row text-center rounded-circle p-5 mb-3 circle_icon">
+            <i class="bi bi-shield-fill-check" style="font-size: 3rem; color: #006837;"></i>
+          </div>
+          <h3 class="text-center">100% Seguro</h3>
+        </div>
+        <div class="col-sm-3 py-4">
+          <div class="row text-center rounded-circle p-5 mb-3 circle_icon d-flex justify-content-center">
+            <i class="bi bi-arrow-repeat" style="font-size: 3.25rem; color: #006837;"></i>
+          </div>
+          <h3 class="text-center">100% Actualizado</h3>
+        </div>
+        <div class="col-sm-3 py-4">
+          <div class="row text-center rounded-circle p-5 mb-3 circle_icon">
+            <i class="bi bi-person-heart" style="font-size: 3.25rem; color: #006837;"></i>
+          </div>
+          <h3 class="text-center">95% Satisfacción</h3>
+        </div>
+      </div>
+      <!-- row 1 - news additions-->
+      <div class="row m-5">
+        <h2 class="text-center"> NUEVAS INCORPORACIONES</h2>
+      </div>
+    </div>
+    <!-- END MAIN-->
+
+    <!-- START FOOTER-->
     <footer>
       <%- include('partials/footer');%>
     </footer>
+    <!-- END FOOTER-->
   </body>
 </html>
