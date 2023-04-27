@@ -1,13 +1,19 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Pay = require('../models/Pay.js');
+var Subscription = require('../models/Subscription.js');
 
 //Para la encriptación del password
 var bcrypt = require('bcryptjs');
 var SALT_WORK_FACTOR = 10;
 
+// esquema de la entidad usuario
 var UserSchema = new Schema({
-    username: { type: String, required: true, index: { unique: true }},
+    _idusername: { 
+        type: String, 
+        required: true, 
+        index: { unique: true }
+    },
     password: { type: String, required: true},
     creationdate: { type: Date, default: Date.now},
     fullname: { type:String, required:true},
@@ -22,11 +28,6 @@ var UserSchema = new Schema({
     locality: {type: String, required: true},
     phone: {type: String, required: false},
     dni:{type: String, required: false},
-    typeSubscription:{
-        type: String,
-        enum: ['general', 'premium'],
-        default: 'general'
-    },
     payments: [{
         type: Schema.ObjectId,
         ref: 'Pay',

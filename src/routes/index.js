@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  	res.render('index', { title: 'Plantarium' });
+	res.render('index', { title: 'Plantarium' });
 });
 
 /* GET About US password page. */
@@ -16,10 +16,9 @@ router.get('/contact', function(req, res, next) {
 	res.render('contact', { title: 'Plantarium' });
 });
 
-
 /* GET session page. */
 router.get('/session', function(req, res, next) {
-  	res.render('session', { title: 'Plantarium' });
+	res.render('session', { title: 'Plantarium' });
 });
 
 /* GET reset password page. */
@@ -29,7 +28,7 @@ router.get('/reset', function(req, res, next) {
 
 /* GET profile subscriptor page. */
 router.get('/profileS', verifyToken, function(req, res, next) {
-  	res.render('profileS', { title: 'Plantarium', locals: res.locals});
+	res.render('profileS', { title: 'Plantarium', locals: res.locals});
 });
 
 /* GET profile Admin page. */
