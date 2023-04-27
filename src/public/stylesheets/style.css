@@ -25,6 +25,16 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+#div_line .line{
+  height: 10%;
+  width: 200px;
+  background-color: #006837;
+  border-radius: 20px;
+  /* margin-bottom: 3%;
+  margin-top: 1em; */
+  margin-bottom: 1em;
+}
+
 /* 2. NAVBAR RULES */
 
 .btn-Session{
@@ -82,6 +92,40 @@ img{
   margin-right: 20%;
 }
 
+#home.carousel{
+  max-width: 80%;
+  margin: auto;
+}
+
+/* This is important to make z-indexes work as expexted */
+#home .carousel-item {
+  -webkit-perspective: initial;
+  perspective: initial;
+}
+
+/* This is to make the image offset */
+#home .carousel-item img {
+  padding: 1rem;
+}
+
+#home .carousel-panel,
+#home .carousel-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 50%;
+}
+
+#home .carousel-overlay {
+  background-color: rgba(197, 223, 202, 0.75);
+  width: 50%;
+}
+
+#home .carousel-control-prev,
+#home .carousel-control-next {
+  align-items: bottom;
+}
 
 #loginForm, #registerForm,
 #home .iconInfo{
