@@ -9,28 +9,25 @@ const Subscription = require('../models/Subscription')
 
 var db = mongoose.connection;
 
-/* POST new user */
+/* POST new Pay */
 router.post('/', async (req, res) =>{
     const {codPay, date, amount, subscription, user} = req.body;
-
-    const userInfo = await User.findOne({ user });
-    if(userInfo){
-        // Registrar pago
-        const pay = await Pay.create(req.body);
-
-        userInfo.payments.push(pay);
-
-        userInfo.save( async (err) => {
-            if (err) res.status(500).send(err);
-                    else {
-                        pay.save(function(err) {
-                        if (err) res.status(500).send(err);
-                        res.sendStatus(200);
-                        });
-                    }
-        })
-    } 
-
+    console.log(user)
+    try {
+        const userinfo = await User.findOne({ _idusername: user });
+        if (userinfo) {
+            const newPay = await Pay.create(req.body);
+            userinfo.payments.push(newPay);
+            userinfo.save();
+            res.status(200).send("Pago realizado correctamente");
+        } else {
+            res.status(500).send("Usuario no localizado");
+        }
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Pago no realizado")
+    }
 })
 
 module.exports = router;

@@ -11,7 +11,8 @@ var SALT_WORK_FACTOR = 10;
 var UserSchema = new Schema({
     _idusername: { 
         type: String, 
-        required: true, 
+        required: true,
+        unique: true, 
         index: { unique: true }
     },
     password: { type: String, required: true},
@@ -34,7 +35,7 @@ var UserSchema = new Schema({
         default: null
     }],
     subscription: {
-        type: Schema.ObjectId,
+        type: Schema.Types.String,
         ref: 'Subscription',
         default: null
     }
