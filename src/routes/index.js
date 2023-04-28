@@ -3,27 +3,27 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Plantarium' });
+	res.render('index', { title: 'Plantarium', btnNav: 'Session' });
 });
 
 /* GET About US password page. */
 router.get('/about', function(req, res, next) {
-	res.render('about', { title: 'Plantarium' });
+	res.render('about', { title: 'Plantarium', btnNav: 'Session'  });
 });
 
 /* GET Contact US password page. */
 router.get('/contact', function(req, res, next) {
-	res.render('contact', { title: 'Plantarium' });
+	res.render('contact', { title: 'Plantarium' , btnNav: 'Session'});
 });
 
 /* GET session page. */
 router.get('/session', function(req, res, next) {
-	res.render('session', { title: 'Plantarium' });
+	res.render('session', { title: 'Plantarium', btnNav: 'Session' });
 });
 
 /* GET reset password page. */
 router.get('/reset', function(req, res, next) {
-	res.render('reset', { title: 'Plantarium' });
+	res.render('reset', { title: 'Plantarium', btnNav: 'Session' });
 });
 
 /* GET profile subscriptor page. */

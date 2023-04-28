@@ -37,6 +37,13 @@ img{
 }
 
 /* 3. MAIN*/
+#div_line .line{
+  height: 10%;
+  width: 200px;
+  background-color: #006837;
+  border-radius: 20px;
+  margin-bottom: 1em;
+}
 
 #loginForm, #registerForm{
   background-color: #C5DFCA;

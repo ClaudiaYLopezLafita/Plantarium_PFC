@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
 
 })
 
-// POST login User
+/* POST login User */
 router.post('/signin', async (req, res) => {
   try {
     // datos a capturar
@@ -77,17 +77,28 @@ router.post('/signin', async (req, res) => {
 
     // Crear payload y token de usuario
     const payloadUser = { name: user.username, userId: user._id, role: user.role };
-    const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
 
     // guardar el token en las cookies
-    res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
+    res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
 
     if (user.role !== ROLE_ADMIN) {
-      res.render('profileS', { title: 'Plantarium',  user: user }); // Se pasa el token a la vista
+      res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout'  }); // Se pasa el token a la vista
     } else {
-      res.render('profileA', { title: 'Plantarium', user: user }); // Se pasa el token a la vista
+      res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout' }); // Se pasa el token a la vista
     }
 
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+/* GET logout User*/
+router.get('/logout', async (req, res) => {
+  try {
+    res.clearCookie('token'); // Elimina la cookie 'token'
+    res.redirect('/'); // Redirige a la página principal
   } catch (error) {
     console.error(error);
     res.status(500).send('Error interno del servidor');

@@ -6,9 +6,22 @@
     <body id="admin">
     <!-- STAR HEADER -->
         <header>
-            <%- include('partials/header');%>
+            <%- include('partials/headerUser');%>
         </header>
         <!-- END HEADER-->
+
+        <!-- STAR BREADCRUMB -->
+        <div class="container-fluid py-1 mb-1" id="breadcrumb">
+            <nav class="mx-4 mt-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">You Are Currently Here!</li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white" aria-current="page">PROFILE</li>
+                    <li class="breadcrumb-item text-uppercase text-white active" aria-current="page"><%= user.username %></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- END BREADCRUMB -->
 
         <!-- STAR MAIN -->
         <div class="container-fluid">
@@ -24,10 +37,14 @@
                     <p><b>Localidad:</b> <%= user.locality %></p>
                     <p><b>Fecha de nacimiento:</b> <%= user.birthdate %></p>
                 </div>
+                <div class="col-sm-2">
+                    <button class="btn"><a href=""><i class="bi bi-pencil-square"></i> | Editar</a></button>
+                </div>
             </div>
             <hr class="mx-5">
             <div class="row m-5 d-flex flex-column justify-content-center">
                 <h2 class="text-center">ACCIONES</h2>
+                <%- include('partials/dividing_line');%>
                 <div class="icons_actions mt-3 d-flex flex- justify-content-around">
                     <div class="rounded-circle shadow py-5 px-5" id="action1">
                         <a href="" class="d-flex flex-column align-items-center text-decoration-none">
