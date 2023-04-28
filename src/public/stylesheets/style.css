@@ -68,6 +68,15 @@ img{
 
 /* 4. MAIN*/
 
+#admin #btn_edit{
+  background-color: #ffff;
+  border: 1px solid #006837;
+  color: #006837;
+  /* padding: 5%; */
+  /* border-radius: 10px; */
+  text-decoration: none;
+}
+
 #home .btnViewMore{
   background-color: #006837;
 }

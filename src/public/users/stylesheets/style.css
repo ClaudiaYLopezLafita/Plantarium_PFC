@@ -37,6 +37,7 @@ img{
 }
 
 /* 3. MAIN*/
+
 #div_line .line{
   height: 10%;
   width: 200px;
@@ -45,8 +46,12 @@ img{
   margin-bottom: 1em;
 }
 
-#loginForm, #registerForm{
-  background-color: #C5DFCA;
+#admin #btn_edit{
+  background-color: #006837;
+  color: white;
+  padding: 5%;
+  border-radius: 10px;
+  text-decoration: none;
 }
 
 #session #btnLogin, #session #btnRegister,

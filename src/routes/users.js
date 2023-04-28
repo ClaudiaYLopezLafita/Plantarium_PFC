@@ -9,6 +9,8 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 // se debe usar el middleware cookie-parser para manejar las cookies
 router.use(cookieParser());
+//libraria para el tratamiento de fechas
+const moment = require('moment');
 
 
 //validaciones back
@@ -74,6 +76,9 @@ router.post('/signin', async (req, res) => {
     if (!comparePassword) {
       return res.status(401).send('Contraseña incorrecta');
     }
+    //capturanos la direccion de la foto de perfil
+    const imageUrl = user.photo;
+    const fecha = moment(user.birthdate).format('DD/MM/YYYY');
 
     // Crear payload y token de usuario
     const payloadUser = { name: user.username, userId: user._id, role: user.role };
@@ -83,9 +88,9 @@ router.post('/signin', async (req, res) => {
     res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
 
     if (user.role !== ROLE_ADMIN) {
-      res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout'  }); // Se pasa el token a la vista
+      res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
     } else {
-      res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout' }); // Se pasa el token a la vista
+      res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
     }
 
   } catch (error) {

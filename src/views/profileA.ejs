@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <div class="row m-5">
                 <div class="col-sm-4 m-auto">
-                    <img src="" alt="foto perfil usario">
+                    <img src="<%= imageUrl %>" alt="Imagen de perfil">
                 </div>
                 <div class="col-sm-4 m-auto">
                     <p><b>Nombre:</b> <%= user.fullname %></p>
@@ -35,10 +35,10 @@
                     <p><b>Direccion:</b> <%= user.address %></p>
                     <p><b>Télefono:</b> <%= user.phone %></p>
                     <p><b>Localidad:</b> <%= user.locality %></p>
-                    <p><b>Fecha de nacimiento:</b> <%= user.birthdate %></p>
+                    <p><b>Fecha de nacimiento:</b> <%= fechaNac %></p>
                 </div>
                 <div class="col-sm-2">
-                    <button class="btn"><a href=""><i class="bi bi-pencil-square"></i> | Editar</a></button>
+                    <a id="btn_edit" class="p-2 rounded-2" href="/edit"><i class="bi bi-pencil-square"></i> | Editar</a>
                 </div>
             </div>
             <hr class="mx-5">
