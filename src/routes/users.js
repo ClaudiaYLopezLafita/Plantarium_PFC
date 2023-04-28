@@ -3,7 +3,13 @@ var router = express.Router();
 const mongoose = require('mongoose')
 const User = require('../models/User')
 var db = mongoose.connection;
+
+//para la generación de token y guardado en cookie
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+// se debe usar el middleware cookie-parser para manejar las cookies
+router.use(cookieParser());
+
 
 //validaciones back
 const { body, validationResult } = require('express-validator');
@@ -20,66 +26,73 @@ router.get('/',function(req, res, next) {
     .catch(err => res.status(500).json({ message: err }));
 });
 
-/* POST new user */
+/* POST CREATE user */
 router.post('/', async (req, res) => {
 
-  // // Finds the validation errors in this request and wraps them in an object with handy functions
-  // const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   return res.status(400).json({ errors: errors.array() });
-  // }
+  const { username, password, creationdate, role, 
+    fullname, email, birthdate, address, phone, locality } = req.body;
 
-  const {username,password,creationdate, role,
-        fullname,email, birthdate, address, phone, locality} = req.body;
+    try {
+      // Comprobar si el usuario ya está registrado
+      const emailExists = await User.findOne({ email });
+      const usernameExists = await User.findOne({ username });
+      if (emailExists) return res.status(401).send('Usuario ya creado');
+      if (usernameExists) return res.status(401).send('Nombre de usuario ya existente');
 
-  //comprobamos si el usuario esta registrado
-  const emailExists = await User.findOne({ email });
-  const usernameExists = await User.findOne({ username });
-  if (emailExists) return res.status(401).send('Usurario ya creado');
-  if (usernameExists) return res.status(401).send('Nombre de usario ya existente');
+      // Registrar usuario
+      const user = await User.create(req.body);
 
-  // Registrar usuario
-  const user = await User.create(req.body);
+      // Crear payload y token de usuario
+      const payloadUser = { username: user.username, userId: user._id, role: user.role };
+      const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-  // Crear payload y token de usuario
-  const payloadUser = { name: user.username, userId: user._id, role: user.role };
-  const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '1d' });
+      res.status(200).send(`Usuario creado ${token}`);
+            
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error interno del servidor');
+    }
 
-  res.status(200).send('Usurario creado '+token)
 })
 
-/* POST login User */
-router.post('/signin', async (req,res) =>{
-  
-  //datos a capturar
-  const {email, password} = req.body;
+// POST login User
+router.post('/signin', async (req, res) => {
+  try {
+    // datos a capturar
+    const { email, password } = req.body;
 
-  // localización del usuario
-  const user = await User.findOne({email});
-  console.log(user)
-  // si no se localiza
-  if(!user) return res.status(401).send('El usuario no existe');
+    // localización del usuario
+    const user = await User.findOne({ email });
 
-  //se localiza y se compueba contraseña
-  let comparePassword = bcrypt.compareSync(password, user.password)
-  if (!comparePassword) return res.status(401).send('Contraseña incorrecta')
+    // si no se localiza
+    if (!user) {
+      return res.status(401).send('El usuario no existe');
+    }
 
-  // Crear payload y token de usuario
-  const payloadUser = { name: user.username, userId: user._id, role: user.role };
-  const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '1d' });
+    // se localiza y se comprueba contraseña
+    const comparePassword = bcrypt.compareSync(password, user.password);
+    if (!comparePassword) {
+      return res.status(401).send('Contraseña incorrecta');
+    }
 
-  // if(user.role!==ROLE_ADMIN) return res.status(200).send('Usurario subscriber logueado '+token)
+    // Crear payload y token de usuario
+    const payloadUser = { name: user.username, userId: user._id, role: user.role };
+    const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-  if(user.role!==ROLE_ADMIN){
-    res.render('profileS', { title: 'Plantarium'});
-    // res.redirect('http://localhost:5000/profileS');
-  }else{
-    res.render('profileA', { title: 'Plantarium'});
+    // guardar el token en las cookies
+    res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
+
+    if (user.role !== ROLE_ADMIN) {
+      res.render('profileS', { title: 'Plantarium',  user: user }); // Se pasa el token a la vista
+    } else {
+      res.render('profileA', { title: 'Plantarium', user: user }); // Se pasa el token a la vista
+    }
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
   }
+});
 
-  // res.status(200).send('Usurario Admin logueado: '+token)  
-  // return res.status(200).json({token});
-
-})
 
 module.exports = router;

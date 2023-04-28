@@ -9,26 +9,55 @@ var SALT_WORK_FACTOR = 10;
 
 // esquema de la entidad usuario
 var UserSchema = new Schema({
-    _idusername: { 
+    username: { 
         type: String, 
         required: true,
-        unique: true, 
         index: { unique: true }
     },
-    password: { type: String, required: true},
-    creationdate: { type: Date, default: Date.now},
-    fullname: { type:String, required:true},
-    email: { type: String, required: true },
+    password: { 
+        type: String, 
+        required: true
+    },
+    creationdate: { 
+        type: Date, default: 
+        Date.now
+    },
+    fullname: { 
+        type:String, 
+        required:true
+    },
+    email: { 
+        type: String, 
+        required: true,
+        unique: true,
+    },
+    photo:{
+        type: String,
+        required: false,
+    },
     role: {
         type: String,
         enum: ['admin', 'subscriber'],
         default: 'subscriber'
     },
-    birthdate: {type: Date, required: true},
-    address: {type: String, required: true},
-    locality: {type: String, required: true},
-    phone: {type: String, required: false},
-    dni:{type: String, required: false},
+    birthdate: {
+        type: Date, 
+        required: true},
+    address: {
+        type: String, 
+        required: true
+    },
+    locality: {
+        type: String, 
+        required: true
+    },
+    phone: {
+        type: String, 
+        required: false},
+    dni:{
+        type: String, 
+        required: false
+    },
     payments: [{
         type: Schema.ObjectId,
         ref: 'Pay',
