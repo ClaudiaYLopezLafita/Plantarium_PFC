@@ -77,6 +77,24 @@ img{
   text-decoration: none;
 }
 
+#admin #infoUser{
+  font-size: large;
+}
+
+#admin #action1,
+#action2, #action3{
+  border-width: 2px;
+  border-style: solid;
+  border-color: #006837;
+
+}
+
+#action1 a,
+#action2 a, #action3 a{
+  text-decoration:none;
+  color: #006837;
+}
+
 #home .btnViewMore{
   background-color: #006837;
 }

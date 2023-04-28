@@ -29,7 +29,7 @@
                 <div class="col-sm-4 m-auto">
                     <img src="<%= imageUrl %>" alt="Imagen de perfil">
                 </div>
-                <div class="col-sm-4 m-auto">
+                <div class="col-sm-4 m-auto" id="infoUser">
                     <p><b>Nombre:</b> <%= user.fullname %></p>
                     <p><b>Email:</b> <%= user.email %></p>
                     <p><b>Direccion:</b> <%= user.address %></p>
@@ -44,24 +44,23 @@
             <hr class="mx-5">
             <div class="row m-5 d-flex flex-column justify-content-center">
                 <h2 class="text-center">ACCIONES</h2>
-                <%- include('partials/dividing_line');%>
-                <div class="icons_actions mt-3 d-flex flex- justify-content-around">
-                    <div class="rounded-circle shadow py-5 px-5" id="action1">
+                <div class="row icons_actions mt-3 d-flex flex- justify-content-around">
+                    <div class="col-sm-2 rounded-circle shadow py-5 px-4" id="action1">
                         <a href="" class="d-flex flex-column align-items-center text-decoration-none">
-                            <i class="bi bi-tree-fill mb-1"></i>
-                            <p>PLANTAS</p>
+                            <i class="bi bi-tree-fill mb-1" style="font-size: 2.5rem;"></i>
+                            <h4>PLANTAS</h4>
                         </a>
                     </div>
-                    <div class="rounded-circle shadow py-5 px-4" id="action2">
+                    <div class=" col-sm-2 rounded-circle shadow py-5 px-4" id="action2">
                         <a href="" class="d-flex flex-column align-items-center text-decoration-none">
-                            <i class="bi bi-archive-fill mb-1"></i>
-                            <p>PROVEEDORES</p>
+                            <i class="bi bi-archive-fill mb-1" style="font-size: 2.25rem;"></i>
+                            <h4>PROVEEDORES</h4>
                         </a>
                     </div>
-                    <div class="rounded-circle shadow py-5 px-4" id="action3">
+                    <div class=" col-sm-2 rounded-circle shadow py-5 px-4" id="action3">
                         <a href="" class="d-flex flex-column align-items-center text-decoration-none">
-                            <i class="bi bi-graph-up-arrow mb-1"></i>
-                            <p>ESTADISTICAS</p>
+                            <i class="bi bi-graph-up-arrow mb-1" style="font-size: 2.5rem;"></i>
+                            <h4>ESTADISTICAS</h4>
                         </a>
                     </div>
                 </div>
