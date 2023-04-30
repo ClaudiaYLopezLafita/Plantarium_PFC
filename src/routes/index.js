@@ -41,7 +41,13 @@ router.get('/profileA', verifyToken, function(req, res, next) {
 	res.render('profileA', { title: 'Plantarium', locals: res.locals});
 });
 
+/* GET edit user admin page. */
+router.get('/user/editA', function(req, res, next) {
+	res.render('user/editA', { title: 'Plantarium', btnNav: 'Session' });
+});
+
 async function verifyToken(req, res, next) {
+	
 	try {
 		if (!req.headers.authorization) {
 			return res.status(401).send('Unauhtorized Request');
