@@ -26,14 +26,14 @@ router.get('/reset', function(req, res, next) {
 	res.render('reset', { title: 'Plantarium', btnNav: 'Session' });
 });
 
-/* GET profile subscriptor page. */
-router.get('/profileS', verifyToken, function(req, res, next) {
-	res.render('profileS', { title: 'Plantarium', locals: res.locals});
-});
-
 /* GET edit user admin page. */
 router.get('/plants', function(req, res, next) {
 	res.render('plants', { title: 'Plantarium', btnNav: 'Session' });
+});
+
+/* GET profile subscriptor page. */
+router.get('/profileS', verifyToken, function(req, res, next) {
+	res.render('profileS', { title: 'Plantarium', locals: res.locals});
 });
 
 /* GET profile Admin page. */
@@ -41,9 +41,9 @@ router.get('/profileA', verifyToken, function(req, res, next) {
 	res.render('profileA', { title: 'Plantarium', locals: res.locals});
 });
 
-/* GET edit user admin page. */
-router.get('/user/editA', function(req, res, next) {
-	res.render('user/editA', { title: 'Plantarium', btnNav: 'Session' });
+/* GET edit user edit admin page. */
+router.get('/user/editA', verifyCookiesToken ,function(req, res, next) {
+	res.render('user/editA', { title: 'Plantarium', btnNav: 'Logout'});
 });
 
 async function verifyToken(req, res, next) {
@@ -56,7 +56,6 @@ async function verifyToken(req, res, next) {
 		if (token === 'null') {
 			return res.status(401).send('Unauhtorized Request');
 		}
-
 		const payloadUser = await jwt.verify(token, process.env.JWT_SECRET);
 		if (!payloadUser) {
 			return res.status(401).send('Unauhtorized Request');
@@ -67,6 +66,24 @@ async function verifyToken(req, res, next) {
 		//console.log(e)
 		return res.status(401).send('Unauhtorized Request');
 	}
+}
+
+/**
+ * Funcion que captura la cookie que se genera al loguear y se pueda navegar
+ * entre páginas. 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
+function verifyCookiesToken(req, res, next){
+	console.log("userid: " + req.cookies.userid);
+
+	if(req.cookies.userid!=="undefined" && req.cookies.userid!=undefined){
+		next();
+	}
+
+	return res.status(401).send('Unauthorized Request');
 }
 
 module.exports = router;

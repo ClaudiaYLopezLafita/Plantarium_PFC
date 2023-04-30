@@ -57,6 +57,8 @@ router.post('/', async (req, res) => {
 
 })
 
+router.put('/edit',)
+
 /* POST login User */
 router.post('/signin', async (req, res) => {
   try {
@@ -86,6 +88,8 @@ router.post('/signin', async (req, res) => {
 
     // guardar el token en las cookies
     res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
+    // crear una cookie
+    res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
 
     if (user.role !== ROLE_ADMIN) {
       res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
