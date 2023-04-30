@@ -7,6 +7,7 @@ var db = mongoose.connection;
 //para la generación de token y guardado en cookie
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const cookie = require('cookie');
 // se debe usar el middleware cookie-parser para manejar las cookies
 router.use(cookieParser());
 //libraria para el tratamiento de fechas
@@ -57,23 +58,6 @@ router.post('/', async (req, res) => {
 
 })
 
-router.get('/editA/:id', async (req, res) =>{
-  const { email, full_name, username, birth_date, address, locality, phone} = req.body;
-  const id = req.params.id;
-  try {
-    const userInfo = await User.findById({id});
-    console.log("id del usuario: "+id);
-    if(userInfo){
-      console.log("info del usuario: "+userInfo);
-      res.render('user/editA',{user: userInfo[0]})
-    }
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error interno del servidor');
-  }
-})
-
 /* POST login User */
 router.post('/signin', async (req, res) => {
   try {
@@ -105,7 +89,7 @@ router.post('/signin', async (req, res) => {
     res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
     // crear una cookie
     res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
-
+  
     if (user.role !== ROLE_ADMIN) {
       res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
     } else {
@@ -117,6 +101,7 @@ router.post('/signin', async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 });
+
 
 
 module.exports = router;

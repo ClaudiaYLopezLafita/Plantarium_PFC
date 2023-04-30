@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../models/User')
+var moment = require('moment')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Plantarium', btnNav: 'Session' });
 });
 
-/* GET About US password page. */
+/* GET About US page. */
 router.get('/about', function(req, res, next) {
 	res.render('about', { title: 'Plantarium', btnNav: 'Session'  });
 });
@@ -41,10 +43,6 @@ router.get('/profileA', verifyToken, function(req, res, next) {
 	res.render('profileA', { title: 'Plantarium', locals: res.locals});
 });
 
-/* GET edit user edit admin page. */
-router.get('/user/editA', verifyCookiesToken ,function(req, res, next) {
-	res.render('user/editA', { title: 'Plantarium', btnNav: 'Logout'});
-});
 
 async function verifyToken(req, res, next) {
 	
@@ -79,12 +77,31 @@ async function verifyToken(req, res, next) {
 function verifyCookiesToken(req, res, next){
 	console.log("userid: " + req.cookies.userid);
 
-	if(req.cookies.userid!=="undefined" && req.cookies.userid!=undefined){
-		next();
+	if(req.cookies.userid=="undefined" || req.cookies.userid==undefined){
+		return res.status(401).send('Unauthorized Request');
 	}
-
-	return res.status(401).send('Unauthorized Request');
+	
+	next()
 }
+
+/* GET edit user edit admin page. */
+router.get('/user/editA', verifyCookiesToken , async function(req, res, next) {
+	
+	const userid = req.cookies.userid;
+	console.log("userid:" + userid);
+	var user = await User.findById(userid);
+	console.log("MY userBD fullname USER ID: " + user.fullname);
+	console.log(user);
+	const birthdate = moment(user.birthdate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format("YYYY-MM-DD");
+
+	if (user) {
+		res.render('user/editA', { title: 'Plantarium', btnNav: 'Logout', user: user, fecha: birthdate });
+		return;
+	}
+	
+	res.status(404).send('User not found');
+	
+});
 
 router.get('/logout', function(req, res, next) {
 	res.clearCookie('userid');
