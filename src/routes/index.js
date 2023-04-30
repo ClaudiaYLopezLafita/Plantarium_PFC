@@ -86,4 +86,9 @@ function verifyCookiesToken(req, res, next){
 	return res.status(401).send('Unauthorized Request');
 }
 
+router.get('/logout', function(req, res, next) {
+	res.clearCookie('userid');
+	res.clearCookie('token');
+	res.render('session', { title: 'Plantarium', btnNav: 'Session' });
+});
 module.exports = router;

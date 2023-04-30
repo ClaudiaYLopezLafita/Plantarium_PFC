@@ -68,12 +68,11 @@ img{
 
 /* 4. MAIN*/
 
-#admin #btn_edit{
+#admin #btn_edit,
+#editA #btnUpdate{
   background-color: #ffff;
   border: 1px solid #006837;
   color: #006837;
-  /* padding: 5%; */
-  /* border-radius: 10px; */
   text-decoration: none;
 }
 
@@ -155,7 +154,7 @@ img{
 }
 
 #loginForm, #registerForm,
-#home .iconInfo{
+#home .iconInfo, #editForm{
   background-color: #C5DFCA;
 }
 

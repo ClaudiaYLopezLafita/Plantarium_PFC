@@ -57,7 +57,20 @@ router.post('/', async (req, res) => {
 
 })
 
-router.put('/edit',)
+router.get('/edit/:id', async (req, res) =>{
+  const { email, full_name, username, birth_date, address, locality, phone} = req.body;
+  const id = req.params.id;
+  try {
+    const userInfo = await User.findById({id});
+
+    if(userInfo){
+
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+})
 
 /* POST login User */
 router.post('/signin', async (req, res) => {
@@ -103,15 +116,5 @@ router.post('/signin', async (req, res) => {
   }
 });
 
-/* GET logout User*/
-router.get('/logout', async (req, res) => {
-  try {
-    res.clearCookie('token'); // Elimina la cookie 'token'
-    res.redirect('/'); // Redirige a la página principal
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error interno del servidor');
-  }
-});
 
 module.exports = router;
