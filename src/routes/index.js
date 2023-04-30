@@ -31,6 +31,11 @@ router.get('/profileS', verifyToken, function(req, res, next) {
 	res.render('profileS', { title: 'Plantarium', locals: res.locals});
 });
 
+/* GET edit user admin page. */
+router.get('/plants', function(req, res, next) {
+	res.render('plants', { title: 'Plantarium', btnNav: 'Session' });
+});
+
 /* GET profile Admin page. */
 router.get('/profileA', verifyToken, function(req, res, next) {
 	res.render('profileA', { title: 'Plantarium', locals: res.locals});

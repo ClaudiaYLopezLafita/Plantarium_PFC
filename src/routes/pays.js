@@ -9,12 +9,20 @@ const Subscription = require('../models/Subscription')
 
 var db = mongoose.connection;
 
+/* GET ALL pays listing. */
+router.get('/',function(req, res, next) {
+    // guion para orden decreciente
+        Pay.find()
+        .then(pays => res.status(200).json(pays))
+        .catch(err => res.status(500).json({ message: err }));
+});
+
 /* POST new Pay */
 router.post('/', async (req, res) =>{
     const {codPay, date, amount, subscription, user} = req.body;
     console.log(user)
     try {
-        const userinfo = await User.findOne({ _idusername: user });
+        const userinfo = await User.findOne({ username: user });
         if (userinfo) {
             const newPay = await Pay.create(req.body);
             userinfo.payments.push(newPay);
