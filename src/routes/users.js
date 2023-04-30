@@ -57,15 +57,17 @@ router.post('/', async (req, res) => {
 
 })
 
-router.get('/edit/:id', async (req, res) =>{
+router.get('/editA/:id', async (req, res) =>{
   const { email, full_name, username, birth_date, address, locality, phone} = req.body;
   const id = req.params.id;
   try {
     const userInfo = await User.findById({id});
-
+    console.log("id del usuario: "+id);
     if(userInfo){
-
+      console.log("info del usuario: "+userInfo);
+      res.render('user/editA',{user: userInfo[0]})
     }
+
   } catch (error) {
     console.error(error);
     res.status(500).send('Error interno del servidor');

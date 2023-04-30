@@ -25,39 +25,41 @@
     <!-- END BREADCRUM-->
 
     <!-- STAR MAIN -->
+    <% if (user) { %>
     <div class="container-fluid">
         <h2 class="text-center">MIS DATOS</h2>
         <div class="row m-auto">
             <form method="put" action="/users/edit" class="row g-3 justify-content-center" id="editForm">
+                <input id="id" name="_id" type="text" value="<%= user._id %>" hidden>
                 <div class="col-sm-4">
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" name="fullname" id="full_name" placeholder="Nombre Apellido">
+                        <input type="text" class="form-control" name="fullname" id="full_name" value="<%= user.fullname %>" placeholder="Nombre Apellido">
                         <label for="full_name">Nombre Completo</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Nombre">
+                        <input type="text" class="form-control" name="username" id="username" value="<%= user.username %>" placeholder="Nombre">
                         <label for="username">Nombre de usuario</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="email" class="form-control" name="email" id="emaiL" placeholder="name@example.com">
+                        <input type="email" class="form-control" name="email" id="emaiL" value="<%= user.email %>" placeholder="name@example.com">
                         <label for="email">Correo electrónico</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="date" class="form-control" name="birthdate" id="birth_date" placeholder="dd/mm/yyyy">
+                        <input type="date" class="form-control" name="birthdate" id="birth_date" value="<%= user.birthdate %>" placeholder="dd/mm/yyyy">
                         <label for="birth_date">Fecha nacimiento</label>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" name="address" id="address" placeholder="direccion">
+                        <input type="text" class="form-control" name="address" id="address" value="<%= user.address %>" placeholder="direccion">
                         <label for="address">Dirección</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" name="locality" id="locality" placeholder="localidad">
+                        <input type="text" class="form-control" name="locality" id="locality"  value="<%= user.locality %>"placeholder="localidad">
                         <label for="locality">Localidad</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Telefono">
+                        <input type="text" class="form-control" name="phone" id="phone" value="<%= user.phone %>" placeholder="Telefono">
                         <label for="phone">Teléfono</label>
                     </div>
                 </div>
@@ -68,6 +70,7 @@
             </form>
         </div>
     </div>
+    <% } %>
     <!-- END MAIN -->
 
     <!-- START HEADER -->
