@@ -127,6 +127,24 @@ router.post('/signin', async (req, res) => {
   }
 });
 
-
+router.post('/back', async (req, res, next)=>{
+  const userid = req.cookies.userid;
+  try {
+    console.log('id:' + userid);
+    const user = await User.findById(userid);
+    if(user){
+      const imageUrl = user.photo;
+      const fecha = moment(user.birthdate).format('DD/MM/YYYY');
+      //redirigimos a la página de perfil
+      res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
+      return;
+    } else {
+      res.sendStatus(500).send('El usuario no existe');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
 module.exports = router;

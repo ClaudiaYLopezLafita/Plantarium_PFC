@@ -71,7 +71,10 @@
             </form>
         </div>
         <div class="mx-5">
-            <a href="../profileA" class="backLink"><i class="bi bi-skip-backward-fill"></i> | Volver</a>
+            <!-- <a href="../profileA" class="backLink"><i class="bi bi-skip-backward-fill"></i> | Volver</a> -->
+            <form method="post" action="/users/back" class="col-sm-2 g-3 justify-content-around" >
+                <button type="submit" class="btn ml-auto rounded-pill px-5 backLink" id="btnBack"><i class="bi bi-skip-backward-fill"></i> |Volver</button>
+            </form>
         </div>
     </div>
     <% } %>

@@ -30,19 +30,22 @@
                         <!-- Login Form-->
                         <div class="row py-3 rounded mb-5" id="loginForm">
                             <h2 class="text-center">LOGIN</h2>
-                            <form method="post" action="/users/signin" class="my-2">
+                            <form method="post" action="/users/signin" class="my-2 needs-validation" novalidate>
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
                                     <label for="email">Correo electrónico</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
                                     <label for="password">Contraseña</label>
                                 </div>
                                 <div class="my-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="recordarLogin">
                                     <label class="form-check-label" for="recordarLogin"><small>Recordar</small></label>
                                     <small class=""><a href="/reset">Forgot your password?</a></small>
+                                </div>
+                                <div class="valid-feedback">
+                                    Todos los campos son obligatorios
                                 </div>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                     <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnLogin">LOGIN</button>
@@ -122,5 +125,28 @@
             <%- include('partials/footer');%>
         </footer>
         <!-- END FOOTER -->
+
+        <script>
+            // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
+(function () {
+  'use strict'
+
+  // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Bucle sobre ellos y evitar el envío
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+        </script>
     </body>
 </html>
