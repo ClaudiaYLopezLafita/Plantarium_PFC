@@ -26,12 +26,14 @@
 
     <!-- STAR MAIN -->
     <% if (user) { %>
-    <div class="container-fluid">
-        <h2 class="text-center">MIS DATOS</h2>
-        <div class="row m-auto">
-            <form method="put" action="/users/edit" class="row g-3 justify-content-center" id="editForm">
+    <div class="container-fluid mb-4">
+        <div class="m-auto mb-4">
+            <h2 class="text-center">MIS DATOS</h2>
+        </div>
+        <div class="col-sm-8 m-auto" id="editForm">
+            <form method="post" action="/users/update" class="row g-3 justify-content-around" >
                 <input id="id" name="_id" type="text" value="<%= user._id %>" hidden>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <div class="form-floating mb-2">
                         <input type="text" class="form-control" name="fullname" id="full_name" value="<%= user.fullname %>" placeholder="Nombre Apellido">
                         <label for="full_name">Nombre Completo</label>
@@ -49,7 +51,7 @@
                         <label for="birth_date">Fecha nacimiento</label>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <div class="form-floating mb-2">
                         <input type="text" class="form-control" name="address" id="address" value="<%= user.address %>" placeholder="direccion">
                         <label for="address">Dirección</label>
@@ -63,11 +65,13 @@
                         <label for="phone">Teléfono</label>
                     </div>
                 </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-center mb-3">
                     <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnUpdate">MODIFICAR CAMBIOS</button>
-                    <button type="reset" class="btn btn-danger ml-auto rounded-pill px-5" id="btnCancel">CALCELAR</button>
                 </div>
             </form>
+        </div>
+        <div class="mx-5">
+            <a href="../profileA" class="backLink"><i class="bi bi-skip-backward-fill"></i> | Volver</a>
         </div>
     </div>
     <% } %>

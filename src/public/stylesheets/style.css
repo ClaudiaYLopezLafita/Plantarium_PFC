@@ -35,6 +35,14 @@ body {
   margin-bottom: 1em;
 }
 
+.backLink{
+  background-color: #eb1111;
+  text-decoration: none;
+  color: white;
+  padding: 0.75%;
+  border-radius: 15px;
+}
+
 /* 2. NAVBAR RULES */
 
 .btn-Session{
