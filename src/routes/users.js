@@ -29,32 +29,6 @@ router.get('/',function(req, res, next) {
     .catch(err => res.status(500).json({ message: err }));
 });
 
-/* UPDATE user*/
-router.post('/update', async (req, res, next)=>{
-  const { _id, username, fullname, email, 
-    phone, birthdate, address, locality } = req.body;
-
-  try {
-    const user = await User.findById(_id);
-    if(user){
-      const updatedUser = await User.findByIdAndUpdate(_id, req.body);
-      //capturamos el usuario actualizado
-      const updateData = await User.findById(_id);
-      const imageUrl = updateData.photo;
-      const fecha = moment(updateData.birthdate).format('DD/MM/YYYY');
-      //redirigimos a la página de perfil
-      res.render('profileA', { title: 'Plantarium', user: updateData, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
-      return;
-    } else {
-      res.sendStatus(500).send('El usuario no existe');
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error interno del servidor');
-  }
-});
-
-
 /* POST CREATE user */
 router.post('/', async (req, res) => {
 
@@ -83,6 +57,31 @@ router.post('/', async (req, res) => {
     }
 
 })
+
+/* UPDATE user*/
+router.post('/update', async (req, res, next)=>{
+  const { _id, username, fullname, email, 
+    phone, birthdate, address, locality } = req.body;
+
+  try {
+    const user = await User.findById(_id);
+    if(user){
+      const updatedUser = await User.findByIdAndUpdate(_id, req.body);
+      //capturamos el usuario actualizado
+      const updateData = await User.findById(_id);
+      const imageUrl = updateData.photo;
+      const fecha = moment(updateData.birthdate).format('DD/MM/YYYY');
+      //redirigimos a la página de perfil
+      res.render('profileA', { title: 'Plantarium', user: updateData, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
+      return;
+    } else {
+      res.sendStatus(500).send('El usuario no existe');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
 /* POST login User */
 router.post('/signin', async (req, res) => {
