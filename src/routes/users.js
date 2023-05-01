@@ -15,7 +15,9 @@ const moment = require('moment');
 
 
 //validaciones back
-const { body, validationResult } = require('express-validator');
+// const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
+
 
 //Para la encriptación del password
 var bcrypt = require('bcryptjs');
@@ -29,12 +31,54 @@ router.get('/',function(req, res, next) {
     .catch(err => res.status(500).json({ message: err }));
 });
 
+/**Validacion passwrod: a contraseña tenga al menos 7 caracteres, 
+ *                      una letra minúscula, una letra mayúscula,
+ *                       un carácter especial y un número. */
+
 /* POST CREATE user */
-router.post('/', async (req, res) => {
+router.post('/', 
+  [
+    //definimos las validaciones
+    check('username').isAlphanumeric().withMessage('El nombre de usuario debe ser alfanumérico'),
+    check('username').isLength({ min: 5 })
+    .withMessage('El nombre de usuario debe tener al menos 5 caracteres'),
+    check('email').isEmail().withMessage('El email debe ser válido'),
+    check('fullname').custom((value) => {
+      const words = value.split(' ');
+      if (words.length < 2) {
+        throw new Error('El nombre completo debe tener al menos 2 palabras');
+      }
+      if (words.some(word => /\d/.test(word))) {
+        throw new Error('El nombre completo no puede contener números');
+      }
+      return true;
+    }),
+    check('birthdate').custom((value) => {
+      const date = new Date(value);
+      const now = new Date();
+      if (date > now) {
+        throw new Error('La fecha de nacimiento debe ser anterior a la fecha actual');
+      }
+      return true;
+    }),
+    check('address').notEmpty().withMessage('La dirección es requerida'),
+    check('locality').notEmpty().withMessage('La localidad es requerida'),
+    check('password').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s:])([^\s]){7,}$/)
+    .withMessage('La contraseña debe tener al menos 7 caracteres, una letra minúscula, una letra mayúscula, un carácter especial y un número')
+  ],
+  async (req, res) => {
 
-  const { username, password, creationdate, role, 
-    fullname, email, birthdate, address, phone, locality } = req.body;
+    //compromabamos las validaciones
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // return res.status(422).json({ errors: errors.array() });
+      return res.render('session', { errors: errors.array() });
+    }
 
+    //capturamos los datos del formulario
+    const { username, password, creationdate, role, 
+      fullname, email, birthdate, address, phone, locality } = req.body;
+      console.log(req.body)
     try {
       // Comprobar si el usuario ya está registrado
       const emailExists = await User.findOne({ email });
@@ -47,16 +91,18 @@ router.post('/', async (req, res) => {
 
       // Crear payload y token de usuario
       const payloadUser = { username: user.username, userId: user._id, role: user.role };
-      const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '1d' });
-
-      res.status(200).send(`Usuario creado ${token}`);
+      const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
+      
+      // res.status(200).send(`Usuario creado ${token}`);
+      return res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
             
     } catch (error) {
       console.error(error);
       res.status(500).send('Error interno del servidor');
     }
 
-})
+  }
+)
 
 /* UPDATE user*/
 router.post('/update', async (req, res, next)=>{
