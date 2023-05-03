@@ -33,7 +33,7 @@ router.get('/plants', function(req, res, next) {
 	res.render('plants', { title: 'Plantarium', btnNav: 'Session' });
 });
 
-/* GET profile subscriptor page. */
+/* GET profile Subscriptor page. */
 router.get('/profileS', verifyToken, function(req, res, next) {
 	res.render('profileS', { title: 'Plantarium', locals: res.locals});
 });
@@ -55,6 +55,7 @@ async function verifyToken(req, res, next) {
 			return res.status(401).send('Unauhtorized Request');
 		}
 		const payloadUser = await jwt.verify(token, process.env.JWT_SECRET);
+		console.log(payloadUser)
 		if (!payloadUser) {
 			return res.status(401).send('Unauhtorized Request');
 		}
@@ -96,6 +97,25 @@ router.get('/user/editA', verifyCookiesToken , async function(req, res, next) {
 
 	if (user) {
 		res.render('user/editA', { title: 'Plantarium', btnNav: 'Logout', user: user, fecha: birthdate });
+		return;
+	}
+	
+	res.status(404).send('User not found');
+	
+});
+
+/* GET edit user edit admin page. */
+router.get('/user/editS', verifyCookiesToken , async function(req, res, next) {
+	
+	const userid = req.cookies.userid;
+	console.log("userid:" + userid);
+	var user = await User.findById(userid);
+	console.log("MY userBD fullname USER ID: " + user.fullname);
+	console.log(user);
+	const birthdate = moment(user.birthdate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format("YYYY-MM-DD");
+
+	if (user) {
+		res.render('user/editS', { title: 'Plantarium', btnNav: 'Logout', user: user, fecha: birthdate });
 		return;
 	}
 	

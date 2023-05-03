@@ -6,12 +6,64 @@
     <body id="session">
     <!-- STAR HEADER -->
         <header>
-            <%- include('../partials/headerUser');%>
+            <%- include('partials/headerUser');%>
         </header>
         <!-- END HEADER-->
 
+        <!-- STAR BREADCRUMB -->
+        <div class="container-fluid py-1 mb-1" id="breadcrumb">
+            <nav class="mx-4 mt-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">You Are Currently Here!</li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white" aria-current="page">PROFILE</li>
+                    <li class="breadcrumb-item text-uppercase text-white active" aria-current="page"><%= user.username %></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- END BREADCRUMB -->
+
         <!-- STAR MAIN -->
-        <h1> pagina de logueado </h1>
+        <div class="container-fluid">
+            <div class="row m-5">
+                <div class="col-sm-4 m-auto">
+                    <img src="<%= imageUrl %>" alt="Imagen de perfil">
+                </div>
+                <div class="col-sm-4 m-auto" id="infoUser">
+                    <p><b>Nombre:</b> <%= user.fullname %></p>
+                    <p><b>Email:</b> <%= user.email %></p>
+                    <p><b>Direccion:</b> <%= user.address %></p>
+                    <p><b>Télefono:</b> <%= user.phone %></p>
+                    <p><b>Localidad:</b> <%= user.locality %></p>
+                    <p><b>Fecha de nacimiento:</b> <%= fechaNac %></p>
+                    <p><b>Tipo de suscripción:</b> <%= user.subscripcion %></p>
+                </div>
+                <div class="col-sm-2">
+                    <div class="mb-4">
+                        <a id="btn_edit" class="p-2 rounded-2" href="/user/editS"><i class="bi bi-pencil-square"></i> | Editar</a>
+                    </div>
+                    <div class="mb-4">
+                        <a id="btn_delete" class="p-2 rounded-2 text-decoration-none" href=""><i class="bi bi-trash3-fill"></i> | Eliminar</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mx-5">
+            <div class="row m-5  justify-content-center">
+                <h2 class="text-center mb-0">MI JARDIN</h2>
+                <%- include('partials/dividing_line');%>
+                <div class="card px-0 mt-2" style="width:500px">
+                    <img class="card-img-top" src="/users/images/img_card_backgroud.webp"  alt="Card image">
+                    <div class="card-img-overlay" >
+                            <div class="fondoGarden mb-2 p-2">
+                                <h4 class="card-title">TITULO JARDIN DEL USUARIO</h4>
+                                <p class="card-text text-wrap">
+                                    Planta tu propio jardín y decora tu alma, en lugar de esperar a que alguien te traiga flores - Jorge Luis Borges </p>
+                            </div>
+                            <a href="#" class="btn btn-primary">Go to garden</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- END MAIN-->
 
         <!-- STAR FOOTER -->

@@ -35,7 +35,7 @@ body {
   margin-bottom: 1em;
 }
 
-#btnBack{
+#btnBack, #btn_delete{
   background-color: #eb1111;
   color: white;
 }
@@ -73,12 +73,16 @@ img{
 
 /* 4. MAIN*/
 
-#admin #btn_edit,
-#editA #btnUpdate{
+#btn_edit,
+#btnUpdate{
   background-color: #ffff;
   border: 1px solid #006837;
   color: #006837;
   text-decoration: none;
+}
+
+.fondoGarden{
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
 #admin #infoUser{

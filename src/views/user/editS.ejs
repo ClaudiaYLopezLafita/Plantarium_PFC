@@ -1,61 +1,107 @@
-<header>
-    <%- include('../partials/headerUser');%>
-</header>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('../partials/head');%>
+</head>
+<body id="editS">
+     <!-- START HEADER -->
+    <header> 
+        <%- include('../partials/headerUser');%>
+    </header>
+    <!-- END HEADER-->
 
-<div class="container-fluid">
-    <h2 class="text-center">MIS DATOS</h2>
-    <div class="row m-5">
-        <form method="put" action="/users/edit" class="my-2">
-            <div class="form-floating mb-2">
-                <input type="text" class="form-control" name="fullname" id="full_name" placeholder="Nombre Apellido">
-                <label for="full_name">Nombre Completo</label>
-            </div>
-            <div class="form-floating mb-2">
-                <input type="text" class="form-control" name="username" id="username" placeholder="Nombre">
-                <label for="username">Nombre de usuario</label>
-            </div>
-            <div class="form-floating mb-2">
-                <input type="email" class="form-control" name="email" id="emaiL" placeholder="name@example.com">
-                <label for="email">Correo electrónico</label>
-            </div>
-            <div class="form-floating mb-2">
-                <input type="date" class="form-control" name="birthdate" id="birth_date" placeholder="dd/mm/yyyy">
-                <label for="birth_date">Fecha nacimiento</label>
-            </div>
-            <div class="form-floating mb-2">
-                <input type="text" class="form-control" name="address" id="address" placeholder="direccion">
-                <label for="address">Dirección</label>
-            </div>
-            <div class="form-floating mb-2">
-                <input type="text" class="form-control" name="locality" id="locality" placeholder="localidad">
-                <label for="locality">Localidad</label>
-            </div>
-            <div class="form-floating mb-2">
-                <input type="text" class="form-control" name="phone" id="phone" placeholder="Telefono">
-                <label for="phone">Teléfono</label>
-            </div>
-            <div class="mb-2">
-                <label for="subscripcion" class="form-label">Suscripción</label>
-                <select class="form-select" id="subscripcion" aria-label="Select_subscripcion">
-                    <option selected></option>
-                    <option value="PRM">Premium</option>
-                    <option value="GRL">General</option>
-                </select>
-            </div>
-            <fieldset disabled>
-                <div class="form-floating mb-2">
-                    <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI/NIE">
-                    <label for="dni">DNI</label>
-                </div>
-                <div class="form-floating mb-2">
-                    <input type="text" class="form-control" name="num_tarjeta" id="num_tarjeta" placeholder="DNI/NIE">
-                    <label for="num_tarjeta">Número de tarjeta</label>
-                </div>
-            </fieldset>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnUpdate">MODIFICAR CAMBIOS</button>
-                <button type="reset" class="btn btn-danger ml-auto rounded-pill px-5" id="btnUpdate">CALCELAR</button>
-            </div>
-        </form>
+    <!-- START BREADCRUM -->
+    <div class="container-fluid py-1 mb-1" id="breadcrumb">
+        <nav class="mx-4 mt-3" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">You Are Currently Here!</li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                <li class="breadcrumb-item text-uppercase text-white" aria-current="page">PROFILE</li>
+                <li class="breadcrumb-item text-uppercase text-white active" ria-current="page"> EDIT PROFILE</li>
+            </ol>
+        </nav>
     </div>
-</div>
+    <!-- END BREADCRUM-->
+    
+    <!-- STAR MAIN-->
+    <% if (user) { %>
+    <div class="container-fluid">
+        <div class="m-auto mb-4">
+            <h2 class="text-center">MIS DATOS</h2>
+        </div>
+        <!-- Formulario de actualización-->
+        <div class="col-sm-8 m-auto" id="editForm">
+            <form method="put" action="/users/update" class="row g-3 justify-content-around" >
+                <!-- columa 1-->
+                <div class="col-sm-5">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="fullname" id="full_name" value="<%= user.fullname %>" placeholder="Nombre Apellido">
+                        <label for="full_name">Nombre Completo</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="username" id="username" value="<%= user.username %>" placeholder="Nombre">
+                        <label for="username">Nombre de usuario</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="email" class="form-control" name="email" id="emaiL" value="<%= user.email %>" placeholder="name@example.com">
+                        <label for="email">Correo electrónico</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="date" class="form-control" name="birthdate" id="birth_date" value="<%= fecha %>" placeholder="dd/mm/yyyy">
+                        <label for="birth_date">Fecha nacimiento</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="address" id="address" value="<%= user.address %>" placeholder="direccion">
+                        <label for="address">Dirección</label>
+                    </div>
+                </div>
+                <!-- columa 2-->
+                <div class="col-sm-5">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="locality" id="locality" value="<%= user.locality %>" placeholder="localidad">
+                        <label for="locality">Localidad</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="phone" id="phone" value="<%= user.phone %>" placeholder="Telefono">
+                        <label for="phone">Teléfono</label>
+                    </div>
+                    <div class="mb-2">
+                        <label for="subscripcion" class="form-label">Suscripción</label>
+                        <select class="form-select" id="subscripcion" aria-label="Select_subscripcion">
+                            <option selected></option>
+                            <option value="PRM">Premium</option>
+                            <option value="GRL">General</option>
+                        </select>
+                    </div>
+                    <fieldset disabled>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI/NIE">
+                            <label for="dni">DNI</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" name="num_tarjeta" id="num_tarjeta" placeholder="DNI/NIE">
+                            <label for="num_tarjeta">Número de tarjeta</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-2 mt-1">
+                    <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnUpdate">MODIFICAR CAMBIOS</button>
+                </div>
+            </form>
+        </div>
+        <div class="mx-5 mb-2">
+            <!-- <a href="../profileA" class="backLink"><i class="bi bi-skip-backward-fill"></i> | Volver</a> -->
+            <form method="post" action="/users/back" class="col-sm-2 g-3 justify-content-around" >
+                <button type="submit" class="btn ml-auto rounded-pill px-5 backLink" id="btnBack"><i class="bi bi-skip-backward-fill"></i> |Volver</button>
+            </form>
+        </div>
+    </div>
+    <% } %>
+    <!-- END MAIN-->
+    <!-- START FOOTER -->
+    <footer>
+        <%- include('../partials/footer');%>
+    </footer>
+    <!-- END FOOTER-->
+</body>
+

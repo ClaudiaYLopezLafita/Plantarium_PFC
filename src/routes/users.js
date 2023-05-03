@@ -88,13 +88,13 @@ router.post('/',
 
       // Registrar usuario
       const user = await User.create(req.body);
-
+      console.log(user)
       // Crear payload y token de usuario
       const payloadUser = { username: user.username, userId: user._id, role: user.role };
       const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
       
-      // res.status(200).send(`Usuario creado ${token}`);
-      return res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
+      res.status(200).send(`Usuario creado ${token}`);
+      // return res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
             
     } catch (error) {
       console.error(error);
@@ -137,7 +137,7 @@ router.post('/signin', async (req, res) => {
 
     // localización del usuario
     const user = await User.findOne({ email });
-
+    console.log(user.role)
     // si no se localiza
     if (!user) {
       return res.status(401).send('El usuario no existe');
@@ -162,9 +162,11 @@ router.post('/signin', async (req, res) => {
     res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
   
     if (user.role !== ROLE_ADMIN) {
-      res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
+      console.log('usuario '+user.username+' de tipo '+user.role+' logueado')
+      res.render('profileS', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha });
     } else {
-      res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
+      console.log('usuario '+user+' de tipo '+user.role+' logueado')
+      res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha });
     }
 
   } catch (error) {
