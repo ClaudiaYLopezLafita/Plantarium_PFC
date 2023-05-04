@@ -26,14 +26,14 @@
                     </div>
                     <div class="modal-footer justify-content-center">
                         <form method="post" action="/users/delete">
-                            <input type="text" name="id" id="iduser" hidden>
+                            <input type="text" name="id" id="iduser" value="<%= user._id %>" hidden>
                             <button type="submit" class="btn rounded-pill" id="delete_profile">DELETE PROFILE</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- MODAL -->
+        <!-- END MODAL -->
 
         <!-- STAR BREADCRUMB -->
         <div class="container-fluid py-1 mb-1" id="breadcrumb">

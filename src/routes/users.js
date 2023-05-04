@@ -71,8 +71,8 @@ router.post('/',
     //compromabamos las validaciones
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      // return res.status(422).json({ errors: errors.array() });
-      return res.render('session', { errors: errors.array() });
+      return res.status(422).json({ errors: errors.array() });
+      // return res.render('session', { errors: errors.array() });
     }
 
     //capturamos los datos del formulario
@@ -131,14 +131,18 @@ router.post('/update', async (req, res, next)=>{
 
 router.post('/delete', async(req, res,next) =>{
   const idUser = req.body.id;
+  console.log(idUser)
   try {
-    const user = await User.findById(idUser);
-    // console.log(user)
+    const user = await User.findById({_id: idUser});
+    console.log(user)
 
     if(!user){
       res.status(500).send('El usuario no existe');
     }
     const userDelete = await User.findOneAndRemove({_id: idUser});
+    if(userDelete){
+      res.render('session', { title: 'Plantarium', btnNav: 'Session' });
+    }
 
   } catch (error) {
     console.error(error);
@@ -154,7 +158,6 @@ router.post('/signin', async (req, res) => {
 
     // localización del usuario
     const user = await User.findOne({ email });
-    console.log(user.role)
     // si no se localiza
     if (!user) {
       return res.status(401).send('El usuario no existe');
@@ -179,10 +182,10 @@ router.post('/signin', async (req, res) => {
     res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
   
     if (user.role !== ROLE_ADMIN) {
-      console.log('usuario '+user.username+' de tipo '+user.role+' logueado')
+      // console.log('usuario '+user.username+' de tipo '+user.role+' logueado')
       res.render('profileS', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha });
     } else {
-      console.log('usuario '+user+' de tipo '+user.role+' logueado')
+      // console.log('usuario '+user+' de tipo '+user.role+' logueado')
       res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha });
     }
 
