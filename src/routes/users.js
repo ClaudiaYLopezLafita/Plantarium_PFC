@@ -90,9 +90,19 @@ router.post('/',
       const payloadUser = { username: user.username, userId: user._id, role: user.role };
       const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
       
-
-      res.status(200).send(`Usuario creado ${token}`);
-      // return res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
+      const userCreate = await User.findOne({ email });
+      console.log(userCreate)
+      if(userCreate){
+        const role = userCreate.role;
+        console.log(role)
+        if (role !== ROLE_ADMIN){
+          //capturanos la direccion de la foto de perfil
+          const imageUrl = userCreate.photo;
+          const fecha = moment(userCreate.birthdate).format('DD/MM/YYYY');
+          res.render('profileS', { title: 'Plantarium',  user: userCreate, btnNav: 'Logout', imageUrl, fechaNac: fecha });
+        }
+      }
+      // return  
             
     } catch (error) {
       console.error(error);
