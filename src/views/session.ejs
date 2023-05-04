@@ -38,6 +38,9 @@
                                 <div class="form-floating">
                                     <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
                                     <label for="password">Contraseña</label>
+                                    <button type="button" id="togglePassword" class="btn">
+                                        <i class="bi bi-eye-slash-fill"></i>
+                                    </button>
                                 </div>
                                 <div class="my-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="recordarLogin">
@@ -84,8 +87,11 @@
                             <label for="email">Correo electrónico</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+                            <input type="password" class="form-control" name="password" id="password2" placeholder="Contraseña">
                             <label for="password">Contraseña</label>
+                            <button type="button" id="togglePassword2" class="btn">
+                                <i class="bi bi-eye-slash-fill"></i>
+                            </button>
                         </div>
                         <div class="form-floating mb-2">
                             <input type="date" class="form-control" name="birthdate" id="birth_date" placeholder="dd/mm/yyyy">
@@ -112,11 +118,12 @@
                             <label class="form-check-label" for="recordarLogin"><small>Acepto los Términos y Política de Privacidad</small></label>
                         </div>
                         <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-                            <div class="alert alert-danger">
-                              <% errors.forEach(function(error) { %>
-                                <p><%= error.msg %></p>
-                              <% }); %>
+                            <% errors.forEach(function(error) { %>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <small><%= error.msg %></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
+                            <% }); %>
                         <% } %>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                             <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnRegister">REGISTER</button>
@@ -135,25 +142,43 @@
 
         <script>
             // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
-(function () {
-  'use strict'
+            (function () {
+            'use strict'
 
-  // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
-  var forms = document.querySelectorAll('.needs-validation')
+            // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+            var forms = document.querySelectorAll('.needs-validation')
 
-  // Bucle sobre ellos y evitar el envío
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+            // Bucle sobre ellos y evitar el envío
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
+                    form.classList.add('was-validated')
+                }, false)
+                })
+            })()
+
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            togglePassword.addEventListener('click', function (e) {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('bi-eye-fill');
+                this.querySelector('i').classList.toggle('bi-eye-slash-fill');
+            });
+
+            const togglePassword2 = document.querySelector('#togglePassword2');
+            const password2 = document.querySelector('#password2');
+            togglePassword2.addEventListener('click', function (e) {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password2.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('bi-eye-fill');
+                this.querySelector('i').classList.toggle('bi-eye-slash-fill');
+            });
         </script>
     </body>
 </html>

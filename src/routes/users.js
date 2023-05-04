@@ -39,10 +39,8 @@ router.get('/',function(req, res, next) {
 router.post('/', 
   [
     //definimos las validaciones
-    check('username').isAlphanumeric().withMessage('El nombre de usuario debe ser alfanumérico'),
-    check('username').isLength({ min: 5 })
-    .withMessage('El nombre de usuario debe tener al menos 5 caracteres'),
-    check('email').isEmail().withMessage('El email debe ser válido'),
+    check('username').exists().isAlphanumeric().isLength({ min: 5 }).withMessage('El nombre de usuario debe ser alfanumérico y mínimo 5 caractéres'),
+    check('email').exists().isEmail().withMessage('El email debe ser válido'),
     check('fullname').custom((value) => {
       const words = value.split(' ');
       if (words.length < 2) {
@@ -71,8 +69,8 @@ router.post('/',
     //compromabamos las validaciones
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-      // return res.render('session', { errors: errors.array() });
+      // const valores = req.body;
+      res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors.array(), valores: req.body });
     }
 
     //capturamos los datos del formulario
@@ -88,11 +86,11 @@ router.post('/',
 
       // Registrar usuario
       const user = await User.create(req.body);
-      console.log(user)
       // Crear payload y token de usuario
       const payloadUser = { username: user.username, userId: user._id, role: user.role };
       const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
       
+
       res.status(200).send(`Usuario creado ${token}`);
       // return res.render('profileS', { title: 'Plantarium',  user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
             
@@ -129,6 +127,7 @@ router.post('/update', async (req, res, next)=>{
   }
 });
 
+/* DELETE user */
 router.post('/delete', async(req, res,next) =>{
   const idUser = req.body.id;
   console.log(idUser)

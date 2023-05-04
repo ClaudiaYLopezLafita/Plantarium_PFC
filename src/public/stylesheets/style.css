@@ -80,6 +80,13 @@ img{
 
 /* 4. MAIN*/
 
+#togglePassword, #togglePassword2{
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  
+}
+
 #btn_edit,
 #btnUpdate{
   background-color: #ffff;
