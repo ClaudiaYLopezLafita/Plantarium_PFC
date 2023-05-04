@@ -40,9 +40,16 @@ body {
   color: white;
 }
 
+#logoModal{
+  position: absolute;
+  width: 17%;
+  left: 11px;
+  top: 5px;
+}
+
 /* 2. NAVBAR RULES */
 
-.btn-Session{
+.btn-Session, #delete_profile{
   background-color: #006837;
   color: white;
 }
