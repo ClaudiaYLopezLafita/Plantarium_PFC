@@ -129,6 +129,23 @@ router.post('/update', async (req, res, next)=>{
   }
 });
 
+router.post('/delete', async(req, res,next) =>{
+  const idUser = req.body.id;
+  try {
+    const user = await User.findById(idUser);
+    // console.log(user)
+
+    if(!user){
+      res.status(500).send('El usuario no existe');
+    }
+    const userDelete = await User.findOneAndRemove({_id: idUser});
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+})
+
 /* POST login User */
 router.post('/signin', async (req, res) => {
   try {
