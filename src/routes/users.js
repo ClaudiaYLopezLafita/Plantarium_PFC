@@ -90,20 +90,21 @@ router.post('/',
       const payloadUser = { username: user.username, userId: user._id, role: user.role };
       const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
       
+      // buscamos al usuario ya creado
       const userCreate = await User.findOne({ email });
-      console.log(userCreate)
+      //comprobamos que existr
       if(userCreate){
+        //capturamos su rol
         const role = userCreate.role;
-        console.log(role)
+        // si no es admin
         if (role !== ROLE_ADMIN){
           //capturanos la direccion de la foto de perfil
           const imageUrl = userCreate.photo;
           const fecha = moment(userCreate.birthdate).format('DD/MM/YYYY');
+          //redirigimos al perfil
           res.render('profileS', { title: 'Plantarium',  user: userCreate, btnNav: 'Logout', imageUrl, fechaNac: fecha });
         }
-      }
-      // return  
-            
+      }            
     } catch (error) {
       console.error(error);
       res.status(500).send('Error interno del servidor'+error);
