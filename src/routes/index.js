@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User')
 var moment = require('moment')
+const ROLE_ADMIN = 'admin';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -43,6 +44,15 @@ router.get('/profileA', verifyToken, function(req, res, next) {
 	res.render('profileA', { title: 'Plantarium', locals: res.locals});
 });
 
+// Deniega el acceso en el caso de que no cumpla que sea administrador con rol administrador, 
+// o que no sea administrador con rol no administrador
+// Recibe el res, el usuario user y un boolean isAdmin donde programando se le indica si es 
+// usuario administrador o no
+function verifyRoleUser(res, user, isAdmin) {
+	if (!(isAdmin && user.role === ROLE_ADMIN) && !(!isAdmin && user.role !== ROLE_ADMIN))  {
+		res.status(401).send('Access not allowed!');
+	}
+}
 
 async function verifyToken(req, res, next) {
 	
@@ -93,9 +103,10 @@ router.get('/user/editA', verifyCookiesToken , async function(req, res, next) {
 	var user = await User.findById(userid);
 	console.log("MY userBD fullname USER ID: " + user.fullname);
 	console.log(user);
-	const birthdate = moment(user.birthdate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format("YYYY-MM-DD");
 
 	if (user) {
+		verifyRoleUser(res, user, true);
+		const birthdate = moment(user.birthdate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format("YYYY-MM-DD");
 		res.render('user/editA', { title: 'Plantarium', btnNav: 'Logout', user: user, fecha: birthdate });
 		return;
 	}
@@ -104,7 +115,7 @@ router.get('/user/editA', verifyCookiesToken , async function(req, res, next) {
 	
 });
 
-/* GET edit user edit admin page. */
+/* GET edit user edit subscriptor page. */
 router.get('/user/editS', verifyCookiesToken , async function(req, res, next) {
 	
 	const userid = req.cookies.userid;
@@ -112,9 +123,10 @@ router.get('/user/editS', verifyCookiesToken , async function(req, res, next) {
 	var user = await User.findById(userid);
 	console.log("MY userBD fullname USER ID: " + user.fullname);
 	console.log(user);
-	const birthdate = moment(user.birthdate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format("YYYY-MM-DD");
 
 	if (user) {
+		verifyRoleUser(res, user, false);
+		const birthdate = moment(user.birthdate, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ").format("YYYY-MM-DD");
 		res.render('user/editS', { title: 'Plantarium', btnNav: 'Logout', user: user, fecha: birthdate });
 		return;
 	}
