@@ -38,8 +38,10 @@ router.get('/',function(req, res, next) {
 /* POST CREATE user */
 router.post('/', 
   [
-    //definimos las validaciones
-    check('username').exists().isAlphanumeric().isLength({ min: 5 }).withMessage('El nombre de usuario debe ser alfanumérico y mínimo 5 caractéres'),
+    //definimos las validaciones     check('username').exists().isAlphanumeric().isLength({ min: 5 }).withMessage('El nombre de usuario debe ser alfanumérico y mínimo 5 caractéres'),
+
+    check('username').exists().isAlphanumeric().withMessage('Nombre de usuario alfanumérico'),
+    check('username').isLength({ min: 5 }).withMessage('Nombre de usuario con mínimo 5 caratéres.'),
     check('email').exists().isEmail().withMessage('El email debe ser válido'),
     check('fullname').custom((value) => {
       const words = value.split(' ');
@@ -62,7 +64,9 @@ router.post('/',
     check('address').notEmpty().withMessage('La dirección es requerida'),
     check('locality').notEmpty().withMessage('La localidad es requerida'),
     check('password').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s:])([^\s]){7,}$/)
-    .withMessage('La contraseña debe tener al menos 7 caracteres, una letra minúscula, una letra mayúscula, un carácter especial y un número')
+    .withMessage('La contraseña debe tener al menos 7 caracteres, una letra minúscula, una letra mayúscula, un carácter especial y un número'),
+    // TO DO -->  check('termino_politicas').notEmpty().withMessage('Debes de aceptar los Términos y Política de Privacidad'),
+
   ],
   async (req, res) => {
 
@@ -70,8 +74,13 @@ router.post('/',
       //compromabamos las validaciones
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        // const valores = req.body;
-        res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors.array(), valores: req.body });
+        const valores_form = req.body;
+        console.log('VALORES del formulario de registro')
+        console.log(valores_form)
+        console.log('ERRORES del formulario de registro')
+        console.log(errors)
+        const username = valores_form.us
+        res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors.array(), valores: valores_form });
       }else{
         //capturamos los datos del formulario
         const { username, password, creationdate, role, 
