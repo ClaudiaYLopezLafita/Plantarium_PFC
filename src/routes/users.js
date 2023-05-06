@@ -98,6 +98,14 @@ router.post('/',
         const role = userCreate.role;
         // si no es admin
         if (role !== ROLE_ADMIN){
+          // Crear payload y token de usuario
+          const payloadUser = { name: userCreate.username, userId: userCreate._id, role: userCreate.role };
+          const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
+
+          // guardar el token en las cookies
+          res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
+          // crear una cookie
+          res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
           //capturanos la direccion de la foto de perfil
           const imageUrl = userCreate.photo;
           const fecha = moment(userCreate.birthdate).format('DD/MM/YYYY');
