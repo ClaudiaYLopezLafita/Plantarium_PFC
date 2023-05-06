@@ -66,53 +66,53 @@ router.post('/',
   ],
   async (req, res) => {
 
-    //compromabamos las validaciones
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      // const valores = req.body;
-      res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors.array(), valores: req.body });
-    }
-
-    //capturamos los datos del formulario
-    const { username, password, creationdate, role, 
-      fullname, email, birthdate, address, phone, locality } = req.body;
-      console.log(req.body)
     try {
-      // Comprobar si el usuario ya está registrado
-      const emailExists = await User.findOne({ email });
-      const usernameExists = await User.findOne({ username });
-      if (emailExists) return res.status(401).send('Usuario ya creado');
-      if (usernameExists) return res.status(401).send('Nombre de usuario ya existente');
+      //compromabamos las validaciones
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        // const valores = req.body;
+        res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors.array(), valores: req.body });
+      }else{
+        //capturamos los datos del formulario
+        const { username, password, creationdate, role, 
+          fullname, email, birthdate, address, phone, locality } = req.body;
 
-      // Registrar usuario
-      const user = await User.create(req.body);
-      // Crear payload y token de usuario
-      const payloadUser = { username: user.username, userId: user._id, role: user.role };
-      const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
-      
-      // buscamos al usuario ya creado
-      const userCreate = await User.findOne({ email });
-      //comprobamos que existr
-      if(userCreate){
-        //capturamos su rol
-        const role = userCreate.role;
-        // si no es admin
-        if (role !== ROLE_ADMIN){
-          // Crear payload y token de usuario
-          const payloadUser = { name: userCreate.username, userId: userCreate._id, role: userCreate.role };
-          const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
+        // Comprobar si el usuario ya está registrado
+        const emailExists = await User.findOne({ email });
+        const usernameExists = await User.findOne({ username });
+        if (emailExists) return res.status(401).send('Usuario ya creado');
+        if (usernameExists) return res.status(401).send('Nombre de usuario ya existente');
 
-          // guardar el token en las cookies
-          res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
-          // crear una cookie
-          res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
-          //capturanos la direccion de la foto de perfil
-          const imageUrl = userCreate.photo;
-          const fecha = moment(userCreate.birthdate).format('DD/MM/YYYY');
-          //redirigimos al perfil
-          res.render('profileS', { title: 'Plantarium',  user: userCreate, btnNav: 'Logout', imageUrl, fechaNac: fecha });
-        }
-      }            
+        // Registrar usuario
+        const user = await User.create(req.body);
+        // Crear payload y token de usuario
+        const payloadUser = { username: user.username, userId: user._id, role: user.role };
+        const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
+        
+        // buscamos al usuario ya creado
+        const userCreate = await User.findOne({ email });
+        //comprobamos que existr
+        if(userCreate){
+          //capturamos su rol
+          const role = userCreate.role;
+          // si no es admin
+          if (role !== ROLE_ADMIN){
+            // Crear payload y token de usuario
+            const payloadUser = { name: userCreate.username, userId: userCreate._id, role: userCreate.role };
+            const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
+
+            // guardar el token en las cookies
+            res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
+            // crear una cookie
+            res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
+            //capturanos la direccion de la foto de perfil
+            const imageUrl = userCreate.photo;
+            const fecha = moment(userCreate.birthdate).format('DD/MM/YYYY');
+            //redirigimos al perfil
+            res.render('profileS', { title: 'Plantarium',  user: userCreate, btnNav: 'Logout', imageUrl, fechaNac: fecha });
+          }
+        }    
+      }
     } catch (error) {
       console.error(error);
       res.status(500).send('Error interno del servidor'+error);
