@@ -144,7 +144,7 @@ router.post('/update', async (req, res, next)=>{
       const imageUrl = updateData.photo;
       const fecha = moment(updateData.birthdate).format('DD/MM/YYYY');
       //redirigimos a la página de perfil
-      res.render('profileA', { title: 'Plantarium', user: updateData, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
+      RedirectUsers(res, updateData, imageUrl, fecha);
       return;
     } else {
       res.sendStatus(500).send('El usuario no existe');
@@ -208,13 +208,7 @@ router.post('/signin', async (req, res) => {
     // crear una cookie
     res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
   
-    if (user.role !== ROLE_ADMIN) {
-      // console.log('usuario '+user.username+' de tipo '+user.role+' logueado')
-      res.render('profileS', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha });
-    } else {
-      // console.log('usuario '+user+' de tipo '+user.role+' logueado')
-      res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha });
-    }
+    RedirectUsers(res, user, imageUrl, fecha);
 
   } catch (error) {
     console.error(error);
@@ -231,7 +225,7 @@ router.post('/back', async (req, res, next)=>{
       const imageUrl = user.photo;
       const fecha = moment(user.birthdate).format('DD/MM/YYYY');
       //redirigimos a la página de perfil
-      res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha }); // Se pasa el token a la vista
+      RedirectUsers(res, user, imageUrl, fecha);
       return;
     } else {
       res.sendStatus(500).send('El usuario no existe');
@@ -241,5 +235,23 @@ router.post('/back', async (req, res, next)=>{
     res.status(500).send('Error interno del servidor');
   }
 });
+
+/**
+ * Permite la redireccion a profile a partir de tipo de role
+ * @param {*} res 
+ * @param {*} user 
+ * @param {*} imageUrl 
+ * @param {*} fecha 
+ */
+function RedirectUsers(res, user, imageUrl, fecha)
+{
+  if (user.role == ROLE_ADMIN) {
+    // console.log('usuario '+user+' de tipo '+user.role+' logueado')
+    res.render('profileA', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha });
+  } else {
+    // console.log('usuario '+user.username+' de tipo '+user.role+' logueado')
+    res.render('profileS', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha });
+  }
+}
 
 module.exports = router;
