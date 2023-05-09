@@ -46,10 +46,17 @@ body {
   left: 11px;
   top: 5px;
 }
+.error{
+  background-image: url('/images/page/fondo.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-size: cover;
+  border-radius: 20%;
+}
 
 /* 2. NAVBAR RULES */
 
-.btn-Session, #delete_profile{
+.btn-Session, #delete_profile, #error .goHome{
   background-color: #006837;
   color: white;
 }
@@ -95,7 +102,7 @@ img{
   text-decoration: none;
 }
 
-.fondoGarden{
+.fondoGarden, .text_fondo{
   background-color: rgba(255, 255, 255, 0.75);
 }
 
