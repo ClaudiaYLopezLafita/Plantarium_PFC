@@ -4,6 +4,11 @@ var User = require('../models/User')
 var moment = require('moment')
 const ROLE_ADMIN = 'admin';
 
+/* GET eror page. */
+router.get('/error', function(req, res, next) {
+	res.render('errorPage', { title: 'Plantarium', btnNav: 'Session' });
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Plantarium', btnNav: 'Session' });
@@ -62,9 +67,9 @@ async function verifyToken(req, res, next) {
 		}
 		let token = req.headers.authorization.split(' ')[1];
 		if (token === 'null') {
-			return res.render('errorPage', { title: 'Plantarium', btnNav: 'Session', 
-			numError: '401', title_error: 'Unauhtorized Request', message: 'To access the page, log in or register.' })
-			// return res.status(401).send('Unauhtorized Request');
+			// return res.render('errorPage', { title: 'Plantarium', btnNav: 'Session', 
+			// numError: '401', title_error: 'Unauhtorized Request', message: 'To access the page, log in or register.' })
+			return res.status(401).send('Unauhtorized Request');
 		}
 		const payloadUser = await jwt.verify(token, process.env.JWT_SECRET);
 		console.log(payloadUser)
@@ -143,9 +148,9 @@ router.get('/logout', function(req, res, next) {
 	res.render('session', { title: 'Plantarium', btnNav: 'Session' });
 });
 
-/* GET eror page. */
-router.get('/error', function(req, res, next) {
-	res.render('errorPage', { title: 'Plantarium', btnNav: 'Session' });
+/*GET statics summary page */
+router.get('/statics', verifyCookiesToken ,async (req, res, ne) =>{
+	res.render('statics', { title: 'Plantarium', btnNav: 'Logout' });
 });
 
 module.exports = router;

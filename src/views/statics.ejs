@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('partials/head');%>
+</head>
+<body>
+    <!-- STAR HEADER -->
+    <header>
+        <%- include('partials/header');%>
+    </header>
+    <!-- END HEADER-->
+
+    <!-- STAR BREADCRUMB -->
+    <div class="container-fluid py-1 mb-1" id="breadcrumb">
+        <nav class="mx-4 mt-3" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">You Are Currently Here!</li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="">Profile</a></li>
+                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">STATICS SUMMARY</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- END BREADCRUMB -->
+
+    <!-- START MAIN -->
+    <div class="container-fluid">
+        <div class="row m-auto mb-3 border-bottom border-success border-2">
+            <div class="border-bottom border-success border-2">
+                <h1 class="text-center mt-2">Panel de control</h1>
+            </div>
+            <!-- Columna menú lateral -->
+            <div class="col-md-2 p-0">
+                <ul class="nav flex-column bg-light py-0 h-100" >
+                    <li class="nav-item py-3 border-bottom border-dark border-1">
+                        <a class="nav-link text-dark" aria-current="page" href="/statics">
+                            <i class="bi bi-house"></i>
+                            Inicio 
+                        </a>
+                    </li>
+                    <li class="nav-item py-3 border-bottom border-dark border-1">
+                        <a class="nav-link text-dark" href="">
+                            <i class="fa-brands fa-pagelines"></i>
+                            Plantas
+                        </a>
+                    </li>
+                    <li class="nav-item py-3 border-bottom border-dark border-1">
+                        <a class="nav-link text-dark" href="">
+                            <i class="bi bi-currency-exchange"></i>
+                            Ganancias
+                        </a>
+                    </li>
+                    <li class="nav-item py-3 border-bottom border-dark border-1">
+                        <a class="nav-link text-dark" href="">
+                            <i class="bi bi-person-vcard"></i>
+                            Inscripciones
+                        </a>
+                    </li>
+                    <li class="nav-item py-3">
+                        <a class="nav-link text-dark" href="#">
+                            <i class="bi bi-gear"></i>
+                            Configuración
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Columna info principal -->
+            <div class="col-sm-8 my-0 ms-sm-5">
+                <div class="container mt-4">
+                    <div class="my-1 py-3">
+                        <button type="button" class="btn btn-outline-success w-100 fs-5">
+                            <i class="fa-brands fa-pagelines"></i>
+                            PLANTAS
+                            <div class="fs-6">
+                                TITULO DE LA PLANTA MÁS AÑADIDA
+                            </div>
+                        </button>
+                    </div>
+                    <div class="my-1 py-3">
+                        <button type="button" class="btn btn-outline-danger w-100 fs-5">
+                            <i class="bi bi-person-vcard"></i>
+                            INSCRIPCIONES
+                            <div class="fs-6">
+                                35.678 personas
+                            </div>
+                        </button>
+                    </div>
+                    <div class="my-1 py-3">
+                        <button type="button" class="btn btn-outline-warning w-100 fs-5">
+                            <i class="bi bi-currency-exchange"></i>
+                            GANANCIAS
+                            <div class="fs-6">
+                                66.666 €
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mx-5 mb-3">
+            <form method="post" action="/users/back" class="col-sm-2 g-3 justify-content-around" >
+                <button type="submit" class="btn ml-auto rounded-pill px-4 backLink" id="btnBack"><i class="bi bi-skip-backward-fill"></i> | Volver</button>
+            </form>
+        </div>
+    </div>
+    <!-- END MAIN -->
+
+    <!-- STAR FOOTER -->
+    <footer>
+        <%- include('partials/footer');%>
+    </footer>
+    <!-- END FOOTER -->
+</body>
+</html>
