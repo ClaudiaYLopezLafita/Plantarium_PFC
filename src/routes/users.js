@@ -34,7 +34,6 @@ router.get('/',function(req, res, next) {
 /**Validacion passwrod: a contraseña tenga al menos 7 caracteres, 
  *                      una letra minúscula, una letra mayúscula,
  *                       un carácter especial y un número. */
-
 /* POST CREATE user */
 router.post('/', 
   [
@@ -79,7 +78,6 @@ router.post('/',
         console.log(valores_form)
         console.log('ERRORES del formulario de registro')
         console.log(errors)
-        const username = valores_form.us
         res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors.array(), valores: valores_form });
       }else{
         //capturamos los datos del formulario
@@ -216,6 +214,50 @@ router.post('/signin', async (req, res) => {
   }
 });
 
+/* POST reset password */
+router.post('/reset-password',
+[ //definimos las validaciones
+  check('email').exists().isEmail().withMessage('El email debe ser válido'),
+  check('password').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s:])([^\s]){7,}$/)
+  .withMessage('La contraseña debe tener al menos 7 caracteres, una letra minúscula, una letra mayúscula, un carácter especial y un número')
+]
+,async (req, res, next) => {
+  
+  try {
+    //compromabamos las validaciones
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    } else{
+      const { email, password, passwordCf } = req.body;
+      // Verificar si el usuario existe
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        return res.status(401).send('El usuario no existe');
+        // res.render('reset-password', { message: 'Usuario no encontrado' });
+      }
+      // Verificar si las contraseñas coinciden
+      if (password !== passwordCf) {
+        return res.status(401).send('Las contraseñas no coinciden');
+        // res.render('reset-password', { message: 'Las contraseñas no coinciden' });
+      }
+      // Encriptar la nueva contraseña
+      const hashedPassword = await bcrypt.hash(password, 10);
+      console.log(hashedPassword)
+      // Actualizar la contraseña del usuario
+      User.findOneAndUpdate({email},{ password: hashedPassword })
+      // Redireccionar o mostrar mensaje de éxito
+      return res.status(200).send('Contraseña cambiada correctamente');
+      // res.redirect('/login');
+    }
+    
+  } catch (error) {
+    return res.status(500).send('Error interno del Servidor');
+  }
+})
+
+/* POST back to profile user */
 router.post('/back', async (req, res, next)=>{
   const userid = req.cookies.userid;
   try {
