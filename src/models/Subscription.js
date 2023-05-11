@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // var User = require('../models/User.js');
 var Garden = require('../models/Garden.js');
+var Pay = require('../models/Pay.js');
+var User = require('../models/User.js');
 
 //esquema de la
 var SubscriptionSchema = new Schema({
@@ -20,13 +22,20 @@ var SubscriptionSchema = new Schema({
         enum: ['premium', 'general'], 
         default: 'general'
     },
-    numCard:{
-        type: Number, 
-        required:false
-    },
+    payments:[{
+        type: Schema.Types.String,
+        ref: 'Pay', 
+        required:false,
+        default: null
+    }],
     garden:{
-        type:Schema.ObjectId, 
+        type:Schema.Types.String, 
         ref: 'Garden', 
+        required: true
+    },
+    user:{
+        type:Schema.Types.String, 
+        ref: 'User', 
         required: true
     }
 });
