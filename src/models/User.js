@@ -66,7 +66,6 @@ var UserSchema = new Schema({
     subscription: {
         type: Schema.Types.String,
         ref: 'Subscription',
-        default: null
     }
 })
 
