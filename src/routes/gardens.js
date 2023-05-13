@@ -18,12 +18,19 @@ router.get('/',function(req, res, next) {
 /* POST create garden */
 router.post('/', async (req, res, next) => {
 
-  const { codGarden, name, subscription} = req.body;
-  console.log(subscription)
+  const {subscription} = req.body;
   try {
-    const subscriptionExist = await Subscription.findOne({codSubscription: subscription})
+    const subscriptionExist = await Subscription.findOne({codSubscription: subscription}).populate();
+    console.log(subscriptionExist)
     if(subscriptionExist){
-        const newGarden = await Garden.create(req.body);
+        const codGarden = generateCodGarden();
+        const name = generateNameGarde(subscriptionExist.user);
+        const subscription = subscriptionExist.codSubscription;
+        const newGarden = await Garden.create({
+          codGarden,
+          name,
+          subscription
+        });
         res.status(200).send("Jardin creado correctamente");
     } else {
         res.status(404).send("Subscripcion no localizado");
@@ -35,4 +42,20 @@ router.post('/', async (req, res, next) => {
 
 });
 
+function generateCodGarden(){
+  let codGarden = 'GAR';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let code =''
+  for (let i = 0; i < 8; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    code += characters.charAt(randomIndex);
+  }
+  codGarden = `${codGarden}-${code}`
+  return codGarden;
+}
+
+function generateNameGarde(username){
+  let name = `El jardin de ${username}`;
+  return name;
+}
 module.exports = router;
