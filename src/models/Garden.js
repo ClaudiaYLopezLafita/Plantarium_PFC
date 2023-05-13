@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Plant = require('../models/Plant.js');
+var Subscription = require('../models/Subscription.js');
 
 var GardenSchema = new Schema({
     codGarden: {
@@ -10,13 +11,19 @@ var GardenSchema = new Schema({
     },
     name: {
         type: String, 
-        required: false 
+        required: true 
+    },
+    subscription:{
+        type: Schema.Types.String, 
+        ref: 'Subscription', 
+        required: true
     },
     plants: [
         {
-            type: Schema.ObjectId, 
+            type: Schema.Types.String, 
             ref: 'Plant',  
-            default: null
+            default: null,
+            required: false
         }
     ]
 });

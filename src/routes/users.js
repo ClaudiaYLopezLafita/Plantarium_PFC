@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose')
+//modelos usados
 const User = require('../models/User')
+const Subscription = require('../models/Subscription')
+//conexion bbdd
 var db = mongoose.connection;
 
 //para la generación de token y guardado en cookie
@@ -36,9 +39,7 @@ router.get('/',function(req, res, next) {
  *                       un carácter especial y un número. */
 /* POST CREATE user */
 router.post('/', 
-  [
-    //definimos las validaciones     check('username').exists().isAlphanumeric().isLength({ min: 5 }).withMessage('El nombre de usuario debe ser alfanumérico y mínimo 5 caractéres'),
-
+  [//definimos las validaciones     
     check('username').exists().isAlphanumeric().withMessage('Nombre de usuario alfanumérico'),
     check('username').isLength({ min: 5 }).withMessage('Nombre de usuario con mínimo 5 caratéres.'),
     check('email').exists().isEmail().withMessage('El email debe ser válido'),
@@ -74,10 +75,7 @@ router.post('/',
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         const valores_form = req.body;
-        console.log('VALORES del formulario de registro')
-        console.log(valores_form)
-        console.log('ERRORES del formulario de registro')
-        console.log(errors)
+        // redirigimos con los alerts de fallos
         res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors.array(), valores: valores_form });
       }else{
         //capturamos los datos del formulario
