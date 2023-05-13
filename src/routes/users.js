@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose')
+const axios = require('axios');
+
 //modelos usados
 const User = require('../models/User')
 const Subscription = require('../models/Subscription')
@@ -90,9 +92,6 @@ router.post('/',
 
         // Registrar usuario
         const user = await User.create(req.body);
-        // Crear payload y token de usuario
-        const payloadUser = { username: user.username, userId: user._id, role: user.role };
-        const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
         
         // buscamos al usuario ya creado
         const userCreate = await User.findOne({ email });
@@ -100,11 +99,13 @@ router.post('/',
         if(userCreate){
           //capturamos su rol
           const role = userCreate.role;
+          // Crear payload y token de usuario
+          const payloadUser = { name: userCreate.username, userId: userCreate._id, role: userCreate.role };
+          const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
+
           // si no es admin
           if (role !== ROLE_ADMIN){
-            // Crear payload y token de usuario
-            const payloadUser = { name: userCreate.username, userId: userCreate._id, role: userCreate.role };
-            const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
+            createSubscription(userCreate.username);
 
             // guardar el token en las cookies
             res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
@@ -291,6 +292,16 @@ function RedirectUsers(res, user, imageUrl, fecha)
   } else {
     // console.log('usuario '+user.username+' de tipo '+user.role+' logueado')
     res.render('profileS', { title: 'Plantarium', user: user, btnNav: 'Logout', imageUrl, fechaNac: fecha });
+  }
+}
+
+async function createSubscription(username){
+  try {
+    const response = await axios.post('http://localhost:5000/subscriptions', {
+            username: username
+        });
+  } catch (error) {
+    console.error(`Error: ${error}`);
   }
 }
 

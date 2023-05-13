@@ -20,21 +20,19 @@ router.get('/',function(req, res, next) {
 
 /* POST create subscription */ 
 router.post('/', async (req, res) =>{
-    const {date, type, pays, garden, user} = req.body;
-    console.log(req.body)
+    // console.log(req.body)
+    const user = req.body.username;
     try {
         const userinfo = await User.findOne({ username: user }).populate('subscription');
         if (userinfo) {
             const codSubscription = generateRandomNumSubscription(user);
             const newSubscriptions = await Subscription.create({
                 codSubscription,
-                date,
-                type,
-                pays,
                 user
             });
-
-            const newGarden = createGarden(codSubscription);
+            userinfo.subscription = codSubscription;
+            userinfo.save();
+            createGarden(codSubscription);
             res.status(200).send("Suscripcion realizada correctamente");
             
         } else {
@@ -67,7 +65,7 @@ async function createGarden(subscription) {
         });
         console.log(response.data);
     } catch (error) {
-        console.error(error);
+        console.error(`Error: ${error}`);
     }
 }
 
