@@ -19,6 +19,7 @@ var usersRouter = require('./routes/users');
 var paysRouter = require('./routes/pays');
 var subscriptionsRouter = require('./routes/subscriptions');
 var gardensRouter = require('./routes/gardens');
+var plantsRouter = require('./routes/plants');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/users', usersRouter);
 app.use('/pays',paysRouter);
 app.use('/subscriptions',subscriptionsRouter);
 app.use('/gardens',gardensRouter);
+app.use('/plants', plantsRouter);
 
 
 // catch 404 and forward to error handler

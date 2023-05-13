@@ -51,10 +51,10 @@ var PlantSchema = new Schema({
         type: String, 
         required: false
     },
-    category: {
-        type: Array, 
+    categories: [{
+        type: String, 
         required: true
-    },
+    }],
     images: {
         type: Array, 
         required: true
@@ -65,26 +65,27 @@ var PlantSchema = new Schema({
         default: 'Visible'
     },
     attendance:{
-        type: Schema.ObjectId,
-        ref: 'Attendance'
+        type: Schema.Types.String,
+        ref: 'Attendance',
+        required: false
     },
     gardens: [
         {
-            type: Schema.ObjectId, 
+            type: Schema.Types.String, 
             ref: 'Garden',  
             default: null
         }
     ],
     suppliers: [
         {
-            type: Schema.ObjectId, 
+            type: Schema.Types.String, 
             ref: 'Supplier',  
             default: null
         }
     ],
     symptoms: [
         {
-            type: Schema.ObjectId, 
+            type: Schema.Types.String, 
             ref: 'Symptom',  
             default: null
         }
