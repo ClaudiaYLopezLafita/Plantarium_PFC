@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
+const axios = require('axios');
 
 //modelos
 const Subscription = require('../models/Subscription');
@@ -30,12 +31,12 @@ router.post('/', async (req, res) =>{
                 date,
                 type,
                 pays,
-                garden,
                 user
             });
-            userinfo.subscription = newSubscriptions;
-            userinfo.save();
+
+            const newGarden = createGarden(codSubscription);
             res.status(200).send("Suscripcion realizada correctamente");
+            
         } else {
             res.status(500).send("Usuario no localizado");
         }
@@ -57,6 +58,17 @@ function generateRandomNumSubscription(username) {
     // Agregar los caracteres generados al nombre de usuario truncado
     const result = `${truncatedUsername}-${code}`
     return result; 
+}
+
+async function createGarden(subscription) {
+    try {
+        const response = await axios.post('http://localhost:5000/gardens', {
+            subscription: subscription
+        });
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 module.exports = router;

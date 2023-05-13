@@ -18,19 +18,24 @@ router.get('/',function(req, res, next) {
 /* POST create garden */
 router.post('/', async (req, res, next) => {
 
-  const {subscription} = req.body;
+  const subscription = req.body.subscription;
+  // console.log("SUBSCRIPTION: " + subscription);
+
   try {
     const subscriptionExist = await Subscription.findOne({codSubscription: subscription}).populate();
     console.log(subscriptionExist)
+
     if(subscriptionExist){
         const codGarden = generateCodGarden();
-        const name = generateNameGarde(subscriptionExist.user);
-        const subscription = subscriptionExist.codSubscription;
+        const name = generateNameGarden(subscriptionExist.user);
+        // const subscription = subscriptionExist.codSubscription;
         const newGarden = await Garden.create({
           codGarden,
           name,
           subscription
         });
+        subscriptionExist.garden = codGarden;
+        subscriptionExist.save();
         res.status(200).send("Jardin creado correctamente");
     } else {
         res.status(404).send("Subscripcion no localizado");
@@ -54,7 +59,7 @@ function generateCodGarden(){
   return codGarden;
 }
 
-function generateNameGarde(username){
+function generateNameGarden(username){
   let name = `El jardin de ${username}`;
   return name;
 }

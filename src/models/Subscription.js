@@ -31,7 +31,7 @@ var SubscriptionSchema = new Schema({
     garden:{
         type:Schema.Types.String, 
         ref: 'Garden', 
-        required: true
+        required: false
     },
     user:{
         type:Schema.Types.String, 
