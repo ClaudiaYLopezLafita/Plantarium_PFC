@@ -55,10 +55,10 @@ var PlantSchema = new Schema({
         type: String, 
         required: true
     }],
-    images: {
-        type: Array, 
+    images: [{
+        type: String, 
         required: true
-    },
+    }],
     status:{
         type: String, enum: 
         ['Visible', 'No visible'], 

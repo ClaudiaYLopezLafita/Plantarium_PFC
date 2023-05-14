@@ -62,6 +62,22 @@ router.post('/delete', async (req, res, next)=>{
     }
 })
 
+/* UPDATE plant */ 
+router.post('/update', async (req, res, next)=>{
+    const {id, sciName, comName, genus, family,
+        distribution, habitat, description, curiosities, precautions,
+        categories,images, status } = req.body;
+    try {
+        const plantExist = await Plant.findById(id);
+        if(plantExist){
+            const plantUpdate = await Plant.findByIdAndUpdate(id, req.body);
+            return res.status(200).send('Planta Actualizada correctamente')
+        }
+    } catch (error) {
+        console.error(`Error: ${error}`);
+    }
+})
+
 function generateCodPlant(cadena){
     // Dividir la cadena en palabras
     const palabras = cadena.split(' ');
