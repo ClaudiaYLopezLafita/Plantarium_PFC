@@ -67,8 +67,7 @@ router.post('/',
     check('locality').notEmpty().withMessage('La localidad es requerida'),
     check('password').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s:])([^\s]){7,}$/)
     .withMessage('La contraseña debe tener al menos 7 caracteres, una letra minúscula, una letra mayúscula, un carácter especial y un número'),
-    // TO DO -->  check('termino_politicas').notEmpty().withMessage('Debes de aceptar los Términos y Política de Privacidad'),
-
+    check('termino_politicas').custom(value => value === 'on').withMessage('Debes aceptar los Términos y Política de Privacidad'),
   ],
   async (req, res) => {
 
