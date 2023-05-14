@@ -78,6 +78,41 @@ router.post('/update', async (req, res, next)=>{
     }
 })
 
+//Busqueda: categoria -- { categories: { $all: [category] } }
+/*Busqueda por seach --                 
+{   
+    $or: [
+        { description: { $regex: word, $options: 'i' } },
+        { comName: { $regex: word, $options: 'i' } }
+    ]
+}
+*/
+/* FILTER plants */
+router.post('/filter', async (req, res, next)=>{
+    const { category, search} = req.body;
+    console.log(req.body)
+    const word = "/"+search+"/"
+    console.log(word)
+    try {
+        const plants = await Plant.find(
+            {
+                $or: [
+                    { categories: { $all: [category] } },
+                    {
+                        $or: [
+                        { description: { $regex: word , $options: 'i' } },
+                        { comName: { $regex: word, $options: 'i' } }
+                        ]
+                    }
+                ]
+            }
+        )
+        res.status(200).json(plants);
+    } catch (error) {
+        console.error(`Error: ${error}`);
+    }
+})
+
 function generateCodPlant(cadena){
     // Dividir la cadena en palabras
     const palabras = cadena.split(' ');

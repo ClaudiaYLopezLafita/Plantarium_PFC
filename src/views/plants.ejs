@@ -30,17 +30,23 @@
                 <form class="row g-3 mb-3 mt-0 justify-content-around">
                     <div class="col-auto">
                         <label for="search" class="form-label">Buscar:</label>
-                        <input type="text" class="form-control" id="search" placeholder="name@example.com">
+                        <input type="text" class="form-control" name = "search" id="search" placeholder="Type to search">
                     </div>
                     <div class="col-auto">
                         <label for="lista_catgoria" class="form-label">Categoría: </label>
-                        <input class="form-control" list="datalistOptions" id="lista_catgoria" placeholder="Type to search...">
-                        <datalist id="datalistOptions">
-                        <option value="San Francisco">
-                        <option value="New York">
-                        <option value="Seattle">
-                        <option value="Los Angeles">
-                        <option value="Chicago">
+                        <input class="form-control" list="datalistOptions" id="lista_catgoria" name="category" placeholder="Type to search...">
+                        <datalist id="datalistCategories">
+                            <option value="Interior">
+                            <option value="Exterior">
+                            <option value="Exótica">
+                            <option value="Suculenta">
+                            <option value="Herbácea">
+                            <option value="Leñosa">
+                            <option value="Estacional">
+                            <option value="No estacional">
+                            <option value="Carnñivora">
+                            <option value="Con flor">
+                            <option value="Sin flor">
                         </datalist>
                     </div>
                     <div class="col-auto">
