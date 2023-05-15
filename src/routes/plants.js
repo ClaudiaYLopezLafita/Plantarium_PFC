@@ -11,11 +11,31 @@ const Attendance = require('../models/Attendance');
 var db = mongoose.connection;
 
 /* GET ALL plants */
-router.get('/',function(req, res, next) {
+router.get('/list', async(req, res, next) => {
     //pobrar el paginator
     Plant.find()
-    .then(plants => res.status(200).json(plants))
+    .then(
+        plantas => {
+            res.render('plants', { title: 'Plantarium', btnNav: 'Session', plants: plantas });
+        }
+        )
     .catch(err => res.status(500).json({ message: err }));
+});
+
+router.get('/list/:id', async (req, res, next) => {
+    console.error(req.params.id);
+    try {
+        const plantExist = await Plant.findById(req.params.id);
+        if (plantExist) {
+            // res.status(200).json(plantExist)
+            res.render('filePlant');
+        } else {
+            res.status(404).send('Plant not found');
+        }
+    } catch (error) {
+        console.error(`Error: ${error}`);
+        res.status(500).send('Internal server error');
+    }
 });
 
 /* POST Create plants */
@@ -123,4 +143,5 @@ function generateCodPlant(cadena){
     // Unir las tres primeras letras de cada palabra en un solo código
     return codigo.join('');
 }
+
 module.exports = router;

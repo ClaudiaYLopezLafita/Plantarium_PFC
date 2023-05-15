@@ -29,6 +29,11 @@ router.get('/session', function(req, res, next) {
 	res.render('session', { title: 'Plantarium', btnNav: 'Session' });
 });
 
+/*GET plants page */
+router.get('/filePlant', async (req, res, ne) =>{
+	res.render('filePlant');
+});
+
 /* GET reset password page. */
 router.get('/reset', function(req, res, next) {
 	res.render('reset', { title: 'Plantarium', btnNav: 'Session' });

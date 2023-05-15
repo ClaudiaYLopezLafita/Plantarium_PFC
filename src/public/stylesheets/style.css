@@ -136,10 +136,17 @@ img{
 #home .category_ext,
 #home .category_exo,
 #home .category_suc,
-#home .category_int{
+#home .category_int
+{
   -webkit-box-shadow: 18px 10px 14px -11px rgba(0,0,0,0.75);
   -moz-box-shadow: 18px 10px 14px -11px rgba(0,0,0,0.75);
   box-shadow: 18px 10px 14px -11px rgba(0,0,0,0.75);
+}
+
+.card{
+  -webkit-box-shadow: 4px 3px 13px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 4px 3px 13px -1px rgba(0,0,0,0.75);
+  box-shadow: 4px 3px 13px -1px rgba(0,0,0,0.75);
 }
 
 #home .circle_icon{

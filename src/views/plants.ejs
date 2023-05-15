@@ -25,8 +25,8 @@
         <!-- STAR MAIN -->
         <div class="container-fluid mb-4 mt-0 p-0" id="main">
             <!-- ROW 1 - Filter-->
-            <div class="row m-auto border-bottom">
-                <h3 class="text-center mt-2">FILTRO</h3>
+            <div class="row m-auto border-bottom border-success border-1">
+                <h4 class="text-center mt-2">FILTRO</h4>
                 <form class="row g-3 mb-3 mt-0 justify-content-around">
                     <div class="col-auto">
                         <label for="search" class="form-label">Buscar:</label>
@@ -63,6 +63,23 @@
                 </form>
             </div>
             <!-- ROW 2 - Cards -->
+            <form method="get" action="/list" class="row row-cols-1 row-cols-md-3 g-5 mx-5 mt-3">
+                <% plants.forEach((plant) =>{ %>
+                    <div class="col">
+                        <div class="card h-100 m-auto">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp" class="card-img-top" alt="Imagen de la planta <%= plant.comName %>"> <!-- da un error ... porque no se tiene imagen-->
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase text-center"><%= plant.comName %></h5>
+                                <small><i class="bi bi-bookmark-fill"> <%= plant.categories %></i></small>
+                                <div class=" m-2">
+                                    <p class="card-text"><%= plant.description %></p>
+                                </div>
+                                <a href="list/<%= plant._id %>" class="btn"><b>Read more <i class="bi bi-arrow-bar-right"></i></b></a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </form>
         </div>
         <!-- END MAIN -->
 
