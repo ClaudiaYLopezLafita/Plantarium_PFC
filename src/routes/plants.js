@@ -28,7 +28,9 @@ router.get('/list/:id', async (req, res, next) => {
         const plantExist = await Plant.findById(req.params.id);
         if (plantExist) {
             // res.status(200).json(plantExist)
-            res.render('filePlant');
+            var categorias = plantExist.categories;
+            const listaCategorias = categorias.join(" | ")
+            res.render('filePlant', {title: 'Plantarium', btnNav: 'Session', planta: plantExist, categories: listaCategorias});
         } else {
             res.status(404).send('Plant not found');
         }

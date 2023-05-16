@@ -31,7 +31,7 @@ router.get('/session', function(req, res, next) {
 
 /*GET plants page */
 router.get('/filePlant', async (req, res, ne) =>{
-	res.render('filePlant');
+	res.render('filePlant', { title: 'Plantarium', btnNav: 'Session' });
 });
 
 /* GET reset password page. */

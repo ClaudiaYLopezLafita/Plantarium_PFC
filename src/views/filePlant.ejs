@@ -1,2 +1,174 @@
-<h1>Ficha planta</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('partials/head');%>
+</head>
+<body id="filePlant">
+    <!-- START HEADER-->
+    <header>
+        <%- include('partials/header');%>
+    </header>
+    <!-- END HEADER-->
+    <!-- START BREADCRUM-->
+    <div class="container-fluid py-1 mb-0" id="breadcrumb">
+        <nav class="mx-4 mt-3" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">You Are Currently Here!</li>
+                <li class="breadcrumb-item text-uppercase text-white" aria-current="page"><a href="/">Home</a></li>
+                <li class="breadcrumb-item text-uppercase text-white" aria-current="page"><a href="/plants/list">plantas</a></li>
+                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page"><a href="#"><%= planta.comName %></a></li>
+            </ol>
+        </nav>
+    </div>
+    <!-- END BREADCRUM-->
+    <!-- START MAIN-->
+    <div class="container-fluid">
+        <!-- ROW 1 -  name plant -->
+        <div class="row m-2 my-4 d-flex flex-colum align-items-center justify-content-between">
+            <h2 class="col-10 text-center text-uppercase"><%= planta.comName %></h2>
+            <form class="col-1 text-center">
+                <input type="text" value="" hidden>
+                <button type="submit" class="btn btn-outline-success"> Add <i class="fa-solid fa-plus"></i></button>
+            </form>
+        </div>
+        <!-- ROW 2 - mosaic images plant -->
+        <div class="row mx-5 mb-4 justify-content-evenly">
+            <div class="row m-auto mx-5">
+                <!-- col 1 -->
+                <div class="col-lg-4 col-md-12 mb-lg-0">
+                    <img
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
+                        class="img-fluid w-100 shadow-1-strong rounded "
+                        alt="Maceta con arbol, representacion categoria exterior"
+                    />
+                </div>
+                <!-- col 2 -->
+                <div class="col-lg-8 mt-3 mb-lg-0">
+                    <!-- row 1 - categoria suculenta-->
+                    <div class="row d-flex justify-content-around mb-3">
+                        <!-- col 1 - categoria exotica-->
+                        <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pb-0">
+                            <div class="pb-0">
+                                <img
+                                src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                                class="w-100 shadow-1-strong rounded mx-auto d-block center-block"
+                                alt="Maceta Venus atrapamosca"
+                                />
+                            </div>
+                        </div>
+                        <!-- col 2 - categoria interior-->
+                        <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pb-0 category_int">
+                            <div class="pb-0">
+                                <img
+                                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                                    class="w-100 shadow-1-strong rounded mx-auto d-block"
+                                    alt="Boat on Calm Water"
+                                    />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row 2 -->
+                    <div class="row d-flex justify-content-around">
+                        <!-- col 1 - categoria exotica-->
+                        <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pb-0">
+                            <div class="pb-0">
+                                <img
+                                src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                                class="w-100 shadow-1-strong rounded mx-auto d-block center-block"
+                                alt="Maceta Venus atrapamosca"
+                                />
+                            </div>
+                        </div>
+                        <!-- col 2 - categoria interior-->
+                        <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pb-0 category_int">
+                            <div class="pb-0">
+                                <img
+                                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                                    class="w-100 shadow-1-strong rounded mx-auto d-block"
+                                    alt="Boat on Calm Water"
+                                    />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ROW 3 - tabs informations plant -->
+        <div class="row mx-5 my-3">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active text-dark" data-bs-toggle="tab" href="#information">Información</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" data-bs-toggle="tab" href="#attendance">Cuidados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" data-bs-toggle="tab" href="#disease">Enfermedades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" data-bs-toggle="tab" href="#supplier">Distribuidores</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content rounded-2">
+                <div class="tab-pane container active" id="information">
+                    <div class="p-4">
+                        <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
+                        <div class="row py-2 justify-content-around bg-light bg-opacity-75  rounded-2">
+                            <div class="col-sm-5">
+                                <p><b>Nombre Común:</b> <%= planta.comName %></p>
+                                <p><b>Género:</b> <%= planta.genus %></p>
+                                <p><b>Distribución:</b> <%= planta.distribution %></p>
+                                <p><b>Hábitat:</b> <%= planta.habitat %> </p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p><b>Nombre Científico:</b> <%= planta.sciName %></p>
+                                <p><b>Familia:</b> <%= planta.family %></p>
+                                <p><b>Curiosidades:</b> <%= planta.curiosities %></p>
+                                <p><b>Precauciones:</b> <%= planta.precautions %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane container fade" id="attendance">
+                    <div class="p-4">
+                        <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
+                        <div class="row py-2 justify-content-around bg-light bg-opacity-75  rounded-2">
+                            <div class="col-sm-5">
+                                <p><b>Riego:</b> </p>
+                                <p><b>Sustrato:</b> </p>
+                                <p><b>Abono:</b> </p>
+                                <p><b>Iluminacion:</b>  </p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p><b>Humedad:</b> </p>
+                                <p><b>Temparatura:</b> </p>
+                                <p><b>Comentarios:</b> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane container fade" id="disease">
+                    <div class="p-4">
+                        <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
+                        <div class="row py-2 justify-content-around bg-light bg-opacity-75  rounded-2">
+                            <div class="col-sm-10">
+                                form
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane container fade" id="supplier">...</div>
+            </div>
+        </div>
+    </div>
+    <!-- END BREADCRUM-->
+    <!-- START FOOTER-->
+    <footer>
+        <%- include('partials/footer');%>
+    </footer>
+    <!-- END FOOTER-->
+</body>
+</html>

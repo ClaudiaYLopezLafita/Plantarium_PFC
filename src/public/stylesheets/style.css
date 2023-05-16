@@ -217,7 +217,9 @@ img{
 
 #about .comentarios,
 #contact .form_contact,
-#contact .method_contact{
+#contact .method_contact, 
+.tab-content,
+.nav-tabs .nav-link {
   background-color: #C5DFCA;
 }
 
