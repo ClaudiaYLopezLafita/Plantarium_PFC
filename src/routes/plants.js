@@ -136,7 +136,7 @@ router.post('/filter', async (req, res, next)=>{
 })
 
 /*Get para capturar los proveedores */
-router.get('/list-suppliers', async (req, res, next) => {
+router.get('/list-supp', async (req, res, next) => {
     const { idPlant } = req.body
     console.log(idPlant)
 

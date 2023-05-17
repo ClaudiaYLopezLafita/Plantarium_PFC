@@ -9,6 +9,7 @@
         <%- include('partials/header');%>
     </header>
     <!-- END HEADER-->
+
     <!-- START BREADCRUM-->
     <div class="container-fluid py-1 mb-0" id="breadcrumb">
         <nav class="mx-4 mt-3" aria-label="breadcrumb">
@@ -16,11 +17,12 @@
                 <li class="breadcrumb-item">You Are Currently Here!</li>
                 <li class="breadcrumb-item text-uppercase text-white" aria-current="page"><a href="/">Home</a></li>
                 <li class="breadcrumb-item text-uppercase text-white" aria-current="page"><a href="/plants/list">plantas</a></li>
-                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page"><a href="#"><%= planta.comName %></a></li>
+                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page"><a href="#"><%= planta.sciName %></a></li>
             </ol>
         </nav>
     </div>
     <!-- END BREADCRUM-->
+
     <!-- START MAIN-->
     <div class="container-fluid">
         <!-- ROW 1 -  name plant -->
@@ -37,8 +39,8 @@
                 <!-- col 1 -->
                 <div class="col-lg-4 col-md-12 mb-lg-0">
                     <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
-                        class="img-fluid w-100 shadow-1-strong rounded "
+                    src="<%= planta.images[1] %>"
+                        class="img-fluid w-100 shadow-1-strong rounded d-block center-block"
                         alt="Maceta con arbol, representacion categoria exterior"
                     />
                 </div>
@@ -50,8 +52,8 @@
                         <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pb-0">
                             <div class="pb-0">
                                 <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-                                class="w-100 shadow-1-strong rounded mx-auto d-block center-block"
+                                src="<%= planta.images[2] %>"
+                                class="w-75 shadow-1-strong rounded mx-auto d-block center-block"
                                 alt="Maceta Venus atrapamosca"
                                 />
                             </div>
@@ -60,8 +62,8 @@
                         <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pb-0 category_int">
                             <div class="pb-0">
                                 <img
-                                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-                                    class="w-100 shadow-1-strong rounded mx-auto d-block"
+                                    src="<%= planta.images[3] %>"
+                                    class="w-75 shadow-1-strong rounded mx-auto d-block"
                                     alt="Boat on Calm Water"
                                     />
                             </div>
@@ -73,8 +75,8 @@
                         <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pb-0">
                             <div class="pb-0">
                                 <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-                                class="w-100 shadow-1-strong rounded mx-auto d-block center-block"
+                                src="<%= planta.images[4] %>"
+                                class="w-75 shadow-1-strong rounded mx-auto d-block center-block"
                                 alt="Maceta Venus atrapamosca"
                                 />
                             </div>
@@ -83,7 +85,7 @@
                         <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 pb-0 category_int">
                             <div class="pb-0">
                                 <img
-                                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                                    src="<%= planta.images[5] %>"
                                     class="w-100 shadow-1-strong rounded mx-auto d-block"
                                     alt="Boat on Calm Water"
                                     />
@@ -93,6 +95,10 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <!-- <div class="row mx-5">
+            <h5 class="text-center"><%= planta.description %></h5>
+        </div> -->
         <!-- ROW 3 - tabs informations plant -->
         <div class="row mx-5 my-3">
             <!-- Nav tabs -->
@@ -165,6 +171,7 @@
         </div>
     </div>
     <!-- END BREADCRUM-->
+
     <!-- START FOOTER-->
     <footer>
         <%- include('partials/footer');%>

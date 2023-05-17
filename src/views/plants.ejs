@@ -67,7 +67,7 @@
                 <% plants.forEach((plant) =>{ %>
                     <div class="col">
                         <div class="card h-100 m-auto">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp" class="card-img-top" alt="Imagen de la planta <%= plant.comName %>"> <!-- da un error ... porque no se tiene imagen-->
+                            <img src="<%= plant.images[0] %>" class="card-img-top" alt="Imagen de la planta <%= plant.comName %>"> <!-- da un error ... porque no se tiene imagen-->
                             <div class="card-body">
                                 <h5 class="card-title text-uppercase text-center"><%= plant.comName %></h5>
                                 <small><i class="bi bi-bookmark-fill"> <%= plant.categories %></i></small>
