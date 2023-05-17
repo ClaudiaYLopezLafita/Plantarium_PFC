@@ -25,7 +25,13 @@ router.get('/list', async(req, res, next) => {
 router.get('/list/:id', async (req, res, next) => {
     console.error(req.params.id);
     try {
-        const plantExist = await Plant.findById(req.params.id);
+        const plantExist = await Plant.findById(req.params.id).populate(
+            [{
+                path: 'suppliers',
+                model: 'Supplier',
+                select: '-_id -codSupplier' 
+            }]
+        );
         if (plantExist) {
             // res.status(200).json(plantExist)
             var categorias = plantExist.categories;
@@ -136,18 +142,22 @@ router.post('/filter', async (req, res, next)=>{
 })
 
 /*Get para capturar los proveedores */
-router.get('/list-supp', async (req, res, next) => {
-    const { idPlant } = req.body
-    console.log(idPlant)
-
+router.get('/list-supp/:id', async (req, res, next) => {
+    
     try {
-        const plant = await Plant.findById(idPlant).populate('suppliers');
+        const plant = await Plant.findById(req.params.id).populate(
+            [{
+                path: 'suppliers',
+                model: 'Supplier',
+                select: '-_id -codSupplier' 
+            }]
+        );
         if (!plant) {
             return res.status(404).send('Planta no encontrada')
             } else {
-                return res.status(200).json(plant.suppliers)
+                return res.status(200).json( plant.suppliers)
             }
-
+//plant.suppliers[0].name
     } catch (error) {
         console.error(`Error: ${error}`);
     }

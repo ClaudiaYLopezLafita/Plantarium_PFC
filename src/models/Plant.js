@@ -65,27 +65,27 @@ var PlantSchema = new Schema({
         default: 'Visible'
     },
     attendance:{
-        type: Schema.Types.String,
+        type: Schema.Types.ObjectId,
         ref: 'Attendance',
         required: false
     },
     gardens: [
         {
-            type: Schema.Types.String, 
+            type: Schema.Types.ObjectId, 
             ref: 'Garden',  
             default: null
         }
     ],
     suppliers: [
         {
-            type: Schema.Types.String, 
+            type: Schema.Types.ObjectId, 
             ref: 'Supplier',  
             default: null
         }
     ],
     symptoms: [
         {
-            type: Schema.Types.String, 
+            type: Schema.Types.ObjectId, 
             ref: 'Symptom',  
             default: null
         }
