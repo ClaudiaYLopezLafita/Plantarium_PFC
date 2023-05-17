@@ -158,4 +158,8 @@ router.get('/statics', verifyCookiesToken ,async (req, res, ne) =>{
 	res.render('statics', { title: 'Plantarium', btnNav: 'Logout' });
 });
 
+router.get('/suppliers', function(req, res, next){
+	res.render('suppliers', { title: 'Plantarium', btnNav: 'Session', locals: res.locals});
+})
+
 module.exports = router;

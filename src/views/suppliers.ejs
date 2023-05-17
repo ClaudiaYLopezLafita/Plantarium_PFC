@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head');%>
+</head>
+<body id="suppliers">
+        <!-- STAR HEADER -->
+        <header>
+            <%- include('partials/header');%>
+        </header>
+        <!-- END HEADER-->
+
+        <!-- STAR MODAL -->
+        <div class="modal fade" id="modalConfirmDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header p-1">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="logoModal" src="images/page/Logo_Small.png" alt="logo pequeño plantarium.">
+                        <h3>CONFIRM DELETION</h3>
+                        <p>¿Estás seguro de que quieres borrar este usuario?</p>
+                        <p>Este proceso no se puede deshacer</p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <form method="post" action="/users/delete">
+                            <input type="text" name="id" id="iduser" value="" hidden>
+                            <button type="submit" class="btn rounded-pill" id="delete_profile">DELETE PROFILE</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MODAL -->
+
+        <!-- STAR BREADCRUMB -->
+        <div class="container-fluid py-1 mb-0" id="breadcrumb">
+            <nav class="mx-4 mt-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">You Are Currently Here!</li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white" aria-current="page">NOMBRE USUARIO</li>
+                    <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">PROVEEDORES</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- END BREADCRUMB -->
+
+        <!-- START MAIN -->
+        <div class="container-fluid mb-4 mt-0 p-0">
+            <!-- ROW 1 - Filter-->
+            <div class="row m-auto border-bottom border-success border-1">
+                <form class="row g-3 mb-3 mt-0 justify-content-around">
+                    <div class="col-auto">
+                        <label for="search" class="form-label">Buscar:</label>
+                        <input type="text" class="form-control" name = "search" id="search" placeholder="Type to search">
+                    </div>
+                    <div class="col-auto">
+                        <label for="select_orden_alfabético" class="form-label">Orden Alfabético:</label>
+                        <select class="form-select form-select-md" aria-label="Ejemplo de .form-select-sm" id="select_orden_alfabético">
+                            <option selected>---</option>
+                            <option value="ASC">Ascendente</option>
+                            <option value="DESC">Descendente</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mt-4">Filtrar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row  mx-5 mb-3 mt-2">
+                <div class="row mx-5">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>CODIDO</th>
+                                <th>NOMBRE</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% proveedores.forEach((proveedor) =>{ %>
+                            <tr>
+                                <td><%= proveedor.codSupplier %></td>
+                                <td><%= proveedor.name %></td>
+                                <td>
+                                    <a href=""> <i class="bi bi-pencil-square"></i></a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#modalConfirmDelete"> <i class="bi bi-trash3-fill"></i></a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN -->
+
+        <!-- STAR FOOTER -->
+        <footer>
+            <%- include('partials/footer');%>
+        </footer>
+        <!-- END FOOTER -->
+</body>
+</html>

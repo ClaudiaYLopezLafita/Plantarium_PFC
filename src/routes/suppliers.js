@@ -12,11 +12,11 @@ const { check, validationResult } = require('express-validator');
 
 
 /* GET all suppliers */
-router.get('/', async(req, res, next) =>{
+router.get('/list', async(req, res, next) =>{
     Supplier.find()
     .then(
         suppliers => {
-            return res.status(200).json(suppliers)
+            res.render('suppliers', { title: 'Plantarium', btnNav: 'Session', proveedores: suppliers });
         }
     )
     .catch(err => res.status(500).json({ message: err }));
