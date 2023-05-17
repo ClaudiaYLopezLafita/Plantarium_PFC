@@ -12,7 +12,6 @@ var db = mongoose.connection;
 
 /* GET ALL plants */
 router.get('/list', async(req, res, next) => {
-    //pobrar el paginator
     Plant.find()
     .then(
         plantas => {
@@ -22,6 +21,7 @@ router.get('/list', async(req, res, next) => {
     .catch(err => res.status(500).json({ message: err }));
 });
 
+/* GET only one plant */
 router.get('/list/:id', async (req, res, next) => {
     console.error(req.params.id);
     try {
@@ -130,6 +130,24 @@ router.post('/filter', async (req, res, next)=>{
             }
         )
         res.status(200).json(plants);
+    } catch (error) {
+        console.error(`Error: ${error}`);
+    }
+})
+
+/*Get para capturar los proveedores */
+router.get('/list-suppliers', async (req, res, next) => {
+    const { idPlant } = req.body
+    console.log(idPlant)
+
+    try {
+        const plant = await Plant.findById(idPlant).populate('suppliers');
+        if (!plant) {
+            return res.status(404).send('Planta no encontrada')
+            } else {
+                return res.status(200).json(plant.suppliers)
+            }
+
     } catch (error) {
         console.error(`Error: ${error}`);
     }
