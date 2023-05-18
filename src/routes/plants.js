@@ -141,28 +141,6 @@ router.post('/filter', async (req, res, next)=>{
     }
 })
 
-/*Get para capturar los proveedores */
-router.get('/list-supp/:id', async (req, res, next) => {
-    
-    try {
-        const plant = await Plant.findById(req.params.id).populate(
-            [{
-                path: 'suppliers',
-                model: 'Supplier',
-                select: '-_id -codSupplier' 
-            }]
-        );
-        if (!plant) {
-            return res.status(404).send('Planta no encontrada')
-            } else {
-                return res.status(200).json( plant.suppliers)
-            }
-//plant.suppliers[0].name
-    } catch (error) {
-        console.error(`Error: ${error}`);
-    }
-})
-
 function generateCodPlant(cadena){
     // Dividir la cadena en palabras
     const palabras = cadena.split(' ');

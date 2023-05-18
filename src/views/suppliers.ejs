@@ -6,27 +6,53 @@
 <body id="suppliers">
         <!-- STAR HEADER -->
         <header>
-            <%- include('partials/header');%>
+            <%- include('partials/headerUser');%>
         </header>
         <!-- END HEADER-->
 
         <!-- STAR MODAL -->
-        <div class="modal fade" id="modalConfirmDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade" id="formCreateSupplier" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header p-1">
+                    <div class="modal-header text-center">
+                        <h3 class="modal-title">NUEVO PROVEEDOR</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
-                        <img id="logoModal" src="images/page/Logo_Small.png" alt="logo pequeño plantarium.">
-                        <h3>CONFIRM DELETION</h3>
-                        <p>¿Estás seguro de que quieres borrar este usuario?</p>
-                        <p>Este proceso no se puede deshacer</p>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <form method="post" action="/users/delete">
-                            <input type="text" name="id" id="iduser" value="" hidden>
-                            <button type="submit" class="btn rounded-pill" id="delete_profile">DELETE PROFILE</button>
+                        <form action="/suppliers" method="post" class="row g-2 py-2 justify-content-around createSpp rounded-2">
+                            <!-- columa 1-->
+                            <div class="col-sm-5">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control" name="name" id="full_name"  placeholder="Nombre Apellido">
+                                    <label for="full_name">Nombre</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Nombre">
+                                    <label for="email">Correo Electrónico</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control" name="url" id="url" placeholder="www.example.com">
+                                    <label for="url">URL</label>
+                                </div>
+                            </div>
+                            <!-- columa 2-->
+                            <div class="col-sm-5">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control" name="locality" id="locality" placeholder="localidad">
+                                    <label for="locality">Localidad</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input type="number" class="form-control" name="phone" id="phone" placeholder="Telefono">
+                                    <label for="phone">Teléfono</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control" name="address" id="address" placeholder="direccion">
+                                    <label for="address">Dirección</label>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-2 mt-1">
+                                <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnUpdate">GUARDAR</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -49,7 +75,7 @@
 
         <!-- START MAIN -->
         <div class="container-fluid mb-4 mt-0 p-0">
-            <!-- ROW 1 - Filter-->
+            <!-- Filter-->
             <div class="row m-auto border-bottom border-success border-1">
                 <form class="row g-3 mb-3 mt-0 justify-content-around">
                     <div class="col-auto">
@@ -69,29 +95,41 @@
                     </div>
                 </form>
             </div>
-            <div class="row  mx-5 mb-3 mt-2">
-                <div class="row mx-5">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>CODIDO</th>
-                                <th>NOMBRE</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% proveedores.forEach((proveedor) =>{ %>
-                            <tr>
-                                <td><%= proveedor.codSupplier %></td>
-                                <td><%= proveedor.name %></td>
-                                <td>
-                                    <a href=""> <i class="bi bi-pencil-square"></i></a>
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#modalConfirmDelete"> <i class="bi bi-trash3-fill"></i></a>
-                                </td>
-                            </tr>
-                            <% }) %>
-                        </tbody>
-                    </table>
+            <!-- Buttom new-->
+            <div class="row m-5 justify-content-end">
+                <div class="col-sm-2">
+                    <a id="btn_new" class="p-2 rounded-2" data-bs-toggle="modal" data-bs-target="#formCreateSupplier"><i class="bi bi-plus-circle-fill"></i> | Nuevo</a>
+                </div>
+            </div>
+            <!-- Table-->
+            <div class="m-auto mb-3 mt-4">
+                <div class="mx-5">
+                    <div class="mx-5">
+                        <table class="table table-hover shadow">
+                            <thead class="thead">
+                                <tr>
+                                    <th class="text-center align-content-center">CODIDO</th>
+                                    <th class="text-center">NOMBRE</th>
+                                    <th class="text-center">ACCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% proveedores.forEach((proveedor) =>{ %>
+                                <tr>
+                                    <td class="text-center"><%= proveedor.codSupplier %></td>
+                                    <td class="text-center"><%= proveedor.name %></td>
+                                    <td class="text-center d-flex flex-row justify-content-center">
+                                        <a href="list/<%= proveedor._id %>" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil-square" style="color:black; font-size: 1.45rem;"></i></a>
+                                        <form action="/suppliers/delete" method="post">
+                                            <input type="text" name="id" value="<%= proveedor._id %>" id="id" hidden>
+                                            <button type="submit" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash3-fill" style="color:red; font-size: 1.25rem;"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

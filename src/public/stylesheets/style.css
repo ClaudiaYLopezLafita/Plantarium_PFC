@@ -95,7 +95,8 @@ img{
 }
 
 #btn_edit,
-#btnUpdate{
+#btnUpdate,
+#btn_new{
   background-color: #ffff;
   border: 1px solid #006837;
   color: #006837;
@@ -191,7 +192,7 @@ img{
 }
 
 #loginForm, #registerForm,
-#home .iconInfo, #editForm{
+#home .iconInfo, #editForm, .createSpp{
   background-color: #C5DFCA;
 }
 
@@ -234,6 +235,11 @@ img{
 #contact .method_hour,
 #contact .method_email{
   margin-left: 10px;
+}
+
+.thead{
+  background-color: #006837;
+  color: #fff;
 }
 
 /* FOOTER RULES*/

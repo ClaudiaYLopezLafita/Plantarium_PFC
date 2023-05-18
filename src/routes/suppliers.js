@@ -16,11 +16,28 @@ router.get('/list', async(req, res, next) =>{
     Supplier.find()
     .then(
         suppliers => {
-            res.render('suppliers', { title: 'Plantarium', btnNav: 'Session', proveedores: suppliers });
+            res.render('suppliers' ,{ title: 'Plantarium', btnNav: 'Logout', proveedores: suppliers });
         }
     )
     .catch(err => res.status(500).json({ message: err }));
 })
+
+/* GET only one supplier */
+router.get('/list/:id', async (req, res, next) => {
+    console.error(req.params.id);
+    try {
+        const sppExist = await Supplier.findById(req.params.id);
+        if (sppExist) {
+            // res.status(200).json(plantExist)
+            res.render('edit-supplier',{title: 'Plantarium', btnNav: 'Logout',proveedor: sppExist});
+        } else {
+            res.status(404).send('Plant not found');
+        }
+    } catch (error) {
+        console.error(`Error: ${error}`);
+        res.status(500).send('Internal server error');
+    }
+});
 
 /* POST create suppliers */
 router.post('/', 
@@ -32,7 +49,6 @@ router.post('/',
 ],
 async (req, res, next)=>{
     //compromabamos las validaciones
-    
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -51,7 +67,15 @@ async (req, res, next)=>{
                 plants
             })
 
-            return res.status(200).send('Supplier creado correctamente')
+            const sppCreate = await Supplier.findOne({ codSupplier });
+            if(sppCreate){
+                res.redirect(req.get('referer'));
+                // const suppliers = await Supplier.find()
+                // res.render('suppliers', { title: 'Plantarium', btnNav: 'Session', proveedores: suppliers });           
+            }else{
+                return res.status(500).send('Error al registrar Proveedo')
+            }
+
         }
         
     } catch (error) {
@@ -71,7 +95,8 @@ router.post('/update', async (req, res, next)=>{
             return res.status(404).send('Supplier no encontrado')
         } else{
             const supplierUpdate = await Supplier.findByIdAndUpdate(_id, req.body )
-            return res.status(200).send('Supplier modificado correctamentr')
+            const suppliers = await Supplier.find()
+            res.render('suppliers', { title: 'Plantarium', btnNav: 'Logout', proveedores: suppliers });
         }
         
     } catch (error) {
@@ -81,16 +106,20 @@ router.post('/update', async (req, res, next)=>{
 
 /* POST delete suppliers */
 router.post('/delete', async (req, res, next)=>{
-    const {_id} = req.body;
+    const {id} = req.body;
+    console.log(id)
     try {
         
-        const supplierExist = await Supplier.findById(_id);
+        const supplierExist = await Supplier.findById(id);
 
         if(!supplierExist){
             return res.status(404).send('Supplier no encontrado')
         } else{
-            const supplierDelete= await Supplier.findByIdAndRemove(_id)
-            return res.status(200).send('Supplier borrado correctamente correctamentr')
+            const supplierDelete= await Supplier.findByIdAndRemove(id)
+            const suppliers = await Supplier.find()
+            //recargamos la página
+            res.redirect(req.get('referer'));
+            // res.render('suppliers', { title: 'Plantarium', btnNav: 'Session', proveedores: suppliers });           
         }
         
     } catch (error) {
