@@ -11,17 +11,29 @@ router.get('/error', function(req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Plantarium', btnNav: 'Session' });
+	if(req.cookies.userid!="undefined" && req.cookies.userid!=undefined){
+		res.render('index', { title: 'Plantarium', btnNav: 'Logout', userCookie: req.cookies.userid });
+	}else{
+		res.render('index', { title: 'Plantarium', btnNav: 'Session', userCookie: "" });
+	}
 });
 
 /* GET About US page. */
 router.get('/about', function(req, res, next) {
-	res.render('about', { title: 'Plantarium', btnNav: 'Session'  });
+	if(req.cookies.userid!="undefined" && req.cookies.userid!=undefined){
+		res.render('about', { title: 'Plantarium', btnNav: 'Logout', userCookie: req.cookies.userid });
+	}else{
+		res.render('about', { title: 'Plantarium', btnNav: 'Session', userCookie: "" });
+	}
 });
 
 /* GET Contact US password page. */
 router.get('/contact', function(req, res, next) {
-	res.render('contact', { title: 'Plantarium' , btnNav: 'Session'});
+	if(req.cookies.userid!="undefined" && req.cookies.userid!=undefined){
+		res.render('contact', { title: 'Plantarium', btnNav: 'Logout', userCookie: req.cookies.userid });
+	}else{
+		res.render('contact', { title: 'Plantarium', btnNav: 'Session', userCookie: "" });
+	}
 });
 
 /* GET session page. */
@@ -42,6 +54,7 @@ router.get('/reset', function(req, res, next) {
 /* GET edit user admin page. */
 router.get('/plants', function(req, res, next) {
 	res.render('plants', { title: 'Plantarium', btnNav: 'Session' });
+	
 });
 
 /* GET profile Subscriptor page. */

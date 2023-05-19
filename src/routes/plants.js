@@ -15,7 +15,11 @@ router.get('/list', async(req, res, next) => {
     Plant.find()
     .then(
         plantas => {
-            res.render('plants', { title: 'Plantarium', btnNav: 'Session', plants: plantas });
+            if(req.cookies.userid!="undefined" && req.cookies.userid!=undefined){
+                res.render('plants', { title: 'Plantarium', btnNav: 'Logout', plants: plantas, userCookie: req.cookies.userid });
+            }else{
+                res.render('plants', { title: 'Plantarium', btnNav: 'Session', plants: plantas, userCookie: "" });
+            }
         }
         )
     .catch(err => res.status(500).json({ message: err }));
@@ -36,7 +40,11 @@ router.get('/list/:id', async (req, res, next) => {
             // res.status(200).json(plantExist)
             var categorias = plantExist.categories;
             const listaCategorias = categorias.join(" | ")
-            res.render('filePlant', {title: 'Plantarium', btnNav: 'Session', planta: plantExist, categories: listaCategorias});
+            if(req.cookies.userid!="undefined" && req.cookies.userid!=undefined){
+                res.render('filePlant', { title: 'Plantarium', btnNav: 'Logout',  planta: plantExist, categories: listaCategorias, userCookie: req.cookies.userid });
+            }else{
+                res.render('filePlant', { title: 'Plantarium', btnNav: 'Session',  planta: plantExist, categories: listaCategorias, userCookie: "" });
+            }
         } else {
             res.status(404).send('Plant not found');
         }

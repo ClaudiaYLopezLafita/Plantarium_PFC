@@ -6,7 +6,11 @@
   <body id="home">
     <!-- START HEADER-->
     <header>
-      <%- include('partials/header');%>
+      <% if (userCookie === '') { %>
+        <%- include('partials/header'); %>
+      <% } else {%>
+        <%- include('partials/headerUser');%>
+      <%}%>
     </header>
     <!-- END HEADER-->
 
