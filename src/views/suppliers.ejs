@@ -84,14 +84,17 @@
                     </div>
                     <div class="col-auto">
                         <label for="select_orden_alfabético" class="form-label">Orden Alfabético:</label>
-                        <select class="form-select form-select-md" aria-label="Ejemplo de .form-select-sm" id="select_orden_alfabético">
+                        <select class="form-select form-select-md" name="orden" aria-label="Ejemplo de .form-select-sm" id="select_orden_alfabético">
                             <option selected>---</option>
                             <option value="ASC">Ascendente</option>
                             <option value="DESC">Descendente</option>
                         </select>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mt-4">Filtrar</button>
+                        <button type="submit" class="btn btn-outline-dark mt-4">Filtrar</button>
+                    </div>
+                    <div class="col-auto">
+                        <a href="/suppliers/list" class="btn btn-outline-danger mt-4">Limpiar</a>
                     </div>
                 </form>
             </div>

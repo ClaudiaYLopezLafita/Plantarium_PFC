@@ -127,6 +127,16 @@ router.post('/delete', async (req, res, next)=>{
     }
 })
 
+/* GET filter suppliers */
+router.get('/filter', async (req, res, next)=>{
+    const {search, orden} = req.query;
+    try {
+        
+    } catch (error) {
+        
+    }
+})
+
 function generateCodigo(cadena) {
         // Dividir la cadena en palabras
         const palabras = cadena.split(' ');
