@@ -40,6 +40,12 @@ router.get('/list/:id', async (req, res, next) => {
                 model: 'Attendance',
                 select: '-_id -codAttendace'
             }
+            ,
+            {
+                path: 'symptoms',
+                model: 'Symptom',
+                select: '-_id'
+            }
             ]
         );
         if (plantExist) {

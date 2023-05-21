@@ -70,7 +70,7 @@
             <div class="row row-cols-1 row-cols-md-3 g-5 mx-5 mb-4 mt-2">
                 <% plants.forEach((plant) =>{ %>
                     <div class="col">
-                        <div class="card h-100 m-auto">
+                        <div class="card card-plant h-100 m-auto">
                             <img src="<%= plant.images[0] %>" class="card-img-top" alt="Imagen de la planta <%= plant.comName %>"> <!-- da un error ... porque no se tiene imagen-->
                             <div class="card-body">
                                 <h5 class="card-title text-uppercase text-center"><%= plant.comName %></h5>

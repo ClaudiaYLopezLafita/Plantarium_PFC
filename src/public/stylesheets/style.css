@@ -237,10 +237,10 @@ img{
   margin-left: 10px;
 }
 
-.card{
+.card-plant{
   transition: transform 0.3s ease;
 }
-.card:hover{
+.card-plant:hover{
   transform: scale(1.05);
 
 }

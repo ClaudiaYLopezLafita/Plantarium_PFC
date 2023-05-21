@@ -137,7 +137,7 @@
                             <div class="col-sm-5">
                                 <p><b>Nombre Científico:</b> <%= planta.sciName %></p>
                                 <p><b>Familia:</b> <%= planta.family %></p>
-                                <p><b>Curiosidades:</b> <%= planta.curiosities %></p>
+                                <p><b>Curiosidades: </b> <%= planta.curiosities %></p>
                                 <p><b>Precauciones:</b> <%= planta.precautions %></p>
                             </div>
                         </div>
@@ -166,10 +166,34 @@
                     <div class="p-4">
                         <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
                         <div class="row py-2 justify-content-around bg-light bg-opacity-75  rounded-2">
-                            <div class="col-sm-10">
-                                form
+                            <div id="accordion m-2">
+                                <% planta.symptoms.forEach((symptom) =>{ %>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a class="btn" data-bs-toggle="collapse" href="#<%= symptom.codSymptom %>">
+                                            <h6><%= symptom.title %></h6>
+                                        </a>
+                                    </div>
+                                    <div id="<%= symptom.codSymptom %>" class="collapse" data-bs-parent="#accordion">
+                                        <div class="card-body row justify-content-around">
+                                            <div class="col-sm-5">
+                                                <p><b>Descripcion del sintoma:</b> <%= symptom.description %></p>
+                                                <hr>
+                                                <p><b>Enfermedad:</b> <%= symptom.disease.name %></p>
+                                                <p><b>Causa:</b> <%= symptom.disease.cause %></p>
+                                                <p><b>Descripcion de la enfermedad:</b> <%= symptom.disease.description %></p>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <p><b>Periodo Tratamiento:</b> <%= symptom.disease.treatment.period %></p>
+                                                <p><b>Aplicación:</b> <%= symptom.disease.treatment.application %></p>
+                                                <p><b>Comentario:</b> <%= symptom.disease.treatment.comment %></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
                             </div>
-
+                            <!---->
                         </div>
                     </div>
                 </div>
