@@ -100,10 +100,11 @@
                 </div>
             </div>
         </div>
-        <hr>
-        <!-- <div class="row mx-5">
-            <h5 class="text-center"><%= planta.description %></h5>
-        </div> -->
+        <hr class="mx-5">
+            <div class="row mx-5">
+                <em><p class="text-center"><%= planta.description %></p></em>
+            </div>
+        <hr class="mx-5">
         <!-- ROW 3 - tabs informations plant -->
         <div class="row mx-5 my-3">
             <!-- Nav tabs -->
@@ -145,17 +146,18 @@
                 <div class="tab-pane container fade" id="attendance">
                     <div class="p-4">
                         <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
-                        <div class="row py-2 justify-content-around bg-light bg-opacity-75  rounded-2">
+                        <div class="row py-2 justify-content-around bg-light bg-opacity-75 rounded-2">
+                            <!-- AQUI HACER CONDICIONAL DEL COOKIE PARA MOSTRAR INFORMACIÓN-->
                             <div class="col-sm-5">
-                                <p><b>Riego:</b> </p>
-                                <p><b>Sustrato:</b> </p>
-                                <p><b>Abono:</b> </p>
-                                <p><b>Iluminacion:</b>  </p>
+                                <p><b>Riego:</b> <%= planta.attendance.water %> </p>
+                                <p><b>Sustrato: </b> <%= planta.attendance.soil %></p>
+                                <p><b>Abono:</b> <%= planta.attendance.compost %></p>
+                                <p><b>Iluminacion:</b>  <%= planta.attendance.lightning %></p>
+                                <p><b>Humedad:</b> <%= planta.attendance.moisture %></p>
+                                <p><b>Temparatura:</b> <%= planta.attendance.temperature %></p>
                             </div>
                             <div class="col-sm-5">
-                                <p><b>Humedad:</b> </p>
-                                <p><b>Temparatura:</b> </p>
-                                <p><b>Comentarios:</b> </p>
+                                <p><b>Comentarios:</b> <%= planta.attendance.comment %></p>
                             </div>
                         </div>
                     </div>

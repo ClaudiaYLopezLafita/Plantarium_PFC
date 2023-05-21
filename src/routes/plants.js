@@ -34,7 +34,13 @@ router.get('/list/:id', async (req, res, next) => {
                 path: 'suppliers',
                 model: 'Supplier',
                 select: '-_id -codSupplier' 
-            }]
+            },
+            {
+                path: 'attendance',
+                model: 'Attendance',
+                select: '-_id -codAttendace'
+            }
+            ]
         );
         if (plantExist) {
             // res.status(200).json(plantExist)
