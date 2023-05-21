@@ -38,7 +38,7 @@ var AttendanceSchema= new Schema({
     },
     comment: {
         type: String, 
-        required: false
+        required: true
     },
     plant: {
         type: Schema.ObjectId, 

@@ -44,7 +44,9 @@ var diseaseSchema = new Schema({
         type: String, 
         required: true
     },
-    treatment:{treatmentSchema}
+    treatment:{
+        type: treatmentSchema,
+    }
 })
 
 
@@ -63,7 +65,9 @@ var SymptomSchema = new Schema({
         type: String, 
         required: true
     },
-    disease: {diseaseSchema},
+    disease: {
+        type: diseaseSchema,
+    },
     plants:[{
         type: Schema.ObjectId,
         ref: 'Plant',
