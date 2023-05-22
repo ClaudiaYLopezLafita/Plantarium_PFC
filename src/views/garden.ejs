@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head');%>
+</head>
+<body id="garden">
+    <!-- STAR HEADER -->
+    <header>
+        <%- include('partials/headerUser');%>
+    </header>
+    <!-- END HEADER -->
+
+    <!-- STAR BREADCRUMB -->
+    <div class="container-fluid py-1 mb-0" id="breadcrumb">
+        <nav class="mx-4 mt-3" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">You Are Currently Here!</li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                <li class="breadcrumb-item text-uppercase text-white" aria-current="page">PROFILE</li>
+                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">GARNDE NAME</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- END BREADCRUMB -->
+
+    <!-- END MAIN -->
+    <div class="container-fluid m-auto">
+        <div class="row m-4">
+            <h3 class="text-center"> NOMBRE DEL JARDIN</h3>
+        </div>
+        <div class="mx-5 mb-4">
+            <div class="mx-5">
+                <div class="container-garden p-3">
+                    <div class="row align-items-center gx-3">
+                        <div class="col border border-black border-1 mx-4 p-0">
+                            <img src="/images/plantas/images.jpeg" class="w-50 mx-auto d-block mt-2" alt="">
+                            <h3 class="text-uppercase text-center">NOMBRE PLANTA</h3>
+                        </div>
+                        <div class="col border border-black border-1 mx-4 p-0">
+                            <img src="/images/plantas/images.jpeg" class="w-50 mx-auto d-block mt-2" alt="">
+                            <h3 class="text-uppercase text-center">NOMBRE PLANTA</h3>
+                        </div>
+                        <div class="col border border-black border-1 mx-4 p-0">
+                            <img src="/images/plantas/images.jpeg" class="w-50 mx-auto d-block mt-2" alt="">
+                            <h3 class="text-uppercase text-center">NOMBRE PLANTA</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN -->
+
+    <!-- STAR FOOTER -->
+    <footer>
+        <%- include('partials/footer');%>
+    </footer>
+    <!-- END FOOTER -->
+</body>
+</html>

@@ -257,6 +257,12 @@ img{
   color: #fff;
 }
 
+.container-garden{
+  background-image: url("../images/plantas/cesped.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /* FOOTER RULES*/
 
 footer{

@@ -171,12 +171,19 @@ router.get('/statics', verifyCookiesToken ,async (req, res, ne) =>{
 	res.render('statics', { title: 'Plantarium', btnNav: 'Logout' });
 });
 
+/* GET list page supplier only admin*/
 router.get('/suppliers', verifyCookiesToken , function(req, res, next){
 	res.render('suppliers', { title: 'Plantarium', btnNav: 'Logout'});
 })
 
+/* GET list page supplier only admin*/
 router.get('/edit-supplier', verifyCookiesToken , function(req, res, next){
 	res.render('edit-supplier', { title: 'Plantarium', btnNav: 'Logout'});
 })
+
+/*GET garden page subscriptor*/
+router.get('/garden', async (req, res, ne) =>{
+	res.render('garden', { title: 'Plantarium', btnNav: 'Logout' });
+});
 
 module.exports = router;
