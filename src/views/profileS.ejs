@@ -71,7 +71,6 @@
                         <button type="button" id="btn_delete" class="btn " data-bs-toggle="modal" data-bs-target="#modalConfirmDelete">
                             <i class="bi bi-trash3-fill"></i> | Eliminar
                         </button>
-                          
                         <!-- <a id="btn_delete" class="p-2 rounded-2 text-decoration-none" href=""><i class="bi bi-trash3-fill"></i> | Eliminar</a> -->
                     </div>
                 </div>
@@ -81,14 +80,13 @@
                 <h2 class="text-center mb-0">MI JARDIN</h2>
                 <%- include('partials/dividing_line');%>
                 <div class="card px-0 mt-2" style="width:500px">
-                    <img class="card-img-top" src="/users/images/img_card_backgroud.webp"  alt="Card image">
+                    <img class="card-img-top" src="/users/images/img_card_backgroud.webp"  alt="Card image garden">
                     <div class="card-img-overlay" >
                             <div class="fondoGarden mb-2 p-2">
-                                <h4 class="card-title">TITULO JARDIN DEL USUARIO</h4>
                                 <p class="card-text text-wrap">
                                     Planta tu propio jardín y decora tu alma, en lugar de esperar a que alguien te traiga flores - Jorge Luis Borges </p>
                             </div>
-                            <a href="#" class="btn btn-primary">Go to garden</a>
+                            <a href="/gardens/<%= user._id %>" class="btn btn-primary align-items-end">Go to garden</a>
                     </div>
                 </div>
             </div>

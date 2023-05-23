@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const Plant = require('../models/Plant')
 const Garden = require('../models/Garden')
 const Subscription = require('../models/Subscription')
+const User = require('../models/User')
 //conexion bbdd
 var db = mongoose.connection;
 
@@ -46,6 +47,72 @@ router.post('/', async (req, res, next) => {
   }
 
 });
+
+/* GET single garden */
+router.get('/:id', async (req, res, next) =>{
+  try {
+    const userExist = await User.findById(req.params.id);
+
+    if(userExist){
+      const subscriptionExist = await Subscription.findOne({codSubscription: userExist.subscription})
+
+      if(subscriptionExist){
+        const gardenExist = await Garden.findOne({subscription: subscriptionExist.codSubscription})
+        .populate([{
+          path: 'plants',
+          model: 'Plant',
+          select: '-_id -codSupplier' 
+        }])
+
+        if(gardenExist){
+          res.render('garden', { title: 'Plantarium', btnNav: 'Logout',  garden: gardenExist});
+        }
+      }
+    }
+  } catch (error) {
+    return res.status(500).send('Problemas en el servidor')
+  }
+})
+
+/* POST insert plant */
+router.post('/insert-plant', async (req, res, next) =>{
+  const {idplant, iduser} = req.body;
+  console.log(req.body)
+  try {
+    const userExist = await User.findById(iduser);
+
+    if(userExist){
+      const subscriptionExist = await Subscription.findOne({codSubscription: userExist.subscription})
+
+      if(subscriptionExist){
+        
+        const gardenExist = await Garden.findOne({subscription: subscriptionExist.codSubscription}).populate([
+            {
+            path: 'plants',
+            model: 'Plant',
+            select: 'images sciName' 
+          }
+        ])
+        console.log(gardenExist)
+        if(gardenExist){
+          console.log(gardenExist)
+          // Agregar la nueva planta al array existente
+          if (gardenExist.plants && gardenExist.plants.length > 0) {
+            // operador spread para agregar todos los elementos que vengan
+            gardenExist.plants.unshift(idplant);
+          }else{
+            gardenExist.plants.push(idplant);
+          }
+          console.log("Array de plantas en jardin"+gardenExist.plants[0])
+          // res.render('garden', { title: 'Plantarium', btnNav: 'Logout',  garden: gardenExist});
+          return res.status(200).json(gardenExist)
+        }
+      }
+    }
+  } catch (error) {
+    return res.status(500).send('Problemas en el servidor')
+  }
+})
 
 function generateCodGarden(){
   let codGarden = 'GAR';

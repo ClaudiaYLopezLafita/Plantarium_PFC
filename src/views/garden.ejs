@@ -16,8 +16,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">You Are Currently Here!</li>
                 <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
-                <li class="breadcrumb-item text-uppercase text-white" aria-current="page">PROFILE</li>
-                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">GARNDE NAME</li>
+                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">garden </li>
             </ol>
         </nav>
     </div>
@@ -26,24 +25,19 @@
     <!-- END MAIN -->
     <div class="container-fluid m-auto">
         <div class="row m-4">
-            <h3 class="text-center"> NOMBRE DEL JARDIN</h3>
+            <h3 class="text-center text-uppercase"> <%= garden.name %> </h3>
+            <p><%= garden %></p>
         </div>
         <div class="mx-5 mb-4">
             <div class="mx-5">
                 <div class="container-garden p-3">
-                    <div class="row align-items-center gx-3">
-                        <div class="col border border-black border-1 mx-4 p-0">
-                            <img src="/images/plantas/images.jpeg" class="w-50 mx-auto d-block mt-2" alt="">
-                            <h3 class="text-uppercase text-center">NOMBRE PLANTA</h3>
+                    <div class="row row-cols-1 row-cols-md-3 g-5 align-items-center gx-3">
+                        <% garden.plants.forEach((plant) =>{ %>
+                        <div class="col-sm- border border-black border-1 mx-4 p-0">
+                            <img src="<%= plant.images[0] %>" class="w-50 mx-auto d-block mt-2" alt="">
+                            <h3 class="text-uppercase text-center"><%= plant.sciName %> </h3>
                         </div>
-                        <div class="col border border-black border-1 mx-4 p-0">
-                            <img src="/images/plantas/images.jpeg" class="w-50 mx-auto d-block mt-2" alt="">
-                            <h3 class="text-uppercase text-center">NOMBRE PLANTA</h3>
-                        </div>
-                        <div class="col border border-black border-1 mx-4 p-0">
-                            <img src="/images/plantas/images.jpeg" class="w-50 mx-auto d-block mt-2" alt="">
-                            <h3 class="text-uppercase text-center">NOMBRE PLANTA</h3>
-                        </div>
+                        <% }) %>
                     </div>
                 </div>
             </div>

@@ -20,10 +20,9 @@ var GardenSchema = new Schema({
     },
     plants: [
         {
-            type: Schema.Types.String, 
+            type: Schema.Types.ObjectId, 
             ref: 'Plant',  
-            default: null,
-            required: false
+            default: null
         }
     ]
 });
