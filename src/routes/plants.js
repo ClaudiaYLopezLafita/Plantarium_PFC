@@ -53,6 +53,7 @@ router.get('/list/:id', async (req, res, next) => {
             var categorias = plantExist.categories;
             const listaCategorias = categorias.join(" | ")
             if(req.cookies.userid!="undefined" && req.cookies.userid!=undefined){
+                console.log(req.cookies.userid)
                 res.render('filePlant', { title: 'Plantarium', btnNav: 'Logout',  planta: plantExist, categories: listaCategorias, userCookie: req.cookies.userid });
             }else{
                 res.render('filePlant', { title: 'Plantarium', btnNav: 'Session',  planta: plantExist, categories: listaCategorias, userCookie: "" });

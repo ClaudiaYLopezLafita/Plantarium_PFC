@@ -100,12 +100,13 @@
                 </div>
             </div>
         </div>
+        <!-- ROW 3 - description plant -->
         <hr class="mx-5">
             <div class="row mx-5">
                 <em><p class="text-center"><%= planta.description %></p></em>
             </div>
         <hr class="mx-5">
-        <!-- ROW 3 - tabs informations plant -->
+        <!-- ROW 4 - tabs informations plant -->
         <div class="row mx-5 my-3">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
@@ -144,58 +145,77 @@
                     </div>
                 </div>
                 <div class="tab-pane container fade" id="attendance">
-                    <div class="p-4">
-                        <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
-                        <div class="row py-2 justify-content-around bg-light bg-opacity-75 rounded-2">
-                            <!-- AQUI HACER CONDICIONAL DEL COOKIE PARA MOSTRAR INFORMACIÓN-->
-                            <div class="col-sm-5">
-                                <p><b>Riego:</b> <%= planta.attendance.water %> </p>
-                                <p><b>Sustrato: </b> <%= planta.attendance.soil %></p>
-                                <p><b>Abono:</b> <%= planta.attendance.compost %></p>
-                                <p><b>Iluminacion:</b>  <%= planta.attendance.lightning %></p>
-                                <p><b>Humedad:</b> <%= planta.attendance.moisture %></p>
-                                <p><b>Temparatura:</b> <%= planta.attendance.temperature %></p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p><b>Comentarios:</b> <%= planta.attendance.comment %></p>
+                    <% if (userCookie === '') { %>
+                        <div class="m-5 bg-light bg-opacity-75 p-5 content">
+                            <div>
+                                <p class="fs-3 text-center">If you want more information</p>
+                                <p class="fs-3 text-center"><a href="../../session"> Log in</a>.</p>
+                                <img src="/images/page/Logo_Small.png" class="logo_reducido  mx-auto d-block" alt="Logo reducido de plantarium">
                             </div>
                         </div>
-                    </div>
+                    <% } else {%>
+                        <div class="p-4">
+                            <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
+                            <div class="row py-2 justify-content-around bg-light bg-opacity-75 rounded-2">
+                                <!-- AQUI HACER CONDICIONAL DEL COOKIE PARA MOSTRAR INFORMACIÓN-->
+                                <div class="col-sm-5">
+                                    <p><b>Riego:</b> <%= planta.attendance.water %> </p>
+                                    <p><b>Sustrato: </b> <%= planta.attendance.soil %></p>
+                                    <p><b>Abono:</b> <%= planta.attendance.compost %></p>
+                                    <p><b>Iluminacion:</b>  <%= planta.attendance.lightning %></p>
+                                    <p><b>Humedad:</b> <%= planta.attendance.moisture %></p>
+                                    <p><b>Temparatura:</b> <%= planta.attendance.temperature %></p>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p><b>Comentarios:</b> <%= planta.attendance.comment %></p>
+                                </div>
+                            </div>
+                        </div>
+                    <%}%>
                 </div>
                 <div class="tab-pane container fade" id="disease">
-                    <div class="p-4">
-                        <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
-                        <div class="row py-2 justify-content-around bg-light bg-opacity-75  rounded-2">
-                            <div id="accordion m-2">
-                                <% planta.symptoms.forEach((symptom) =>{ %>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <a class="btn" data-bs-toggle="collapse" href="#<%= symptom.codSymptom %>">
-                                            <h6><%= symptom.title %></h6>
-                                        </a>
-                                    </div>
-                                    <div id="<%= symptom.codSymptom %>" class="collapse" data-bs-parent="#accordion">
-                                        <div class="card-body row justify-content-around">
-                                            <div class="col-sm-5">
-                                                <p><b>Descripcion del sintoma:</b> <%= symptom.description %></p>
-                                                <hr>
-                                                <p><b>Enfermedad:</b> <%= symptom.disease.name %></p>
-                                                <p><b>Causa:</b> <%= symptom.disease.cause %></p>
-                                                <p><b>Descripcion de la enfermedad:</b> <%= symptom.disease.description %></p>
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <p><b>Periodo Tratamiento:</b> <%= symptom.disease.treatment.period %></p>
-                                                <p><b>Aplicación:</b> <%= symptom.disease.treatment.application %></p>
-                                                <p><b>Comentario:</b> <%= symptom.disease.treatment.comment %></p>
+                    <% if (userCookie === '') { %>
+                        <div class="m-5 bg-light bg-opacity-75 p-5 content">
+                            <div>
+                                <p class="fs-3 text-center">If you want more information</p>
+                                <p class="fs-3 text-center"><a href="../../session"> Log in</a>.</p>
+                                <img src="/images/page/Logo_Small.png" class="logo_reducido  mx-auto d-block" alt="Logo reducido de plantarium">
+                            </div>
+                        </div>
+                    <% } else {%>
+                        <div class="p-4">
+                            <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
+                            <div class="row py-2 justify-content-around bg-light bg-opacity-75  rounded-2">
+                                <div id="accordion m-2">
+                                    <% planta.symptoms.forEach((symptom) =>{ %>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a class="btn" data-bs-toggle="collapse" href="#<%= symptom.codSymptom %>">
+                                                <h5><%= symptom.title %></h5>
+                                            </a>
+                                        </div>
+                                        <div id="<%= symptom.codSymptom %>" class="collapse" data-bs-parent="#accordion">
+                                            <div class="card-body row justify-content-around">
+                                                <div class="col-sm-5">
+                                                    <p><b>Descripcion del sintoma:</b> <%= symptom.description %></p>
+                                                    <hr>
+                                                    <p><b>Enfermedad:</b> <%= symptom.disease.name %></p>
+                                                    <p><b>Causa:</b> <%= symptom.disease.cause %></p>
+                                                    <p><b>Descripcion de la enfermedad:</b> <%= symptom.disease.description %></p>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <p><b>Periodo Tratamiento:</b> <%= symptom.disease.treatment.period %></p>
+                                                    <p><b>Aplicación:</b> <%= symptom.disease.treatment.application %></p>
+                                                    <p><b>Comentario:</b> <%= symptom.disease.treatment.comment %></p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <% }) %>
                                 </div>
-                                <% }) %>
                             </div>
-                            <!---->
                         </div>
-                    </div>
+                    <%}%>
                 </div>
                 <div class="tab-pane container fade" id="supplier">
                     <div class="m-5 bg-light bg-opacity-75 p-2 content">

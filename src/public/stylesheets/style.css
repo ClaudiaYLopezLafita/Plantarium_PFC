@@ -6,6 +6,7 @@ Assigned to: Claudia Y Lopez Lafita
 --------------------[TABLA DE CONTENIDOS]----------------------
 1. GENERAL
 2. NAVBAR RULES
+3. BREADCRUM
 . FOOTER RULES
 . RESPONSIVE RULES
 ----------------------[CÓDIGOS DE COLOR]------------------------
@@ -20,7 +21,6 @@ Black: #000
 
 /* 1. GENERAL RULES */
 
-
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -30,8 +30,6 @@ body {
   width: 200px;
   background-color: #006837;
   border-radius: 20px;
-  /* margin-bottom: 3%;
-  margin-top: 1em; */
   margin-bottom: 1em;
 }
 
@@ -46,6 +44,10 @@ body {
   left: 11px;
   top: 5px;
 }
+.logo_reducido{
+  width: 12%;
+}
+
 .error{
   background-image: url('/images/page/fondo.jpg');
   background-repeat: no-repeat;
