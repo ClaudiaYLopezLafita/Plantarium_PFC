@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('partials/head');%>
+    </head>
+    <body id="list-plants">
+        <!-- STAR HEADER -->
+        <header>
+            <%- include('partials/headerUser');%>
+        </header>
+        <!-- END HEADER-->
+
+        <!-- STAR BREADCRUMB -->
+        <div class="container-fluid py-1 mb-0" id="breadcrumb">
+            <nav class="mx-4 mt-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">You Are Currently Here!</li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="../profileA">ACCIONES</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">PLANTAS</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- END BREADCRUMB -->
+
+        <!-- START MAIN-->
+        <div class="container-fluid mb-4 mt-0 p-0">
+            <!-- Filter-->
+            <div class="row m-auto border-bottom border-success border-1">
+                <form class="row g-3 mb-3 mt-0 justify-content-around">
+                    <div class="col-auto">
+                        <label for="search" class="form-label">Buscar:</label>
+                        <input type="text" class="form-control" name = "search" id="search" placeholder="Type to search">
+                    </div>
+                    <div class="col-auto">
+                        <label for="select_orden_alfabético" class="form-label">Orden Alfabético:</label>
+                        <select class="form-select form-select-md" name="orden" aria-label="Ejemplo de .form-select-sm" id="select_orden_alfabético">
+                            <option selected>---</option>
+                            <option value="ASC">Ascendente</option>
+                            <option value="DESC">Descendente</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-dark mt-4">Filtrar</button>
+                    </div>
+                    <div class="col-auto">
+                        <a href="#" class="btn btn-outline-danger mt-4">Limpiar</a>
+                    </div>
+                </form>
+            </div>
+            <!-- Buttom new-->
+            <div class="row m-5 justify-content-end">
+                <div class="col-sm-2">
+                    <a href="#" id="btn_new" class="p-2 rounded-2"><i class="bi bi-plus-circle-fill"></i> | Nuevo</a>
+                </div>
+            </div>
+            <!-- Table -->
+            <div class="m-auto mb-3 mt-4">
+                <div class="mx-5">
+                    <div class="mx-5">
+                        
+                        <table class="table table-hover shadow">
+                            <thead class="thead">
+                                <tr>
+                                    <th class="text-center align-content-center">CODIDO</th>
+                                    <th class="text-center">NOMBRE</th>
+                                    <th class="text-center">ACCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% plantas.forEach((planta) =>{ %>
+                                <tr>
+                                    <td class="text-center fw-bold"><%= planta.codPlant %></td>
+                                    <td class="text-center"><%= planta.sciName %></td>
+                                    <td class="text-center d-flex flex-row justify-content-center">
+                                        <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil-square" style="color:black; font-size: 1.45rem;"></i></a>
+                                        <form action="/suppliers/delete" method="post">
+                                            <input type="text" name="id" value="<%= planta._id %>" id="id" hidden>
+                                            <button type="submit" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash3-fill" style="color:red; font-size: 1.25rem;"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MAIN -->
+
+        <!-- STAR FOOTER -->
+        <footer>
+            <%- include('partials/footer');%>
+        </footer>
+        <!-- END FOOTER -->
+    </body>
+</html>

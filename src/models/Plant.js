@@ -59,11 +59,6 @@ var PlantSchema = new Schema({
         type: String, 
         required: true
     }],
-    status:{
-        type: String, enum: 
-        ['Visible', 'No visible'], 
-        default: 'Visible'
-    },
     attendance:{
         type: Schema.Types.ObjectId,
         ref: 'Attendance',
