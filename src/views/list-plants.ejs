@@ -73,7 +73,7 @@
                                     <td class="text-center"><%= planta.sciName %></td>
                                     <td class="text-center d-flex flex-row justify-content-center">
                                         <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil-square" style="color:black; font-size: 1.45rem;"></i></a>
-                                        <form action="/suppliers/delete" method="post">
+                                        <form action="/plants/delete" method="post">
                                             <input type="text" name="id" value="<%= planta._id %>" id="id" hidden>
                                             <button type="submit" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash3-fill" style="color:red; font-size: 1.25rem;"></i></button>
                                         </form>

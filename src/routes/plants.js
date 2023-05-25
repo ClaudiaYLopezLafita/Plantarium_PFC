@@ -114,9 +114,7 @@ router.post('/delete', async (req, res, next)=>{
     const {id} = req.body;
     try {
         const plantDelete = await Plant.findByIdAndRemove(id);
-        if(plantDelete){
-            return res.status(200).send('Planta borrada correctamente')
-        }
+        res.redirect(req.get('referer'));
     } catch (error) {
         console.error(`Error: ${error}`);
     }
