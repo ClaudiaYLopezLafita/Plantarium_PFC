@@ -26,16 +26,15 @@
     <div class="container-fluid m-auto">
         <div class="row m-4">
             <h3 class="text-center text-uppercase"> <%= garden.name %> </h3>
-            <p><%= garden %></p>
         </div>
         <div class="mx-5 mb-4">
             <div class="mx-5">
                 <div class="container-garden p-3">
                     <div class="row row-cols-1 row-cols-md-3 g-5 align-items-center gx-3">
                         <% garden.plants.forEach((plant) =>{ %>
-                        <div class="col-sm- border border-black border-1 mx-4 p-0">
+                        <div class="col-sm- bg-light bg-opacity-25 border border-black border-1 mx-4 p-0">
                             <img src="<%= plant.images[0] %>" class="w-50 mx-auto d-block mt-2" alt="">
-                            <h3 class="text-uppercase text-center"><%= plant.sciName %> </h3>
+                            <h4 class="text-uppercase text-center"><%= plant.sciName %> </h4>
                         </div>
                         <% }) %>
                     </div>

@@ -76,26 +76,24 @@ router.get('/:id', async (req, res, next) =>{
 
 /* POST insert plant */
 router.post('/insert-plant', async (req, res, next) =>{
+  // capturar el cookie con id user
   const {idplant, iduser} = req.body;
-  console.log(req.body)
   try {
     const userExist = await User.findById(iduser);
 
     if(userExist){
       const subscriptionExist = await Subscription.findOne({codSubscription: userExist.subscription})
-
+      
       if(subscriptionExist){
         
         const gardenExist = await Garden.findOne({subscription: subscriptionExist.codSubscription}).populate([
             {
             path: 'plants',
             model: 'Plant',
-            select: 'images sciName' 
+            select: '' 
           }
         ])
-        console.log(gardenExist)
         if(gardenExist){
-          console.log(gardenExist)
           // Agregar la nueva planta al array existente
           if (gardenExist.plants && gardenExist.plants.length > 0) {
             // operador spread para agregar todos los elementos que vengan
@@ -103,6 +101,12 @@ router.post('/insert-plant', async (req, res, next) =>{
           }else{
             gardenExist.plants.push(idplant);
           }
+          await gardenExist.save()
+
+          const planta = await Plant.findById(idplant);
+          planta.gardens.push(gardenExist._id);
+
+          await planta.save()
           console.log("Array de plantas en jardin"+gardenExist.plants[0])
           // res.render('garden', { title: 'Plantarium', btnNav: 'Logout',  garden: gardenExist});
           return res.status(200).json(gardenExist)
