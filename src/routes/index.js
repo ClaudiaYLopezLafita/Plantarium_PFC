@@ -187,8 +187,8 @@ router.get('/garden', async (req, res, ne) =>{
 });
 
 /* GET list page plants only admin*/
-router.get('/list-plants', verifyCookiesToken , function(req, res, next){
-	res.render('list-plants', { title: 'Plantarium', btnNav: 'Logout'});
+router.get('/new-plant', async (req, res, next) => {
+	res.render('new-plant', { title: 'Plantarium', btnNav: 'Logout'});
 })
 
 module.exports = router;

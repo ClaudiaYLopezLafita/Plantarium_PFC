@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('partials/head');%>
+    </head>
+    <body id="new_plant">
+        <!-- STAR HEADER -->
+        <header>
+            <%- include('partials/headerUser');%>
+        </header>
+        <!-- END HEADER-->
+
+        <!-- STAR BREADCRUMB -->
+        <div class="container-fluid py-1 mb-0" id="breadcrumb">
+            <nav class="mx-4 mt-3" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">You Are Currently Here!</li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white"><a href="/../profileA">ACCIONES</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white" aria-current="page"> <a href="/plants/plantas">PLANTAS</a></li>
+                    <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">REGISTRO</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- END BREADCRUMB -->
+
+        <!-- START MAIN-->
+        <div class="container-fluid my-4 p-0">
+            <h2 class="text-center text-uppercase mb-0"> NEW PLANT</h2>
+            <!-- MultiStep Form -->
+            <div id="container_form row">
+                <form id="register_plant" class="mt-0 col-sm-9 shadow-lg" action="#" method="post">
+                    <!-- start step indicators -->
+                    <div class="form-header d-flex mb-4">
+                        <span class="stepIndicator fs-6">Planta</span>
+                        <span class="stepIndicator">Cuidados</span>
+                        <span class="stepIndicator">Síntomas</span>
+                        <span class="stepIndicator">Proveedores</span>
+                    </div>
+                    <!-- end step indicators -->
+                    <!-- STEP ONE -->
+                    <div class="step">
+                        <h4 class="text-center mb-4">1. Información de la Planta</h4>
+                        <div class="row mb-3">
+                          <div class="col form-floating mb-3">
+                            <input type="text" class="form-control" id="sci_name" name="sciName" placeholder="Name name">
+                            <label for="sci_name">Nombre Científico</label>
+                          </div>
+                          <div class="col form-floating">
+                            <input type="text" class="form-control" id="com_name" name="comName" placeholder="Name">
+                            <label for="com_name">Nombre Común</label>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col form-floating mb-3">
+                            <input type="text" class="form-control" id="genus" name="genus" placeholder="Genus">
+                            <label for="genus">Género</label>
+                          </div>
+                          <div class="col form-floating">
+                            <input type="text" class="form-control" id="family" name="family" placeholder="Family">
+                            <label for="family">Familia</label>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col form-floating mb-3">
+                            <input type="text" class="form-control" id="distribution" name="distribution" placeholder="Genus">
+                            <label for="distribution">Distribución</label>
+                          </div>
+                          <div class="col form-floating">
+                            <input type="text" class="form-control" id="habitat" name="habitat" placeholder="Family">
+                            <label for="habitat">Hábitat</label>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col form-floating">
+                            <textarea class="form-control" name="description" placeholder="Leave a comment here" id="description"></textarea>
+                            <label for="description">Descripcion</label>
+                          </div>
+                          <div class="col form-floating">
+                            <textarea class="form-control" name="curiosities" placeholder="Leave a comment here" id="curiosities"></textarea>
+                            <label for="curiosities">Curiosidades</label>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col form-floating">
+                            <textarea class="form-control" name="precautions" placeholder="Leave a comment here" id="precautions"></textarea>
+                            <label for="precautions">Precauciones</label>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col categories">
+                            <p>Categorias</p>
+                            <!-- row checkbox 1-->
+                            <div class="row mb-1">
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox1" name="categories" value="Interior">
+                                  <label class="custom-control-label" for="checkbox1">Interior</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox2" name="categories" value="Exterior">
+                                  <label class="custom-control-label" for="checkbox2">Exterior</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox3" name="categories" value="Carnívora">
+                                  <label class="custom-control-label" for="checkbox3">Carnívora</label>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- row checkbox 2-->
+                            <div class="row mb-1">
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox4" name="categories" value="Exótica">
+                                  <label class="custom-control-label" for="checkbox4">Exótica</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox5" name="categories" value="Suculenta">
+                                  <label class="custom-control-label" for="checkbox5">Suculenta</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox6" name="categories" value="Con Flor">
+                                  <label class="custom-control-label" for="checkbox6">Con Flor</label>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- row checkbox 3-->
+                            <div class="row mb-1">
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox7" name="categories" value="Sin Flor">
+                                  <label class="custom-control-label" for="checkbox7">Sin Flor</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox8" name="categories" value="Perenne">
+                                  <label class="custom-control-label" for="checkbox8">Perenne</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox9" name="categories" value="Caduca">
+                                  <label class="custom-control-label" for="checkbox9">Caduca</label>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- row checkbox 4-->
+                            <div class="row">
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox10" name="categories" value="Herbácea">
+                                  <label class="custom-control-label" for="checkbox10">Herbácea</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="custom-control custom-checkbox d-flex">
+                                  <input type="checkbox" class="custom-control-input w-25" id="checkbox11" name="categories" value="Leñosa">
+                                  <label class="custom-control-label" for="checkbox11">Leñosa</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <p>Imagenes</p>
+                            <div>
+                              <div class="col form-floating">
+                                <textarea class="form-control" name="images" placeholder="Leave a comment here" id="images"></textarea>
+                                <label for="images">Rutas imagenes</label>
+                              </div>
+                              <small><span style="color: red;">*</span>La ruta de las imagenes deben de 
+                              la siguiente estructura: <em>/images/plantas/nombre_carpeta/imagen,/images/plantas/nombre_carpeta/imagen</em> separadas con coma
+                              </small>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <!-- STEP TWO-->
+                    <div class="step">
+                      <h4 class="text-center mb-4">2. Cuidados</h4>
+                      <div class="table_attendance">
+                        <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="text-center text-uppercase">Identificador</th>
+                              <th scope="col" class="text-center text-uppercase">Código</th>
+                              <th scope="col"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="tr_attedance">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <!-- STEP THREE-->
+                    <div class="step">
+                      <h4 class="text-center mb-4">3. Síntomas</h4>
+                      <div class="table_symptoms">
+                        <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="text-center text-uppercase">Código</th>
+                              <th scope="col" class="text-center text-uppercase">nombre</th>
+                              <th scope="col"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="tr_symptoms">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <!-- STEP THREE-->
+                    <div class="step">
+                      <h4 class="text-center mb-4">3. Proveedores</h4>
+                      <div class="table_suppliers">
+                        <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="text-center text-uppercase">Código</th>
+                              <th scope="col" class="text-center text-uppercase">nombre</th>
+                              <th scope="col"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="tr_suppliers">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <!-- start previous / next buttons -->
+                    <div class="form-footer d-flex">
+                      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                  </div>
+                  <!-- end previous / next buttons -->
+                </form>
+            </div>
+        </div>
+        <!-- END MAIN-->
+
+        <!-- STAR FOOTER -->
+        <footer>
+            <%- include('partials/footer');%>
+        </footer>
+        <!-- END FOOTER -->
+    </body>
+</html>
