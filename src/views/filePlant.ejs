@@ -32,12 +32,12 @@
         <!-- ROW 1 -  name plant -->
         <div class="row m-2 my-4 d-flex flex-colum align-items-center justify-content-between">
             <h2 class="col-10 text-center text-uppercase"><%= planta.comName %></h2>
-            <form action="/gardens/insert-plant" method="post">
+            <form action="/gardens/insert-plant" class="col" method="post">
                 <input type="text" name="idPlant" value="<%= planta._id %>" hidden>
                 <button type="submit" class="btn btn-outline-success"> Add <i class="fa-solid fa-plus"></i></button>
             </form>
         </div>
-
+ 
         <!-- ROW 2 - mosaic images plant -->
         <div class="row mx-5 mb-4 justify-content-evenly">
             <div class="row m-auto mx-5">

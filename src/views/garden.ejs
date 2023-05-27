@@ -30,19 +30,28 @@
             <div class="mx-5">
                 <div class="container-garden p-3">
                     <div class="row row-cols-1 row-cols-md-3 g-5 align-items-center gx-3">
-                        <% garden.plants.forEach((plant) =>{ %>
-                        <div class="col-sm- bg-light bg-opacity-25 border border-black border-1 mx-4 p-0">
-                            <form action="/gardens/delete-plant" class=" d-flex justify-content-end my-0" method="post">
-                                <input type="text" name="idPlant" id="idPlant" value="<%= plant.codPlant %>" hidden>
-                                <input type="text" name="idGarden" id="idGarden" value="<%= garden._id %>" hidden>
-                                <button type="submit" class="btn py-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
-                                    <i class="bi bi-x-square-fill fs-4 delete_plant" style="color: red;"></i>
-                                </button>
-                            </form>
-                            <img src="<%= plant.images[0] %>" class="w-50 mx-auto d-block mt-2" alt="Imagen de <%= plant.comName %>">
-                            <h4 class="text-uppercase text-center"><%= plant.sciName %></h4>
-                        </div>
-                        <% }) %>
+                        <% if (garden.plants.length > 0) { %>
+                            <% garden.plants.forEach((plant) =>{ %>
+                            <div class="col-sm- bg-light bg-opacity-25 border border-black border-1 mx-4 p-0">
+                                <form action="/gardens/delete-plant" class=" d-flex justify-content-end my-0" method="post">
+                                    <input type="text" name="idPlant" id="idPlant" value="<%= plant.codPlant %>" hidden>
+                                    <input type="text" name="idGarden" id="idGarden" value="<%= garden._id %>" hidden>
+                                    <button type="submit" class="btn py-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+                                        <i class="bi bi-x-square-fill fs-4 delete_plant" style="color: red;"></i>
+                                    </button>
+                                </form>
+                                <img src="<%= plant.images[0] %>" class="w-50 mx-auto d-block mt-2" alt="Imagen de <%= plant.comName %>">
+                                <h4 class="text-uppercase text-center"><%= plant.sciName %></h4>
+                            </div>
+                            <% }) %>
+                            <div class="col-sm- bg-light bg-opacity-25 border border-black border-1 mx-4 p-0 d-flex justify-content-center">
+                                <i class="bi bi-tree-fill" style="color: black; font-size: 10rem;"></i>
+                            </div>
+                        <% } else {%>
+                            <div class="col-sm- bg-light bg-opacity-25 border border-black border-1 mx-4 p-0 d-flex justify-content-center">
+                                <i class="bi bi-tree-fill" style="color: black; font-size: 10rem;"></i>
+                            </div>
+                        <%}%>
                     </div>
                 </div>
             </div>
