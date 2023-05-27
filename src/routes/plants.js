@@ -170,36 +170,43 @@ router.get('/filter-admin', async (req, res, next)=>{
     }
 })
 
-//Busqueda: categoria -- { categories: { $all: [category] } }
-/*Busqueda por seach --                 
-{   
-    $or: [
-        { description: { $regex: word, $options: 'i' } },
-        { comName: { $regex: word, $options: 'i' } }
-    ]
-}
-*/
 /* FILTER plants */
-router.post('/filter', async (req, res, next)=>{
-    const { category, search} = req.body;
-    console.log(req.body)
-    const word = "/"+search+"/"
-    console.log(word)
+router.get('/filter', async (req, res, next)=>{
+    const { category, search, orden} = req.query;
+    console.log(req.query)
     try {
-        const plants = await Plant.find(
-            {
-                $or: [
-                    { categories: { $all: [category] } },
-                    {
-                        $or: [
-                        { description: { $regex: word , $options: 'i' } },
-                        { comName: { $regex: word, $options: 'i' } }
-                        ]
-                    }
-                ]
-            }
-        )
-        res.status(200).json(plants);
+        // Construimos la consulta plantas para que nos traiga todo
+        const query = Plant.find();
+
+        // Aplica el filtro según el parámetro de búsqueda
+        if (search) {
+            query.or([
+                // mira que "contenga" en el DESCRIPTION
+                { description: { $regex: search, $options: 'i' } },
+                // mira el nombre cientifico
+                { sciName: { $regex: search, $options: 'i' } },
+                // mira el nombre comun
+                { comName: { $regex: search, $options: 'i' } }
+            ]);
+        }
+
+       // Aplica el filtro por categoría
+        if (category) {
+        query.where('categories').in([category]);
+        }
+        // Aplica el orden según el parámetro de orden
+        query.sort({ sciName: orden === 'DESC' ? -1 : 1 })
+        query.sort({ sciName: orden === 'ASC' ? 1 : -1 })
+
+        // Ejecutamos la consulta
+        const plantas = await query.exec();
+        
+        if(req.cookies.userid!="undefined" && req.cookies.userid!=undefined){
+            res.render('plants', { title: 'Plantarium', btnNav: 'Logout', plants: plantas, userCookie: req.cookies.userid });
+        }else{
+            res.render('plants', { title: 'Plantarium', btnNav: 'Session', plants: plantas, userCookie: "" });
+        }
+        // res.status(200).json(plants);
     } catch (error) {
         console.error(`Error: ${error}`);
     }

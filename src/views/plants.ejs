@@ -31,7 +31,7 @@
             <!-- ROW 1 - Filter-->
             <div class="row m-auto border-bottom border-success border-1">
                 <h4 class="text-center mt-2">FILTRO</h4>
-                <form class="row g-3 mb-3 mt-0 justify-content-around">
+                <form method="get" action="/plants/filter" class="row col-sm-10 g-3 mb-3 mt-0 justify-content-around">
                     <div class="col-auto">
                         <label for="search" class="form-label">Buscar:</label>
                         <input type="text" class="form-control" name = "search" id="search" placeholder="Type to search">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-auto">
                         <label for="select_orden_alfabético" class="form-label">Orden Alfabético:</label>
-                        <select class="form-select form-select-md" aria-label="Ejemplo de .form-select-sm" id="select_orden_alfabético">
+                        <select class="form-select form-select-md" name="orden" aria-label="Ejemplo de .form-select-sm" id="select_orden_alfabético">
                             <option selected>---</option>
                             <option value="ASC">Ascendente</option>
                             <option value="DESC">Descendente</option>
@@ -65,6 +65,9 @@
                         <button type="submit" class="btn btn-primary mt-4">Filtrar</button>
                     </div>
                 </form>
+                <div class="col-sm-2">
+                    <a href="/plants/list" class="btn btn-outline-danger mt-5 mb-1">Limpiar</a>
+                </div>
             </div>
             <!-- ROW 2 - Cards -->
             <div class="row row-cols-1 row-cols-md-3 g-5 mx-5 mb-4 mt-2">
