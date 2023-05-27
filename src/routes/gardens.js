@@ -107,15 +107,47 @@ router.post('/insert-plant', async (req, res, next) =>{
           planta.gardens.push(gardenExist._id);
 
           await planta.save()
-          console.log("Array de plantas en jardin"+gardenExist.plants[0])
           // res.render('garden', { title: 'Plantarium', btnNav: 'Logout',  garden: gardenExist});
-          return res.status(200).json(gardenExist)
+          return res.status(200).send('Planta insertada')
+          // res.redirect(req.get('referer'));
         }
       }
     }
   } catch (error) {
     return res.status(500).send('Problemas en el servidor')
   }
+})
+
+/* DELETE plant in garder */
+router.post('/delete-plant', async (req, res, next) =>{
+
+  const{idPlant, idGarden} = req.body
+  console.log(req.body)
+  try {
+    const gardenExist = await Garden.findById(idGarden);
+    console.log(gardenExist)
+    if(gardenExist){
+      //borramos la planta del array de plants del jardin
+      const plantArray = gardenExist.plants;
+      const indice = plantArray.indexOf(idPlant);
+      plantArray.splice(indice);
+
+      // borramos el jardin del array de jardines de la planta
+      const plant = await Plant.findOne({codPlant: idPlant})
+      const gardenArray = plant.gardens
+      const indiceP = gardenArray.indexOf(idGarden);
+      gardenArray.splice(indiceP)
+
+      await gardenExist.save();
+      await plant.save()
+      res.redirect(req.get('referer'));      
+    }else{
+      return res.status(404).send('Garden no localizado')
+    }
+  } catch (error) {
+    return res.status(500).send('Problemas en el servidor')
+  }
+
 })
 
 function generateCodGarden(){
