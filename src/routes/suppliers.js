@@ -131,9 +131,29 @@ router.post('/delete', async (req, res, next)=>{
 router.get('/filter', async (req, res, next)=>{
     const {search, orden} = req.query;
     try {
+
+        // Construimos la consulta proveedores para que nos traiga todo
+        const query = Supplier.find();
+
+        // Aplica el filtro según el parámetro de búsqueda
+        if (search) {
+            query.or([
+                { codSupplier: { $regex: search, $options: 'i' } },
+                { name: { $regex: search, $options: 'i' } }
+            ]);
+        }
+
+        // Aplica el orden según el parámetro de orden
+        query.sort({ name: orden === 'DESC' ? -1 : 1 })
+        query.sort({ name: orden === 'ASC' ? 1 : -1 })
+
+        // Ejecutamos la consulta
+        const suppliers = await query.exec();
+        // devolvemos los filtradro
+        res.render('suppliers' ,{ title: 'Plantarium', btnNav: 'Logout', proveedores: suppliers });
         
     } catch (error) {
-        
+        return res.status(500).json({ message: error });
     }
 })
 

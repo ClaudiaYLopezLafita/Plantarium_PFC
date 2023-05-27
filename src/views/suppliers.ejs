@@ -77,13 +77,13 @@
         <div class="container-fluid mb-4 mt-0 p-0">
             <!-- Filter-->
             <div class="row m-auto border-bottom border-success border-1">
-                <form class="row g-3 mb-3 mt-0 justify-content-around">
+                <form method="get" action="/suppliers/filter" class="row col-sm-10 g-3 mb-3 mt-0 justify-content-around">
                     <div class="col-auto">
-                        <label for="search" class="form-label">Buscar:</label>
+                        <label for="search" class="form-label fw-bold">Buscar:</label>
                         <input type="text" class="form-control" name = "search" id="search" placeholder="Type to search">
                     </div>
                     <div class="col-auto">
-                        <label for="select_orden_alfabético" class="form-label">Orden Alfabético:</label>
+                        <label for="select_orden_alfabético" class="form-label fw-bold">Orden Alfabético:</label>
                         <select class="form-select form-select-md" name="orden" aria-label="Ejemplo de .form-select-sm" id="select_orden_alfabético">
                             <option selected>---</option>
                             <option value="ASC">Ascendente</option>
@@ -93,10 +93,10 @@
                     <div class="col-auto">
                         <button type="submit" class="btn btn-outline-dark mt-4">Filtrar</button>
                     </div>
-                    <div class="col-auto">
-                        <a href="/suppliers/list" class="btn btn-outline-danger mt-4">Limpiar</a>
-                    </div>
                 </form>
+                <div class="col-sm-2">
+                    <a href="/suppliers/list" class="btn btn-outline-danger mt-5 mb-1">Limpiar</a>
+                </div>
             </div>
             <!-- Buttom new-->
             <div class="row m-5 justify-content-end">
