@@ -136,6 +136,40 @@ router.post('/update', async (req, res, next)=>{
     }
 })
 
+/* GET filter planst Admin */
+router.get('/filter-admin', async (req, res, next)=>{
+    const {search, orden} = req.query;
+    console.log(req.query)
+    try {
+
+        // Construimos la consulta plantas para que nos traiga todo
+        const query = Plant.find();
+
+        // Aplica el filtro según el parámetro de búsqueda
+        if (search) {
+            query.or([
+                // mira que "contenga" en el código
+                { codPlant: { $regex: search, $options: 'i' } },
+                // mira el nombre
+                { sciName: { $regex: search, $options: 'i' } }
+            ]);
+        }
+
+        // Aplica el orden según el parámetro de orden
+        query.sort({ sciName: orden === 'DESC' ? -1 : 1 })
+        query.sort({ sciName: orden === 'ASC' ? 1 : -1 })
+
+        // Ejecutamos la consulta
+        const plants = await query.exec();
+        // return res.status(200).json(plants);
+        // devolvemos los filtradro
+        res.render('list-plants' ,{ title: 'Plantarium', btnNav: 'Logout', plantas: plants });
+        
+    } catch (error) {
+        return res.status(500).json({ message: error });
+    }
+})
+
 //Busqueda: categoria -- { categories: { $all: [category] } }
 /*Busqueda por seach --                 
 {   

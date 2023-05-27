@@ -27,7 +27,7 @@
         <div class="container-fluid mb-4 mt-0 p-0">
             <!-- Filter-->
             <div class="row m-auto border-bottom border-success border-1">
-                <form class="row g-3 mb-3 mt-0 justify-content-around">
+                <form method="get" action="/plants/filter-admin" class="row col-sm-10 g-3 mb-3 mt-0 justify-content-around">
                     <div class="col-auto">
                         <label for="search" class="form-label">Buscar:</label>
                         <input type="text" class="form-control" name = "search" id="search" placeholder="Type to search">
@@ -43,10 +43,10 @@
                     <div class="col-auto">
                         <button type="submit" class="btn btn-outline-dark mt-4">Filtrar</button>
                     </div>
-                    <div class="col-auto">
-                        <a href="#" class="btn btn-outline-danger mt-4">Limpiar</a>
-                    </div>
                 </form>
+                <div class="col-sm">
+                    <a href="/plants/plantas" class="btn btn-outline-danger mt-5">Limpiar</a>
+                </div>
             </div>
             <!-- Buttom new-->
             <div class="row m-5 justify-content-end">
