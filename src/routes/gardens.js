@@ -24,7 +24,7 @@ router.post('/', async (req, res, next) => {
 
   try {
     const subscriptionExist = await Subscription.findOne({codSubscription: subscription}).populate();
-    console.log(subscriptionExist)
+    // console.log(subscriptionExist)
 
     if(subscriptionExist){
         const codGarden = generateCodGarden();
@@ -42,7 +42,6 @@ router.post('/', async (req, res, next) => {
         res.status(404).send("Subscripcion no localizado");
     }
   } catch (error) {
-      console.error(error);
       res.status(500).send("Jardin no creado error en el servidor")
   }
 
@@ -77,7 +76,9 @@ router.get('/:id', async (req, res, next) =>{
 /* POST insert plant */
 router.post('/insert-plant', async (req, res, next) =>{
   // capturar el cookie con id user
-  const {idplant, iduser} = req.body;
+  const {idPlant} = req.body;
+  const iduser = req.cookies.userid
+  console.log('COOKIE: '+iduser)
   try {
     const userExist = await User.findById(iduser);
 
@@ -97,19 +98,19 @@ router.post('/insert-plant', async (req, res, next) =>{
           // Agregar la nueva planta al array existente
           if (gardenExist.plants && gardenExist.plants.length > 0) {
             // operador spread para agregar todos los elementos que vengan
-            gardenExist.plants.unshift(idplant);
+            gardenExist.plants.unshift(idPlant);
           }else{
-            gardenExist.plants.push(idplant);
+            gardenExist.plants.push(idPlant);
           }
           await gardenExist.save()
 
-          const planta = await Plant.findById(idplant);
+          const planta = await Plant.findById(idPlant);
           planta.gardens.push(gardenExist._id);
 
           await planta.save()
           // res.render('garden', { title: 'Plantarium', btnNav: 'Logout',  garden: gardenExist});
-          return res.status(200).send('Planta insertada')
-          // res.redirect(req.get('referer'));
+          // return res.status(200).send('Planta insertada')
+          res.redirect(req.get('referer'));
         }
       }
     }
@@ -122,10 +123,9 @@ router.post('/insert-plant', async (req, res, next) =>{
 router.post('/delete-plant', async (req, res, next) =>{
 
   const{idPlant, idGarden} = req.body
-  console.log(req.body)
   try {
     const gardenExist = await Garden.findById(idGarden);
-    console.log(gardenExist)
+    // console.log(gardenExist)
     if(gardenExist){
       //borramos la planta del array de plants del jardin
       const plantArray = gardenExist.plants;

@@ -32,12 +32,9 @@
         <!-- ROW 1 -  name plant -->
         <div class="row m-2 my-4 d-flex flex-colum align-items-center justify-content-between">
             <h2 class="col-10 text-center text-uppercase"><%= planta.comName %></h2>
-            <form class="col-1 text-center">
-                <input type="text" value="" hidden>
-                <form action="/gardens/insert-plant" method="post">
-                    <input type="text" name="idPlant" value="<%= planta._id %>" hidden>
-                    <button type="submit" class="btn btn-outline-success"> Add <i class="fa-solid fa-plus"></i></button>
-                </form>
+            <form action="/gardens/insert-plant" method="post">
+                <input type="text" name="idPlant" value="<%= planta._id %>" hidden>
+                <button type="submit" class="btn btn-outline-success"> Add <i class="fa-solid fa-plus"></i></button>
             </form>
         </div>
 
