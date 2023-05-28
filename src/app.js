@@ -8,7 +8,7 @@ require('dotenv').config();
 //CONECTION DB
 var mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-mongoose.connect(process.env.DB_URI,)
+mongoose.connect(process.env.DB_URI)
   .then(() => console.log('Database connection successful'))
   .catch((err) => console.error(err));
 mongoose.connection;

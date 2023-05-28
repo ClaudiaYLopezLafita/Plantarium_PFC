@@ -82,12 +82,12 @@ router.get('/list/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) =>{
     const {sciName, comName, genus, family,
     distribution, habitat, description, curiosities, precautions,
-    categories,images, status } = req.body;
+    categories,images, } = req.body;
 
     try {
         const codPlant = generateCodPlant(sciName);
 
-        const newPlant = Plant.create({
+        const newPlant = await Plant.create({
             codPlant,
             sciName, 
             comName, 
@@ -100,7 +100,6 @@ router.post('/', async (req, res, next) =>{
             precautions,
             categories,
             images, 
-            status
         })
 
         return res.status(200).send('Planta creada correctamente')
