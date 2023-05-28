@@ -157,7 +157,7 @@
                         <div class="p-4">
                             <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
                             <div class="row py-2 justify-content-around bg-light bg-opacity-75 rounded-2">
-                                <!-- AQUI HACER CONDICIONAL DEL COOKIE PARA MOSTRAR INFORMACIÓN-->
+                                <% if (planta.attendance !== undefined) { %>
                                 <div class="col-sm-5">
                                     <p><b>Riego:</b> <%= planta.attendance.water %> </p>
                                     <p><b>Sustrato: </b> <%= planta.attendance.soil %></p>
@@ -169,6 +169,9 @@
                                 <div class="col-sm-5">
                                     <p><b>Comentarios:</b> <%= planta.attendance.comment %></p>
                                 </div>
+                                <% } else {%>
+                                    <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                                <%}%>
                             </div>
                         </div>
                     <%}%>
@@ -186,6 +189,7 @@
                         <div class="p-4">
                             <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
                             <div class="row py-2 justify-content-around bg-light bg-opacity-75  rounded-2">
+                                <% if (planta.symptoms.length > 0) { %>
                                 <div id="accordion m-2">
                                     <% planta.symptoms.forEach((symptom) =>{ %>
                                     <div class="card">
@@ -213,27 +217,34 @@
                                     </div>
                                     <% }) %>
                                 </div>
+                                <% } else {%>
+                                    <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                                <%}%>
                             </div>
                         </div>
                     <%}%>
                 </div>
                 <div class="tab-pane container fade" id="supplier">
                     <div class="m-5 bg-light bg-opacity-75 p-2 content">
-                        <% planta.suppliers.forEach((supplier) =>{ %>
-                        <div class="row border border-dark border-1 mx-2">
-                            <div class="col-sm-10 p-2 pt-3">
-                                <h5><%= supplier.name%>  <a href="<%= supplier.url%>" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a></h5>
-                                <div class="d-flex align-items-baseline justify-content-between">
-                                    <p class="d-inline mr-2"><i class="bi bi-telephone-fill"></i>  <%= supplier.phone%></p> <br>
-                                    <p class="d-inline mr-2"><i class="bi bi-geo-alt-fill"></i>  <%= supplier.address%></p>
-                                    <p class="d-inline"><i class="bi bi-envelope-at-fill"></i>  <%= supplier.email%></p>
+                        <% if (planta.suppliers.length > 0) { %>
+                            <% planta.suppliers.forEach((supplier) =>{ %>
+                            <div class="row border border-dark border-1 mx-2">
+                                <div class="col-sm-10 p-2 pt-3">
+                                    <h5><%= supplier.name%>  <a href="<%= supplier.url%>" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a></h5>
+                                    <div class="d-flex align-items-baseline justify-content-between">
+                                        <p class="d-inline mr-2"><i class="bi bi-telephone-fill"></i>  <%= supplier.phone%></p> <br>
+                                        <p class="d-inline mr-2"><i class="bi bi-geo-alt-fill"></i>  <%= supplier.address%></p>
+                                        <p class="d-inline"><i class="bi bi-envelope-at-fill"></i>  <%= supplier.email%></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 d-flex align-items-center justify-content-center flex-column">
+                                    <a href="" class="text-dark"><i class="bi bi-map-fill" style="font-size: 1.25rem;"></i> See Map</a>
                                 </div>
                             </div>
-                            <div class="col-sm-2 d-flex align-items-center justify-content-center flex-column">
-                                <a href="" class="text-dark"><i class="bi bi-map-fill" style="font-size: 1.25rem;"></i> See Map</a>
-                            </div>
-                        </div>
-                        <% }) %>
+                            <% }) %>
+                        <% } else {%>
+                            <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                        <%}%>
                     </div>
                 </div>
             </div>

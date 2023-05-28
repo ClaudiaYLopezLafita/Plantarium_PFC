@@ -108,8 +108,6 @@ router.post('/insert-plant', async (req, res, next) =>{
           planta.gardens.push(gardenExist._id);
 
           await planta.save()
-          // res.render('garden', { title: 'Plantarium', btnNav: 'Logout',  garden: gardenExist});
-          // return res.status(200).send('Planta insertada')
           res.redirect(req.get('referer'));
         }
       }
