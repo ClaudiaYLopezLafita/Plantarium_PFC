@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User')
+var Supplier = require('../models/Supplier')
 var moment = require('moment')
+const axios = require('axios');
 const ROLE_ADMIN = 'admin';
 
 /* GET eror page. */
@@ -188,7 +190,46 @@ router.get('/garden', async (req, res, ne) =>{
 
 /* GET list page plants only admin*/
 router.get('/new-plant', async (req, res, next) => {
-	res.render('new-plant', { title: 'Plantarium', btnNav: 'Logout'});
+	try {
+		const proveedores = await listerProveedores();
+		const sintomas = await listerSintomas();
+		const cuidados = await listerCuidados();
+		res.render('new-plant', { title: 'Plantarium', btnNav: 'Logout', 
+		suppliers: proveedores, symptoms: sintomas, attendances: cuidados});
+
+	} catch (error) {
+		console.error(`Error: ${error}`);
+	}
 })
+
+async function listerProveedores(){
+	try {
+		const response = await axios.get('http://localhost:5000/suppliers/lister');
+		const proveedores = response.data
+		return proveedores;
+	} catch (error) {
+		console.error(`Error: ${error}`);
+	}
+}
+
+async function listerSintomas(){
+	try {
+		const response = await axios.get('http://localhost:5000/symptoms');
+		const sintomas = response.data
+		return sintomas;
+	} catch (error) {
+		console.error(`Error: ${error}`);
+	}
+}
+
+async function listerCuidados(){
+	try {
+		const response = await axios.get('http://localhost:5000/attendances');
+		const cuidados = response.data
+		return cuidados;
+	} catch (error) {
+		console.error(`Error: ${error}`);
+	}
+}
 
 module.exports = router;

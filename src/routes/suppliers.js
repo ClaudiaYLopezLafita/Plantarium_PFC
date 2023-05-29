@@ -22,6 +22,16 @@ router.get('/list', async(req, res, next) =>{
     .catch(err => res.status(500).json({ message: err }));
 })
 
+router.get('/lister', async(req, res, next) =>{
+    Supplier.find()
+    .then(
+        suppliers => {
+            return res.status(200).json(suppliers)
+        }
+    )
+    .catch(err => res.status(500).json({ message: err }));
+})
+
 /* GET only one supplier */
 router.get('/list/:id', async (req, res, next) => {
     console.error(req.params.id);

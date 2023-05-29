@@ -11,8 +11,16 @@ var db = mongoose.connection;
 
 /* GET ALL attendances */
 router.get('/', async (req, res, next) =>{
-    Attendance.find()
-        .then(attendances => res.status(200).json(attendances))
+    Attendance.find().populate(
+        [{
+            path: 'plant',
+            model: 'Plant',
+            select: '-_id ' 
+        }]
+    )
+        .then(
+            attendances => { return res.status(200).json(attendances)} 
+        ) 
         .catch(err => res.status(500).json({ message: err }));
 })
 

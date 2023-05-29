@@ -67,6 +67,6 @@
     for (i = 0; i < x.length; i++) {
         x[i].className = x[i].className.replace(" active", "");
     }
-    // agrega la sale activa solo en la pestaña actual
+    // agrega la clase activa solo en la pestaña actual
     x[n].className += " active";
     }
