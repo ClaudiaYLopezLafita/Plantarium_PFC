@@ -63,9 +63,7 @@ router.get('/list/:id', async (req, res, next) => {
             var categorias = plantExist.categories;
             const listaCategorias = categorias.join(" | ")
             if(req.cookies.userid!="undefined" && req.cookies.userid!=undefined){
-                console.log('USER ID:'+req.cookies.userid)
-                console.log('Planta '+ plantExist)
-                console.log('CATEGORIAS: '+listaCategorias)
+
                 res.render('filePlant', { title: 'Plantarium', btnNav: 'Logout',  planta: plantExist, categories: listaCategorias, userCookie: req.cookies.userid});
             }else{
                 res.render('filePlant', { title: 'Plantarium', btnNav: 'Session',  planta: plantExist, categories: listaCategorias, userCookie: "" });
@@ -150,7 +148,7 @@ router.post('/', async (req, res, next) =>{
 
         const listPlants = await Plant.find()
 
-        res.render('list-plants' ,{ title: 'Plantarium', btnNav: 'Logout', plantas: listPlants });
+        res.redirect(req.get('referer'));
     } catch (error) {
         console.error(`Error: ${error}`);
     }
@@ -160,6 +158,28 @@ router.post('/', async (req, res, next) =>{
 router.post('/delete', async (req, res, next)=>{
     const {id} = req.body;
     try {
+        // Eliminar la referencia a la planta en el array de plants de las entidades relacionadas
+        // usado de updateMany para buscar y actualizar todas las entidades relacionadas
+        await Garden.updateMany(
+            { plants: id },
+            // $pull se utiliza para eliminar el elemento
+            { $pull: { plants: id } }
+        );
+        await Supplier.updateMany(
+            { plants: id },
+            { $pull: { plants: id } }
+        );
+        // elimina el campo plant de los documentos que coincidan con la consult
+        await Attendance.updateMany(
+            { plant: id },
+            { $unset: { plant: 1 } }
+        );
+        await Symptom.updateMany(
+            { plants: id },
+            { $pull: { plants: id } }
+        );
+
+        //borramos la planta
         const plantDelete = await Plant.findByIdAndRemove(id);
         res.redirect(req.get('referer'));
     } catch (error) {
