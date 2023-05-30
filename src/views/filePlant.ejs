@@ -131,13 +131,13 @@
                         <div class="row py-2 justify-content-around bg-light bg-opacity-75  rounded-2">
                             <div class="col-sm-5">
                                 <p><b>Nombre Común:</b> <%= planta.comName %></p>
+                                <p><b>Nombre Científico:</b> <%= planta.sciName %></p>
+                                <p><b>Familia:</b> <%= planta.family %></p>
                                 <p><b>Género:</b> <%= planta.genus %></p>
                                 <p><b>Distribución:</b> <%= planta.distribution %></p>
                                 <p><b>Hábitat:</b> <%= planta.habitat %> </p>
                             </div>
                             <div class="col-sm-5">
-                                <p><b>Nombre Científico:</b> <%= planta.sciName %></p>
-                                <p><b>Familia:</b> <%= planta.family %></p>
                                 <p><b>Curiosidades: </b> <%= planta.curiosities %></p>
                                 <p><b>Precauciones:</b> <%= planta.precautions %></p>
                             </div>
@@ -170,7 +170,7 @@
                                     <p><b>Comentarios:</b> <%= planta.attendance.comment %></p>
                                 </div>
                                 <% } else {%>
-                                    <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                                    <p class="text-center mb-0 text-uppercase fs-6"> sin datos para mostrar </p>
                                 <%}%>
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                                     <% }) %>
                                 </div>
                                 <% } else {%>
-                                    <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                                    <p class="text-center mb-0 text-uppercase fs-6"> sin datos para mostrar </p>
                                 <%}%>
                             </div>
                         </div>
@@ -229,12 +229,12 @@
                         <% if (planta.suppliers.length > 0) { %>
                             <% planta.suppliers.forEach((supplier) =>{ %>
                             <div class="row border border-dark border-1 mx-2">
-                                <div class="col-sm-10 p-2 pt-3">
-                                    <h5><%= supplier.name%>  <a href="<%= supplier.url%>" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a></h5>
+                                <div class="col-sm-10 p-2 pb-0 pt-1">
+                                    <h5><%= supplier.name%>  <a href="<%= supplier.url%>" target="_blank"><i class="bi bi-box-arrow-up-right" style="color: black; font-size: 1rem;"></i></a></h5>
                                     <div class="d-flex align-items-baseline justify-content-between">
-                                        <p class="d-inline mr-2"><i class="bi bi-telephone-fill"></i>  <%= supplier.phone%></p> <br>
-                                        <p class="d-inline mr-2"><i class="bi bi-geo-alt-fill"></i>  <%= supplier.address%></p>
-                                        <p class="d-inline"><i class="bi bi-envelope-at-fill"></i>  <%= supplier.email%></p>
+                                        <p class="d-inline mr-2 mb-0"><i class="bi bi-telephone-fill"></i>  <%= supplier.phone%></p> <br>
+                                        <p class="d-inline mr-2 mb-0"><i class="bi bi-geo-alt-fill"></i>  <%= supplier.address%></p>
+                                        <p class="d-inline mb-0"><i class="bi bi-envelope-at-fill"></i>  <%= supplier.email%></p>
                                     </div>
                                 </div>
                                 <div class="col-sm-2 d-flex align-items-center justify-content-center flex-column">
@@ -243,7 +243,7 @@
                             </div>
                             <% }) %>
                         <% } else {%>
-                            <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                            <p class="text-center mb-0 text-uppercase fs-6"> sin datos para mostrar </p>
                         <%}%>
                     </div>
                 </div>
