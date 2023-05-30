@@ -29,7 +29,7 @@
             <h2 class="text-center text-uppercase mb-0"> NEW PLANT</h2>
             <!-- MultiStep Form -->
             <div id="container_form row">
-                <form id="register_plant" class="mt-0 col-sm-9 shadow-lg" action="#" method="post">
+                <form action="/plants" method="post" id="register_plant" class="mt-0 col-sm-9 shadow-lg" >
                     <!-- start step indicators -->
                     <div class="form-header d-flex mb-4">
                         <span class="stepIndicator fs-6">Planta</span>
@@ -199,10 +199,10 @@
                             <% if(attendances && attendances.length > 0) { %>
                               <% attendances.forEach((attendance) =>{ %>
                                 <tr>
-                                  <td class="text-center"><%= attendance.plant.sciName %></td>
+                                  <td class="text-center"><%= attendance._id %></td>
                                   <td class="text-center"><%= attendance.codAttendace %></td>
                                   <td class="text-center">
-                                    <input type="checkbox" name="suppliers" value="<%= attendance._id %>" id="<%= attendance._id %>">
+                                    <input type="checkbox" name="attendance" value="<%= attendance._id %>" id="<%= attendance._id %>">
                                   </td>
                                 </tr>
                               <% }) %>
@@ -232,7 +232,7 @@
                                   <td class="text-center"><%= symptom.codSymptom %></td>
                                   <td class="text-center"><%= symptom.title %></td>
                                   <td class="text-center">
-                                    <input type="checkbox" name="suppliers" value="<%= symptom._id %>" id="<%= symptom._id %>">
+                                    <input type="checkbox" name="symptoms" value="<%= symptom._id %>" id="<%= symptom._id %>">
                                   </td>
                                 </tr>
                               <% }) %>
@@ -277,7 +277,7 @@
                     <div class="form-footer d-flex">
                       <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                       <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                  </div>
+                    </div>
                   <!-- end previous / next buttons -->
                 </form>
             </div>

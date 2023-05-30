@@ -15,7 +15,14 @@
         document.getElementById("prevBtn").style.display = "inline";
     }
     if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
+        document.getElementById("nextBtn").remove();
+        let botonEnviar = document.createElement('button');
+        
+        // Configura los atributos y propiedades del botón
+        botonEnviar.textContent = 'Enviar';
+        botonEnviar.type = 'submit';
+        let formFooter = document.querySelector('.form-footer');
+        formFooter.appendChild(botonEnviar);
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }

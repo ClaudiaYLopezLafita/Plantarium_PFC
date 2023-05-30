@@ -28,15 +28,11 @@ router.get('/', async (req, res, next) =>{
 router.post('/', async (req, res, next) =>{
     const{codAttendace, water, soil, compost, moisture,
         temperature, lightning, comment, plant} = req.body;
+    console.log(req.body)
     try {
-        const plantExits = Plant.findById(plant);
-        
-        if(plantExits){
-            const attendance = await Attendance.create(req.body);
-            return res.status(200).json(attendance);
-        }else{
-            return res.status(404).send('Planta existente en la base de datos');
-        }
+        const attendance = await Attendance.create(req.body);
+        return res.status(200).json(attendance);
+
     } catch (error) {
         return res.status(500).json({ message: error });
     }

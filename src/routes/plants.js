@@ -83,27 +83,74 @@ router.get('/list/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) =>{
     const {sciName, comName, genus, family,
     distribution, habitat, description, curiosities, precautions,
-    categories,images, } = req.body;
+    categories,images, attendance, gardens,suppliers, symptoms
+    } = req.body;
+    const imagesArray = images.split(',');
 
     try {
         const codPlant = generateCodPlant(sciName);
 
         const newPlant = await Plant.create({
-            codPlant,
-            sciName, 
-            comName, 
-            genus, 
-            family,
-            distribution, 
-            habitat, 
-            description, 
-            curiosities, 
-            precautions,
-            categories,
-            images, 
+            codPlant,sciName,comName, genus, family, distribution, 
+            habitat, description, curiosities, precautions,categories,
+            images: imagesArray,attendance,gardens,suppliers,symptoms
         })
 
-        return res.status(200).send('Planta creada correctamente')
+        const plantaIDNueva = await Plant.findById(newPlant._id)
+        const idPlant = plantaIDNueva._id
+
+        // relacionamos la planta con el cuidado
+        const attendanceEx = await Attendance.findById(attendance);
+        attendanceEx.plant = newPlant._id;
+        await attendanceEx.save()
+
+        //relacionamos la planta con los proveedores
+        if (Array.isArray(suppliers)){
+            // viene un array
+            suppliers.forEach( async element => {
+                const supplierEx =  await Supplier.findById(element);
+                if(supplierEx){
+                    const arrayPlants = supplierEx.plants || []; 
+                    arrayPlants.push(idPlant)
+                    await supplierEx.save()
+                }
+            });
+        } else {
+            // viene un solo elemento
+            const supplierEx = await Supplier.findById(suppliers);
+            if (supplierEx) {
+                const arrayPlants = supplierEx.plants || []; 
+                arrayPlants.push(idPlant)
+                supplierEx.plants = arrayPlants;
+                await supplierEx.save()
+            }
+        }
+        
+        //relacionamos la planta con los sintomas
+        if (Array.isArray(symptoms)) {
+            // viene un array
+            symptoms.forEach( async element => {
+                const symptomEx = Symptom.findById(element);
+                if(symptomEx){
+                    const arrayPlants = symptomEx.plants || []; 
+                    arrayPlants.push(idPlant)
+                    await symptomEx.save()
+                }
+            });
+        } else {
+            // viene un solo elemento
+            const symptomEx = await Symptom.findById(symptoms);
+            if (symptomEx) {
+                const arrayPlants = symptomEx.plants || []; 
+                arrayPlants.push(idPlant)
+                symptomEx.plants = arrayPlants;
+                await symptomEx.save()
+            }
+        }
+
+        const listPlants = await Plant.find()
+
+        res.render('list-plants' ,{ title: 'Plantarium', btnNav: 'Logout', plantas: listPlants });
     } catch (error) {
         console.error(`Error: ${error}`);
     }

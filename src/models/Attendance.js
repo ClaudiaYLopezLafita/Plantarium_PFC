@@ -43,7 +43,7 @@ var AttendanceSchema= new Schema({
     plant: {
         type: Schema.ObjectId, 
         ref: 'Plant', 
-        required: true
+        required: false
     }
 
 });
