@@ -4,29 +4,15 @@
     <%- include('partials/head');%>
 </head>
 <body id="error">
-    <!-- STAR HEADER -->
-    <header>
-        <%- include('partials/header');%>
-    </header>
-    <!-- END HEADER-->
-
-    <!-- START MAIN-->
     <div class="m-5 d-flex align-items-center justify-content-center min-vh-100 error">
         <div class="text_fondo p-5 text-center">
-            <h1 class="display-1 fw-bold"><%= numError %></h1>
-            <p class="fs-3"> <span class="text-danger">Opps!</span> <%= title_error %></p>
+            <h1 class="display-1 fw-bold">404</h1>
+            <p class="fs-3"> <span class="text-danger">Opps!</span> PRUEBA</p>
             <p class="lead">
-                <%= message %>
+                MENSAJE
             </p>
             <a href="/" class="btn rounded-pill goHome">Go Home</a>
         </div>
-    </div>
-    <!-- END MAIN-->
-
-    <!-- STAR FOOTER -->
-    <footer>
-        <%- include('partials/footer');%>
-    </footer>
-    <!-- END FOOTER -->
+</div>
 </body>
 </html>

@@ -8,7 +8,12 @@ const ROLE_ADMIN = 'admin';
 
 /* GET eror page. */
 router.get('/error', function(req, res, next) {
-	res.render('errorPage', { title: 'Plantarium', btnNav: 'Session' });
+	res.render('error', { title: 'Plantarium', btnNav: 'Session' });
+});
+
+/* GET eror page. */
+router.get('/error-info', function(req, res, next) {
+	res.render('errorPage', { title: 'Plantarium' });
 });
 
 /* GET home page. */
