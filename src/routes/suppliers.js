@@ -64,7 +64,7 @@ async (req, res, next)=>{
         if (!errors.isEmpty()) {
             return res.status(500).json({ errors: errors.array() })
         }else{
-            const {name, email, url, address, phone, locality, plants} = req.body;
+            const {name, email, url, address, phone, locality, plants, ubicacion} = req.body;
             const codSupplier = generateCodigo(name);
             const newSupplier = Supplier.create({
                 codSupplier,
@@ -74,7 +74,8 @@ async (req, res, next)=>{
                 url, 
                 phone, 
                 locality, 
-                plants
+                plants,
+                ubicacion
             })
 
             const sppCreate = await Supplier.findOne({ codSupplier });

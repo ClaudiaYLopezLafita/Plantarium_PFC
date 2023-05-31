@@ -4,6 +4,20 @@
     <%- include('partials/head');%>
 </head>
 <body id="filePlant">
+    <!-- MODAL -->
+    <div id="mapModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center text-uppercase">Ubicación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="supplierMap" style="height: 400px;" class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- START HEADER-->
     <header>
         <% if (userCookie === '') { %>
@@ -238,7 +252,10 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2 d-flex align-items-center justify-content-center flex-column">
-                                    <a href="" class="text-dark"><i class="bi bi-map-fill" style="font-size: 1.25rem;"></i> See Map</a>
+                                    <a href="" class="text-dark map-link" data-coordinates="<%= supplier.ubicacion.coordinates %>">
+                                        <i class="bi bi-map-fill" style="font-size: 1.25rem;"></i> 
+                                        See Map
+                                    </a>
                                 </div>
                             </div>
                             <% }) %>
@@ -257,5 +274,30 @@
         <%- include('partials/footer');%>
     </footer>
     <!-- END FOOTER-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mapLinks = document.getElementsByClassName('map-link');
+            const modal = new bootstrap.Modal(document.getElementById('mapModal'));
+            
+            for (let i = 0; i < mapLinks.length; i++) {
+                mapLinks[i].addEventListener('click', function(event) {
+                    //evitamos el comportamiento predeterminado de click
+                    event.preventDefault();
+                    //capturamos las coordenadas del proveedor
+                    const coordinates = this.getAttribute('data-coordinates').split(',').map(Number);
+                    // creamos una intancia de mapa map 
+                    const supplierMap = L.map('supplierMap').setView(coordinates, 15);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+                        maxZoom:19
+                    }).addTo(supplierMap);
+                    // se añade el iconito de ubicacion al mapa
+                    L.marker(coordinates).addTo(supplierMap);
+                    //mostreamos el modal
+                    modal.show();
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -40,11 +40,18 @@ var SupplierSchema = new Schema({
             ref: 'Plant',  
             default: null
         }
-    ]
-    // coordinates:{ 
-    //     type: "Point", 
-    //     required: true
-    // },
+    ],
+    ubicacion: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            default: 'Point'
+        },
+        coordinates: {
+            type: [Number],
+            required: false
+        }
+    }
 });
 
 //Exportación del modelo

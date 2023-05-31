@@ -63,6 +63,10 @@
                             <input type="text" class="form-control" name="plants" id="plants" value="<%= proveedor.plants %>" placeholder="Plantas">
                             <label for="plants">Plantas</label>
                         </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" name="ubicacion" id="ubicacion" value="<%= proveedor.ubicacion.coordinates %>" placeholder="Plantas">
+                            <label for="ubicacion">Coordenadas</label>
+                        </div>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-lg-center mb-3">
                         <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnUpdate">MODIFICAR CAMBIOS</button>
