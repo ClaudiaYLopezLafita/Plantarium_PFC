@@ -207,6 +207,20 @@ router.get('/new-plant', async (req, res, next) => {
 	}
 })
 
+/* GET list page plants only admin*/
+router.get('/edit-plant', async (req, res, next) => {
+	try {
+		const proveedores = await listerProveedores();
+		const sintomas = await listerSintomas();
+		const cuidados = await listerCuidados();
+		res.render('edit-plant', { title: 'Plantarium', btnNav: 'Logout', 
+		suppliers: proveedores, symptoms: sintomas, attendances: cuidados});
+
+	} catch (error) {
+		console.error(`Error: ${error}`);
+	}
+})
+
 async function listerProveedores(){
 	try {
 		const response = await axios.get('http://localhost:5000/suppliers/lister');
