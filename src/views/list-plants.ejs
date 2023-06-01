@@ -72,8 +72,8 @@
                                     <td class="text-center fw-bold"><%= planta.codPlant %></td>
                                     <td class="text-center"><%= planta.sciName %></td>
                                     <td class="text-center d-flex flex-row justify-content-center">
-                                        <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil-square" style="color:black; font-size: 1.45rem;"></i></a>
-                                        <form action="/plants/delete" method="post">
+                                        <a href="./plantas/<%= planta._id %>" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="bi bi-pencil-square" style="color:black; font-size: 1.45rem;"></i></a>
+                                        <form action="/plants/delete" method="post" class="mx-3">
                                             <input type="text" name="id" value="<%= planta._id %>" id="id" hidden>
                                             <button type="submit" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash3-fill" style="color:red; font-size: 1.25rem;"></i></button>
                                         </form>

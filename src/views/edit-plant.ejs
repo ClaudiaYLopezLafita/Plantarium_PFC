@@ -21,11 +21,10 @@
         </nav>
     </div>
     <!-- END BREADCRUMB -->
-
     <!-- STAR MAIN -->
     <div  class="container-fluid my-4">
         <div class="mb-3">
-            <h4 class="text-center text-uppercase">editando: nombre cientifico</h4>
+            <h4 class="text-center text-uppercase">editando: <em><%= planta.sciName %></em></h4>
         </div>
         <!--contenedor con form-->
         <div class="container">
@@ -43,48 +42,48 @@
                             <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col form-floating mb-3">
-                                        <input type="text" class="form-control border border-success" id="sci_name" name="sciName" placeholder="Name name">
-                                        <label for="sci_name">Nombre Científico</label>
+                                        <input type="text" class="form-control border border-success" id="sci_name" name="sciName" value="<%= planta.sciName %>" placeholder="Name name">
+                                        <label for="sci_name" class="mx-2">Nombre Científico</label>
                                     </div>
                                     <div class="col form-floating">
-                                        <input type="text" class="form-control border border-success" id="com_name" name="comName" placeholder="Name">
-                                        <label for="com_name">Nombre Común</label>
+                                        <input type="text" class="form-control border border-success" id="com_name" name="comName" value="<%= planta.comName %>" placeholder="Name">
+                                        <label for="com_name" class="mx-2">Nombre Común</label>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col form-floating mb-3">
-                                        <input type="text" class="form-control" id="genus" name="genus" placeholder="Genus">
-                                        <label for="genus">Género</label>
+                                        <input type="text" class="form-control border border-success" id="genus" name="genus" value="<%= planta.genus %>" placeholder="Genus">
+                                        <label for="genus" class="mx-2">Género</label>
                                     </div>
                                     <div class="col form-floating">
-                                        <input type="text" class="form-control" id="family" name="family" placeholder="Family">
-                                        <label for="family">Familia</label>
+                                        <input type="text" class="form-control border border-success" id="family" name="family" value="<%= planta.family %>" placeholder="Family">
+                                        <label for="family" class="mx-2">Familia</label>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col form-floating mb-3">
-                                        <input type="text" class="form-control" id="distribution" name="distribution" placeholder="Genus">
-                                        <label for="distribution">Distribución</label>
+                                        <input type="text" class="form-control border border-success" id="distribution" name="distribution" value="<%= planta.distribution %>" placeholder="Genus">
+                                        <label for="distribution" class="mx-2">Distribución</label>
                                     </div>
                                     <div class="col form-floating">
-                                        <input type="text" class="form-control" id="habitat" name="habitat" placeholder="Family">
-                                        <label for="habitat">Hábitat</label>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col form-floating">
-                                        <textarea class="form-control" name="description" placeholder="Leave a comment here" id="description"></textarea>
-                                        <label for="description">Descripcion</label>
-                                    </div>
-                                    <div class="col form-floating">
-                                        <textarea class="form-control" name="curiosities" placeholder="Leave a comment here" id="curiosities"></textarea>
-                                        <label for="curiosities">Curiosidades</label>
+                                        <input type="text" class="form-control border border-success" id="habitat" name="habitat" value="<%= planta.habitat %>" placeholder="Habitat">
+                                        <label for="habitat" class="mx-2">Hábitat</label>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col form-floating">
-                                        <textarea class="form-control" name="precautions" placeholder="Leave a comment here" id="precautions"></textarea>
-                                        <label for="precautions">Precauciones</label>
+                                        <textarea class="form-control border border-success" name="description" placeholder="Leave a comment here" id="description"><%= planta.description %></textarea>
+                                        <label for="description" class="mx-2">Descripcion</label>
+                                    </div>
+                                    <div class="col form-floating">
+                                        <textarea class="form-control border border-success" name="curiosities" placeholder="Leave a comment here" id="curiosities"><%= planta.curiosities %></textarea>
+                                        <label for="curiosities" class="mx-2">Curiosidades</label>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col form-floating">
+                                        <textarea class="form-control border border-success" name="precautions" placeholder="Leave a comment here" id="precautions"><%= planta.precautions %></textarea>
+                                        <label for="precautions" class="mx-2">Precauciones</label>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -94,19 +93,19 @@
                                         <div class="row mb-1">
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox1" name="categories" value="Interior">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox1" name="categories" value="Interior" <% if (categories.includes('Interior')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox1">Interior</label>
                                             </div>
                                             </div>
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox2" name="categories" value="Exterior">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox2" name="categories" value="Exterior" <% if (categories.includes('Exterior')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox2">Exterior</label>
                                             </div>
                                             </div>
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox3" name="categories" value="Carnívora">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox3" name="categories" value="Carnívora" <% if (categories.includes('Carnívora')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox3">Carnívora</label>
                                             </div>
                                             </div>
@@ -115,19 +114,19 @@
                                         <div class="row mb-1">
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox4" name="categories" value="Exótica">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox4" name="categories" value="Exótica" <% if (categories.includes('Exótica')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox4">Exótica</label>
                                             </div>
                                             </div>
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox5" name="categories" value="Suculenta">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox5" name="categories" value="Suculenta" <% if (categories.includes('Suculenta')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox5">Suculenta</label>
                                             </div>
                                             </div>
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox6" name="categories" value="Con Flor">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox6" name="categories" value="Con Flor" <% if (categories.includes('Con Flor')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox6">Con Flor</label>
                                             </div>
                                             </div>
@@ -136,19 +135,19 @@
                                         <div class="row mb-1">
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox7" name="categories" value="Sin Flor">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox7" name="categories" value="Sin Flor" <% if (categories.includes('Sin Flor')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox7">Sin Flor</label>
                                             </div>
                                             </div>
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox8" name="categories" value="Perenne">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox8" name="categories" value="Perenne" <% if (categories.includes('Perenne')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox8">Perenne</label>
                                             </div>
                                             </div>
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox9" name="categories" value="Caduca">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox9" name="categories" value="Caduca" <% if (categories.includes('Caduca')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox9">Caduca</label>
                                             </div>
                                             </div>
@@ -157,13 +156,13 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox10" name="categories" value="Herbácea">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox10" name="categories" value="Herbácea" <% if (categories.includes('Herbácea')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox10">Herbácea</label>
                                             </div>
                                             </div>
                                             <div class="col-md-4">
                                             <div class="custom-control custom-checkbox d-flex">
-                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox11" name="categories" value="Leñosa">
+                                                <input type="checkbox" class="custom-control-input w-25" id="checkbox11" name="categories" value="Leñosa" <% if (categories.includes('Leñosa')) { %>checked<% } %>>
                                                 <label class="custom-control-label" for="checkbox11">Leñosa</label>
                                             </div>
                                             </div>
@@ -173,8 +172,8 @@
                                         <p>Imagenes</p>
                                         <div>
                                             <div class="col form-floating">
-                                            <textarea class="form-control" name="images" placeholder="Leave a comment here" id="images"></textarea>
-                                            <label for="images">Rutas imagenes</label>
+                                            <textarea class="form-control border border-success" name="images" placeholder="Leave a comment here" id="images"><%= planta.images %></textarea>
+                                            <label for="images" class="mx-2">Rutas imagenes</label>
                                             </div>
                                             <small><span style="color: red;">*</span>La ruta de las imagenes deben de 
                                             la siguiente estructura: <em>/images/plantas/nombre_carpeta/imagen,/images/plantas/nombre_carpeta/imagen</em> separadas con coma
@@ -204,16 +203,23 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tr_symptoms">
-
+                                            <% if(attendances && attendances.length > 0) { %>
+                                                <% attendances.forEach((attendance) =>{ %>
                                                 <tr>
-                                                <td class="text-center">codigo</td>
-                                                <td class="text-center">codigo</td>
-                                                <td class="text-center">
-                                                    <input type="checkbox" name="symptoms" value="" id="">
-                                                </td>
+                                                    <td class="text-center"><%= attendance._id %></td>
+                                                    <td class="text-center"><%= attendance.codAttendace %></td>
+                                                    <td class="text-center">
+                                                        <% if (planta.attendance && planta.attendance.equals(attendance._id)) { %>
+                                                            <input type="checkbox" name="attendance" value="<%= attendance._id %>" id="<%= attendance._id %>" checked>
+                                                        <% } else { %>
+                                                            <input type="checkbox" name="attendance" value="<%= attendance._id %>" id="<%= attendance._id %>">
+                                                        <% } %>
+                                                    </td>
                                                 </tr>
-
-                                                <!-- <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p> -->
+                                            <% }) %>
+                                            <% } else {%>
+                                                <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                                            <%}%>
                                         </tbody>
                                     </table>
                                 </div>
@@ -239,16 +245,19 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tr_symptoms">
-
-                                            <tr>
-                                            <td class="text-center">codigo</td>
-                                            <td class="text-center">nombre</td>
-                                            <td class="text-center">
-                                                <input type="checkbox" name="symptoms" value="" id="">
-                                            </td>
-                                            </tr>
-
-                                            <!-- <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p> -->
+                                        <% if(symptoms && symptoms.length > 0) { %>
+                                            <% symptoms.forEach((symptom) =>{ %>
+                                                <tr>
+                                                    <td class="text-center"><%= symptom.codSymptom %></td>
+                                                    <td class="text-center"><%= symptom.title %></td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox" name="symptoms" value="<%= symptom._id %>" id="<%= symptom._id %>" <% if (planta.symptoms.some(s => s._id.toString() === symptom._id.toString())) { %>checked<% } %>>
+                                                    </td>
+                                                </tr>
+                                            <% }) %>
+                                        <% } else {%>
+                                            <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                                        <%}%>
                                     </tbody>
                                 </table>
                             </div>
@@ -274,16 +283,20 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tr_symptoms">
-
+                                        
+                                        <% if(suppliers && suppliers.length > 0) { %>
+                                            <% suppliers.forEach((supplier) =>{ %>
                                             <tr>
-                                            <td class="text-center">codigo</td>
-                                            <td class="text-center">nombre</td>
-                                            <td class="text-center">
-                                                <input type="checkbox" name="symptoms" value="" id="">
-                                            </td>
+                                                <td class="text-center"><%= supplier.codSupplier %></td>
+                                                <td class="text-center"><%= supplier.name %></td>
+                                                <td class="text-center">
+                                                    <input type="checkbox" name="suppliers" value="<%= supplier._id %>" id="<%= supplier._id %>" <% if (planta.suppliers.some(s => s._id.toString() === supplier._id.toString())) { %>checked<% } %>>
+                                                </td>
                                             </tr>
-
-                                            <!-- <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p> -->
+                                            <% }) %>
+                                        <% } else {%>
+                                            <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                                        <%}%>
                                     </tbody>
                                 </table>
                             </div>

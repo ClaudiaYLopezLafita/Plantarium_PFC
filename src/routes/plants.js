@@ -21,6 +21,48 @@ router.get('/plantas', async(req, res, next) => {
     .catch(err => res.status(500).json({ message: err }));
 });
 
+/* GET only one plant */
+router.get('/plantas/:id', async (req, res, next) => {
+    console.error(req.params.id);
+    try {
+        const plantExist = await Plant.findById(req.params.id).populate(
+            [{
+                path: 'suppliers',
+                model: 'Supplier',
+                select: '-codSupplier' 
+            },
+            {
+                path: 'attendance',
+                model: 'Attendance',
+                select: '-codAttendace'
+            }
+            ,
+            {
+                path: 'symptoms',
+                model: 'Symptom',
+                select: ''
+            }
+            ]
+        );
+        if (plantExist) {
+            const cuidados = await  Attendance.find()
+            console.log(cuidados)
+            const sintomas = await  Symptom.find()
+            const proveedores = await  Supplier.find()
+            console.log(cuidados)
+            var categorias = plantExist.categories;
+            const listaCategorias = categorias.join(" | ")
+            res.render('edit-plant', { title: 'Plantarium', btnNav: 'Logout',  planta: plantExist, categories: listaCategorias,
+            attendances: cuidados, symptoms: sintomas, suppliers: proveedores});
+        } else {
+            res.status(404).send('Plant not found');
+        }
+    } catch (error) {
+        console.error(`Error: ${error}`);
+        res.status(500).send('Internal server error');
+    }
+});
+
 /* GET ALL plants */
 router.get('/list', async(req, res, next) => {
     Plant.find()
