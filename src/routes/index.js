@@ -182,19 +182,24 @@ router.get('/statics', verifyCookiesToken ,async (req, res, ne) =>{
 router.get('/suppliers', verifyCookiesToken , function(req, res, next){
 	res.render('suppliers', { title: 'Plantarium', btnNav: 'Logout'});
 })
+/* GET edit page supplier only admin*/
+router.get('/new-supplier', verifyCookiesToken , async (req, res, next) =>{
+	const listPlants = await listerPlantas();
+	res.render('new-supplier', { title: 'Plantarium', btnNav: 'Logout', plantas: listPlants});
+})
 
-/* GET list page supplier only admin*/
+/* GET edit page supplier only admin*/
 router.get('/edit-supplier', verifyCookiesToken , function(req, res, next){
 	res.render('edit-supplier', { title: 'Plantarium', btnNav: 'Logout'});
 })
 
 /*GET garden page subscriptor*/
-router.get('/garden', async (req, res, ne) =>{
+router.get('/garden',verifyCookiesToken, async (req, res, ne) =>{
 	res.render('garden', { title: 'Plantarium', btnNav: 'Logout' });
 });
 
 /* GET list page plants only admin*/
-router.get('/new-plant', async (req, res, next) => {
+router.get('/new-plant', verifyCookiesToken,  async (req, res, next) => {
 	try {
 		const proveedores = await listerProveedores();
 		const sintomas = await listerSintomas();
@@ -207,8 +212,8 @@ router.get('/new-plant', async (req, res, next) => {
 	}
 })
 
-/* GET list page plants only admin*/
-router.get('/edit-plant', async (req, res, next) => {
+/* GET edit plant*/
+router.get('/edit-plant', verifyCookiesToken, async (req, res, next) => {
 	try {
 		
 		res.render('edit-plant', { title: 'Plantarium', btnNav: 'Logout'});
@@ -243,6 +248,16 @@ async function listerCuidados(){
 		const response = await axios.get('http://localhost:5000/attendances');
 		const cuidados = response.data
 		return cuidados;
+	} catch (error) {
+		console.error(`Error: ${error}`);
+	}
+}
+
+async function listerPlantas(){
+	try {
+		const response = await axios.get('http://localhost:5000/plants/lister-plants');
+		const plantas = response.data
+		return plantas;
 	} catch (error) {
 		console.error(`Error: ${error}`);
 	}

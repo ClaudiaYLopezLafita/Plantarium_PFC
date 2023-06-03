@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head');%>
+</head>
+<body id="new-supplier">
+    <!-- STAR HEADER -->
+    <header>
+        <%- include('partials/headerUser');%>
+    </header>
+    <!-- END HEADER-->
+
+    <!-- STAR BREADCRUMB -->
+    <div class="container-fluid py-1 mb-0" id="breadcrumb">
+        <nav class="mx-4 mt-3" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">You Are Currently Here!</li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                <li class="breadcrumb-item text-uppercase text-white" aria-current="page">ACCIONES</li>
+                <li class="breadcrumb-item text-uppercase text-white" aria-current="page">PROVEEDORES</li>
+                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">NUEVO REGISTRO</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- END BREADCRUMB -->
+
+    <div class="container-fluid mb-3">
+        <div class="mt-4">
+            <h3 class="text-center">NUEVO PROVEEDOR</h3>
+        </div>
+        <div class="container mt-4 mx-4 shadow p-2">
+            <form action="/suppliers" method="post" class="row justify-content-around">
+                <!-- columa 1-->
+                <div class="col-sm-5">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="name" id="full_name"  placeholder="Nombre Apellido">
+                        <label for="full_name">Nombre</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Nombre">
+                        <label for="email">Correo Electrónico</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="url" id="url" placeholder="www.example.com">
+                        <label for="url">URL</label>
+                    </div>
+                </div>
+                <!-- columa 2-->
+                <div class="col-sm-5">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="locality" id="locality" placeholder="localidad">
+                        <label for="locality">Localidad</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="number" class="form-control" name="phone" id="phone" placeholder="Telefono">
+                        <label for="phone">Teléfono</label>
+                    </div>
+                    <div class=" row mb-2">
+                        <div class=" col form-floating mb-2">
+                            <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitud">
+                            <label class="mx-2" for="latitude">Latitud</label>
+                        </div>
+                        <div class=" col form-floating mb-2">
+                            <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitud">
+                            <label class="mx-2" for="longitude">Longitud</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-11">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="address" id="address" placeholder="direccion">
+                        <label for="address">Dirección</label>
+                    </div>
+                </div>
+                <hr>
+                <div class="mx-5">
+                    <h5 class="mx-4"> Selecciona las plantas</h5>
+                    <div class="mx-4">
+                        <table class="table table-striped table-hover ">
+                            <thead class="thead">
+                                <tr>
+                                    <th scope="col" class="text-center text-uppercase">código</th>
+                                    <th scope="col" class="text-center text-uppercase">nombre científico</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(plantas && plantas.length > 0) { %>
+                                    <% plantas.forEach((planta) =>{ %>
+                                        <tr>
+                                            <td class="text-center"><%= planta.codPlant %></td>
+                                            <td class="text-center"><%= planta.sciName %></td>
+                                            <td class="text-center">
+                                            <input type="checkbox" name="plants" value="<%= planta._id %>" id="<%= planta._id %>">
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                <% } else {%>
+                                    <tr>
+                                        <td colspan="3">
+                                            <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                                        </td>
+                                    </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-2 mt-1">
+                    <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnUpdate">GUARDAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- STAR FOOTER -->
+    <footer>
+        <%- include('partials/footer');%>
+    </footer>
+    <!-- END FOOTER -->
+</body>
+</html>

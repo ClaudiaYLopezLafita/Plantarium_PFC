@@ -10,56 +10,6 @@
         </header>
         <!-- END HEADER-->
 
-        <!-- STAR MODAL -->
-        <div class="modal fade" id="formCreateSupplier" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h3 class="modal-title">NUEVO PROVEEDOR</h3>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <form action="/suppliers" method="post" class="row g-2 py-2 justify-content-around createSpp rounded-2">
-                            <!-- columa 1-->
-                            <div class="col-sm-5">
-                                <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" name="name" id="full_name"  placeholder="Nombre Apellido">
-                                    <label for="full_name">Nombre</label>
-                                </div>
-                                <div class="form-floating mb-2">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Nombre">
-                                    <label for="email">Correo Electrónico</label>
-                                </div>
-                                <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" name="url" id="url" placeholder="www.example.com">
-                                    <label for="url">URL</label>
-                                </div>
-                            </div>
-                            <!-- columa 2-->
-                            <div class="col-sm-5">
-                                <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" name="locality" id="locality" placeholder="localidad">
-                                    <label for="locality">Localidad</label>
-                                </div>
-                                <div class="form-floating mb-2">
-                                    <input type="number" class="form-control" name="phone" id="phone" placeholder="Telefono">
-                                    <label for="phone">Teléfono</label>
-                                </div>
-                                <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" name="address" id="address" placeholder="direccion">
-                                    <label for="address">Dirección</label>
-                                </div>
-                            </div>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-2 mt-1">
-                                <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnUpdate">GUARDAR</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END MODAL -->
-
         <!-- STAR BREADCRUMB -->
         <div class="container-fluid py-1 mb-0" id="breadcrumb">
             <nav class="mx-4 mt-3" aria-label="breadcrumb">
@@ -101,7 +51,7 @@
             <!-- Buttom new-->
             <div class="row m-5 justify-content-end">
                 <div class="col-sm-2">
-                    <a id="btn_new" class="p-2 rounded-2" data-bs-toggle="modal" data-bs-target="#formCreateSupplier"><i class="bi bi-plus-circle-fill"></i> | Nuevo</a>
+                    <a href="/new-supplier" id="btn_new" class="p-2 rounded-2"><i class="bi bi-plus-circle-fill"></i> | Nuevo</a>
                 </div>
             </div>
             <!-- Table-->

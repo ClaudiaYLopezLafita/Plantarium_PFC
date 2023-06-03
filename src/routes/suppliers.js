@@ -22,6 +22,7 @@ router.get('/list', async(req, res, next) =>{
     .catch(err => res.status(500).json({ message: err }));
 })
 
+
 router.get('/lister', async(req, res, next) =>{
     Supplier.find()
     .then(
@@ -64,9 +65,10 @@ async (req, res, next)=>{
         if (!errors.isEmpty()) {
             return res.status(500).json({ errors: errors.array() })
         }else{
-            const {name, email, url, address, phone, locality, plants, ubicacion} = req.body;
+            const {name, email, url, address, phone, locality, plants, latitude, longitude} = req.body;
             const codSupplier = generateCodigo(name);
-            const newSupplier = Supplier.create({
+            console.log(req.body)
+            const newSupplier = await Supplier.create({
                 codSupplier,
                 name, 
                 email,
@@ -75,17 +77,21 @@ async (req, res, next)=>{
                 phone, 
                 locality, 
                 plants,
-                ubicacion
+                ubicacion: {
+                    type: 'Point',
+                    coordinates: [parseFloat(latitude), parseFloat(longitude)]
+                }
             })
 
             const sppCreate = await Supplier.findOne({ codSupplier });
-            if(sppCreate){
-                res.redirect(req.get('referer'));
-                // const suppliers = await Supplier.find()
-                // res.render('suppliers', { title: 'Plantarium', btnNav: 'Session', proveedores: suppliers });           
-            }else{
-                return res.status(500).send('Error al registrar Proveedo')
-            }
+
+            // Actualizamos la entidad de plant para agregar el ID del proveedor al array de suppliers
+            await Plant.updateMany(
+                { _id: { $in: plants } }, // Filtramos las plants que están relacionadas
+                { $addToSet: { suppliers: sppCreate._id } } // Agregamos el ID del proveedor al array de suppliers
+            );
+
+            res.redirect(req.get('referer'));
 
         }
         
@@ -126,11 +132,16 @@ router.post('/delete', async (req, res, next)=>{
         if(!supplierExist){
             return res.status(404).send('Supplier no encontrado')
         } else{
+
+            // Eliminar el ID del proveedor del array de suppliers en la entidad de planta
+            await Plant.updateMany(
+                { suppliers: id }, // Filtramos las plants que tienen el ID del proveedor
+                { $pull: { suppliers: id } } // Eliminamos el ID del proveedor del array de suppliers
+            );
+
             const supplierDelete= await Supplier.findByIdAndRemove(id)
-            const suppliers = await Supplier.find()
             //recargamos la página
             res.redirect(req.get('referer'));
-            // res.render('suppliers', { title: 'Plantarium', btnNav: 'Session', proveedores: suppliers });           
         }
         
     } catch (error) {

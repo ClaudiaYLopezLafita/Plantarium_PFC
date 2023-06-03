@@ -9,6 +9,7 @@ const Symptom = require('../models/Symptom')
 const Attendance = require('../models/Attendance');
 //conexion bbdd
 var db = mongoose.connection;
+
 /* GET ALL plants */
 router.get('/plantas', async(req, res, next) => {
     Plant.find()
@@ -20,6 +21,18 @@ router.get('/plantas', async(req, res, next) => {
         )
     .catch(err => res.status(500).json({ message: err }));
 });
+
+/* GET ALL plants */
+router.get('/lister-plants', async(req, res, next) => {
+    Plant.find()
+    .then(
+            plants => {
+                return res.status(200).json(plants)
+            }
+        )
+    .catch(err => res.status(500).json({ message: err }));
+});
+
 
 /* GET only one plant for edit plants*/
 router.get('/plantas/:id', async (req, res, next) => {
@@ -187,8 +200,6 @@ router.post('/', async (req, res, next) =>{
                 await symptomEx.save()
             }
         }
-
-        const listPlants = await Plant.find()
 
         res.redirect(req.get('referer'));
     } catch (error) {
