@@ -28,7 +28,8 @@
         </div>
         <!--contenedor con form-->
         <div class="container">
-            <form action="#" method="post">
+            <form action="/plants/update" method="post">
+                <input type="text" name="id" value="<%= planta._id %>" hidden>
                 <div id="accordion">
                     <!-- collapse info planta-->
                     <div class="card">
@@ -304,7 +305,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-center my-4">
+                    <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnUpdate">MODIFICAR CAMBIOS</button>
+                </div>
             </form>
+        </div>
+        <div class="mx-5 btn btn-danger rounded-pill">
+            <a href="/plants/plantas" class="text-light text-decoration-none"><i class="bi bi-skip-backward-fill"></i> | Volver</a>
         </div>
     </div>
     <!-- END MAIN -->

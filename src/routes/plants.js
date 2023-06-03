@@ -21,7 +21,7 @@ router.get('/plantas', async(req, res, next) => {
     .catch(err => res.status(500).json({ message: err }));
 });
 
-/* GET only one plant */
+/* GET only one plant for edit plants*/
 router.get('/plantas/:id', async (req, res, next) => {
     console.error(req.params.id);
     try {
@@ -78,7 +78,7 @@ router.get('/list', async(req, res, next) => {
     .catch(err => res.status(500).json({ message: err }));
 });
 
-/* GET only one plant */
+/* GET only one plant for show car info*/
 router.get('/list/:id', async (req, res, next) => {
     console.error(req.params.id);
     try {
@@ -233,12 +233,44 @@ router.post('/delete', async (req, res, next)=>{
 router.post('/update', async (req, res, next)=>{
     const {id, sciName, comName, genus, family,
         distribution, habitat, description, curiosities, precautions,
-        categories,images, status } = req.body;
+        categories,images, suppliers, attendance, symptoms } = req.body;
+        
     try {
         const plantExist = await Plant.findById(id);
+        console.log(plantExist)
         if(plantExist){
             const plantUpdate = await Plant.findByIdAndUpdate(id, req.body);
-            return res.status(200).send('Planta Actualizada correctamente')
+            console.log(plantUpdate)
+            // Actualizar referencias en la colección de suppliers
+            await Supplier.updateMany(
+                { _id: { $in: plantUpdate.suppliers } },
+                { $pull: { plants: id } }
+            );
+            //buscamos en la colección de sintomas aquellos documentos cuyo _id esté presente en el array suppliers
+            await Supplier.updateMany(
+                { _id: { $in: suppliers } },
+                { $addToSet: { plants: id } }
+            );
+
+            // Actualizar referencias en la colección de symptoms
+            await Symptom.updateMany(
+                { _id: { $in: plantUpdate.symptoms } },
+                { $pull: { plants: id } }
+            );
+            //buscamos en la colección de sintomas aquellos documentos cuyo _id esté presente en el array suppliers
+            await Symptom.updateMany(
+                { _id: { $in: symptoms } },
+                { $addToSet: { plants: id } }
+            );
+
+            // Actualizar referencia en la colección de attendance
+            await Attendance.findOneAndUpdate(
+                { plant: id },
+                { $set: { plant: plantUpdate._id } }
+            );
+
+            const plants = Plant.find();
+            res.redirect(req.get('referer'));
         }
     } catch (error) {
         console.error(`Error: ${error}`);
