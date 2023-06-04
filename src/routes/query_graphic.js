@@ -11,6 +11,7 @@ const Attendance = require('../models/Attendance');
 //conexion bbdd
 var db = mongoose.connection;
 
+/* PLANTAS POR CATEGORÍA */
 router.get('/categoriPlant', async(req, res, next) =>{
         try {
             

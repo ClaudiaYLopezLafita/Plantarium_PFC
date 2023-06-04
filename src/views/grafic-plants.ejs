@@ -66,12 +66,15 @@
                 </ul>
             </div>
             <!-- Columna info principal -->
-            <div class="col-sm-8 my-0 ms-sm-5">
-                <div class="container mt-4">
-                    <canvas id="categoriaPlanta">
-
-                    </canvas>
-                </div>
+            <div class="col-sm-10 my-0 d-lg-flex mb-3">
+                    <div class="container w-75">
+                        <h1>otra grafica</h1>
+                    </div>
+                    <!-- grafica rosco-->
+                    <div class="container w-50">
+                        <canvas class="col-sm-5" id="categoriaPlanta">
+                        </canvas>
+                    </div>
             </div>
         </div>
         <div class="mx-5 mb-3">
@@ -93,9 +96,7 @@
 
 
         /* 1. CATEGORIAS */
-        // const numPlantForCategorie = JSON.parse('<%- JSON.stringify(data) %>');
-        // const values = numPlantForCategorie.map(item => item.count);
-        // console.log(values);
+
         const categories = ["Caduca", "Carnivora","Con Flor", "Exótica", "Exterior", "Herbácea", 
         "Interior", "Leñosa", "Perenne", "Sin Flor","Suculenta"]
 
@@ -104,21 +105,19 @@
         // Crear un mapa para acceder eficientemente a los datos existentes
         const existingDataMap = new Map(numPlantForCategorie.map(item => [item._id, item.count]));
 
-        // Agregar las categorías faltantes con valor cero
+        // Agregamos las categorías faltantes con valor cero
         categories.forEach(category => {
         if (!existingDataMap.has(category)) {
             numPlantForCategorie.push({ _id: category, count: 0 });
         }
         });
 
-        // Ordenar los resultados por categoría
+        // Ordenanamos los resultados por categoría
         numPlantForCategorie.sort((a, b) => a._id.localeCompare(b._id));
 
         const values = numPlantForCategorie.map(item => item.count);
 
-        console.log(numPlantForCategorie)
         // Datos de la gráfica
-
         const datosCategorie ={
             data: values, 
             backgroundColor: [
@@ -156,12 +155,12 @@
                         display: true,
                         text: 'Nº de plantas por Categoría',
                         font: {
-                            size: 30
+                            size: 25
                         }
                     },
                     subtitle: {
                         display: true,
-                        text: 'Segun la categoría',
+                        text: 'Categoría',
                         font: {
                             size: 15
                         }
