@@ -7,6 +7,7 @@ const Garden = require('../models/Garden')
 const Supplier = require('../models/Supplier')
 const Symptom = require('../models/Symptom')
 const Attendance = require('../models/Attendance');
+const Subscription = require('../models/Subscription');
 
 //conexion bbdd
 var db = mongoose.connection;
@@ -66,5 +67,56 @@ router.get('/categoriPlant', async(req, res, next) =>{
         } 
 } )
 
+router.get('/subscriptions', async(req, res, next) =>{
+    try {
+        const result = await Subscription.aggregate([
+            {
+                $group: {
+                    _id: {
+                        month: { $month: '$date' },
+                        type: '$type'
+                    },
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $addFields: {
+                    monthName: {
+                        $let: {
+                        // declaramos una variable con los meses
+                            vars: {
+                                monthsInString: [
+                                'January', 'February', 'March', 'April', 'May', 'June',
+                                'July', 'August', 'September', 'October', 'November', 'December'
+                                ]
+                            },
+                            in: {
+                            // para obtener el nombre del mes correspondiente al número de mes en
+                            // el _id.month
+                                $arrayElemAt: ['$$monthsInString', '$_id.month']
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    month: '$monthName',
+                    type: '$_id.type',
+                    count: 1
+                }
+            }
+        ]).exec(); 
+        
+        console.log(result);
+
+        res.render('grafic-subscriptions', { title: 'Plantarium', btnNav: 'Logout',  data: result}); // Devolver los resultados como JSON
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error en el servidor');
+    }
+})
 
 module.exports = router;

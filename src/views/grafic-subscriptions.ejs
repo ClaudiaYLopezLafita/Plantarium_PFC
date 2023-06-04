@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('partials/head');%>
+</head>
+<body>
+    <!-- STAR HEADER -->
+    <header>
+        <%- include('partials/headerUser');%>
+    </header>
+    <!-- END HEADER-->
+
+    <!-- STAR BREADCRUMB -->
+    <div class="container-fluid py-1 mb-1" id="breadcrumb">
+        <nav class="mx-4 mt-3" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">You Are Currently Here!</li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="">acciones</a></li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="/statics">estadisticas</a></li>
+                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">plantas</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- END BREADCRUMB -->
+
+    <!-- START MAIN -->
+    <div class="container-fluid">
+        <div class="row m-auto mb-3 border-bottom border-success border-2">
+            <div class="border-bottom border-success border-2">
+                <h3 class="text-center mt-2"> ESTADISTICAS DE SUSCRIPCIONES</h3>
+            </div>
+            <!-- Columna menú lateral -->
+            <div class="col-md-2 p-0">
+                <ul class="nav flex-column bg-light py-0 h-100" >
+                    <li class="nav-item py-3 border-bottom border-dark border-1">
+                        <a class="nav-link text-dark" aria-current="page" href="/statics">
+                            <i class="bi bi-bar-chart-line-fill"></i>
+                            Inicio 
+                        </a>
+                    </li>
+                    <li class="nav-item py-3 border-bottom border-dark border-1">
+                        <a class="nav-link text-dark" href="/query_graphic/categoriPlant">
+                            <i class="fa-brands fa-pagelines"></i>
+                            Plantas
+                        </a>
+                    </li>
+                    <li class="nav-item py-3 border-bottom border-dark border-1 ">
+                        <a class="nav-link text-dark" href="">
+                            <i class="bi bi-currency-exchange"></i>
+                            Ganancias
+                        </a>
+                    </li>
+                    <li class="nav-item py-3 border-bottom border-dark border-1 bg-success">
+                        <a class="nav-link text-white" href="/query_graphic/subscriptions">
+                            <i class="bi bi-person-vcard"></i>
+                            Inscripciones
+                        </a>
+                    </li>
+                    <li class="nav-item py-3">
+                        <a class="nav-link text-dark" href="#">
+                            <i class="bi bi-gear"></i>
+                            Configuración
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Columna info principal -->
+            <div class="col-sm-10 my-0 d-lg-flex mb-3">
+                    <div class="container w-75">
+                        <canvas id="typeSubscription"></canvas>
+                    </div>
+            </div>
+        </div>
+        <div class="mx-5 mb-3">
+            <form method="post" action="/users/back" class="col-sm-2 g-3 justify-content-around" >
+                <button type="submit" class="btn ml-auto rounded-pill px-4 backLink" id="btnBack"><i class="bi bi-skip-backward-fill"></i> | Volver</button>
+            </form>
+        </div>
+    </div>
+    <!-- END MAIN -->
+
+    <!-- STAR FOOTER -->
+    <footer>
+        <%- include('partials/footer');%>
+    </footer>
+    <!-- END FOOTER -->
+
+    <script>
+        // definimos donde colocar las gráficas
+        const ctx1 = document.getElementById('typeSubscription');
+
+        //declaramos los meses: 
+        const month = [ 'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December']
+        // capturamos los datos de la petición
+        const typesForMonth = JSON.parse('<%- JSON.stringify(data) %>');
+        // Creamos objetos de cada tipo tipo y contar inicializados en cero para cada tipo
+        const premiumCounts = month.map(monthName => ({ month: monthName, type: 'premium', count: 0 }));
+        const generalCounts = month.map(monthName => ({ month: monthName, type: 'general', count: 0 }));
+
+        // Actualizar los conteos para cada tipo y mes
+        typesForMonth.forEach(data => {
+            const { month: dataMonth, type, count } = data;
+            const index = month.indexOf(dataMonth);
+
+            if (index !== -1) {
+                if (type === 'premium') {
+                premiumCounts[index].count = count;
+                } else if (type === 'general') {
+                generalCounts[index].count = count;
+                }
+            }
+        });
+
+        // Obtener los valores de count para cada tipo para poder darle valor a las comuna
+        const premiumValues = premiumCounts.map(obj => obj.count);
+        const generalValues = generalCounts.map(obj => obj.count);
+
+        // Conjuntos de datos para las columnas
+        const typeGeneral = {
+            label: "General",
+            data: generalValues,
+            backgroundColor: '#1f3a3d',
+            borderWidth: 1,
+            order: 2,
+        };
+
+        const typePremium = {
+            label: "Premium",
+            data: premiumValues,
+            backgroundColor: '#c93c20',
+            borderWidth: 1,
+            order: 2,
+        };
+
+        // Encontramos el máximo valor en los datos de typeGeneral
+        let maxGeneral = 0;
+        for (let i = 0; i < typeGeneral.data.length; i++) {
+            if (typeGeneral.data[i] > maxGeneral) {
+                maxGeneral = typeGeneral.data[i];
+            }
+        }
+
+        // Encontramos el máximo valor en los datos typePremium
+        let maxPremium = 0;
+        for (let i = 0; i < typePremium.data.length; i++) {
+            if (typePremium.data[i] > maxPremium) {
+                maxPremium = typePremium.data[i];
+            }
+        }
+
+        // Calculamos el máximo entre los dos valores máximos de cada tipo
+        let maxValue = Math.max(maxGeneral, maxPremium) + 1;
+
+        new Chart(ctx1,{
+            type:'bar',
+            data:{
+                labels: month,
+                datasets: [
+                    typeGeneral,
+                    typePremium,
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Inscritos de cada tipo en cada mes',
+                        font: {
+                            size: 30
+                        }
+                    }
+                },
+                scales:{
+                    y: {
+                        beginAtZero: true, // Iniciar el eje Y desde cero
+                        stepSize: 1, // Paso entre los valores del eje Y
+                         // Establecemos el máximo como el mayor valor + 1
+                        max: maxValue
+                    },
+                    x: {
+                        ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 20
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

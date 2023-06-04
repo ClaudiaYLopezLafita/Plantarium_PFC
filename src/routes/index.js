@@ -171,9 +171,19 @@ router.get('/edit-plant', verifyCookiesToken, async (req, res, next) => {
 	}
 })
 
-/* GET edit plant*/
+/* GET graphic plant*/
 router.get('/grafic-plants', verifyCookiesToken, async (req, res, next) => {		
 	res.render('grafic-plants', { title: 'Plantarium', btnNav: 'Logout'});
+})
+
+/* GET graphic subscriotion*/
+router.get('/grafic-subscriptions', verifyCookiesToken, async (req, res, next) => {		
+	res.render('grafic-subscriptions', { title: 'Plantarium', btnNav: 'Logout'});
+})
+
+/* GET graphic PAYS*/
+router.get('/grafic-pays', verifyCookiesToken, async (req, res, next) => {		
+	res.render('grafic-pays', { title: 'Plantarium', btnNav: 'Logout'});
 })
 
 // Deniega el acceso en el caso de que no cumpla que sea administrador con rol administrador, 
