@@ -28,7 +28,7 @@
     <div class="container-fluid">
         <div class="row m-auto mb-3 border-bottom border-success border-2">
             <div class="border-bottom border-success border-2">
-                <h3 class="text-center mt-2"> ESTADISTICAS DE SUSCRIPCIONES</h3>
+                <h3 class="text-center mt-2"> ESTADISTICAS GANACIAS</h3>
             </div>
             <!-- Columna menú lateral -->
             <div class="col-md-2 p-0">
@@ -45,14 +45,14 @@
                             Plantas
                         </a>
                     </li>
-                    <li class="nav-item py-3 border-bottom border-dark border-1 ">
-                        <a class="nav-link text-dark" href="/query_graphic/summary-pays">
+                    <li class="nav-item py-3 border-bottom border-dark border-1 bg-success">
+                        <a class="nav-link text-white" href="/query_graphic/summary-pays">
                             <i class="bi bi-currency-exchange"></i>
                             Ganancias
                         </a>
                     </li>
-                    <li class="nav-item py-3 border-bottom border-dark border-1 bg-success">
-                        <a class="nav-link text-white" href="/query_graphic/subscriptions">
+                    <li class="nav-item py-3 border-bottom border-dark border-1 ">
+                        <a class="nav-link text-dark" href="/query_graphic/subscriptions">
                             <i class="bi bi-person-vcard"></i>
                             Inscripciones
                         </a>
@@ -68,7 +68,7 @@
             <!-- Columna info principal -->
             <div class="col-sm-10 my-0 d-lg-flex mb-3">
                     <div class="container w-75">
-                        <canvas id="typeSubscription"></canvas>
+                        <canvas id="summaryOfYear"></canvas>
                     </div>
             </div>
         </div>
@@ -88,108 +88,79 @@
 
     <script>
         // definimos donde colocar las gráficas
-        const ctx1 = document.getElementById('typeSubscription');
+        const ctx1 = document.getElementById('summaryOfYear');
 
         //declaramos los meses: 
         const month = [ 'January', 'February', 'March', 'April', 'May', 'June',
                 'July', 'August', 'September', 'October', 'November', 'December']
         // capturamos los datos de la petición
-        const typesForMonth = JSON.parse('<%- JSON.stringify(data) %>');
-        // Creamos objetos de cada tipo tipo y contar inicializados en cero para cada tipo
-        const premiumCounts = month.map(monthName => ({ month: monthName, type: 'premium', count: 0 }));
-        const generalCounts = month.map(monthName => ({ month: monthName, type: 'general', count: 0 }));
+        const amountForMonth = JSON.parse('<%- JSON.stringify(data) %>');
 
-        // Actualizar los conteos para cada tipo y mes
-        typesForMonth.forEach(data => {
-            const { month: dataMonth, type, count } = data;
-            const index = month.indexOf(dataMonth);
+        // Crear un objeto de mapeo para almacenar los valores de amountForMonth por mes
+        const monthMapping = {}; // declaramos 
+        for (const item of amountForMonth) {//terar sobre cada elemento 
+            monthMapping[item.month] = item.totalAmount;
+            //se asigna el valor de item.totalAmount al objeto monthMapping utilizando la propiedad item.month como clave.
+        }
 
-            if (index !== -1) {
-                if (type === 'premium') {
-                premiumCounts[index].count = count;
-                } else if (type === 'general') {
-                generalCounts[index].count = count;
-                }
-            }
+        // Crear un nuevo array con todos los meses y sus valores, estableciendo 0 si no hay un valor para el mes
+        const result = month.map(monthName => {
+            // se asigna el valor correspondiente del objeto monthMapping 
+            //utilizando monthName como clave. 
+            //Si no hay un valor correspondiente en monthMapping para el mes, 
+            //se utiliza el valor predeterminado de 0
+            const totalAmount = monthMapping[monthName] || 0;
+            return { month: monthName, totalAmount };
         });
 
-        // Obtener los valores de count para cada tipo para poder darle valor a las comuna
-        const premiumValues = premiumCounts.map(obj => obj.count);
-        const generalValues = generalCounts.map(obj => obj.count);
+        // Obtener solo los valores de totalAmount
+        const amountValues = result.map(item => item.totalAmount);
 
-        // Conjuntos de datos para las columnas
-        const typeGeneral = {
-            label: "General",
-            data: generalValues,
-            backgroundColor: '#1f3a3d',
-            borderWidth: 1,
-            order: 2,
-        };
-
-        const typePremium = {
-            label: "Premium",
-            data: premiumValues,
-            backgroundColor: '#c93c20',
-            borderWidth: 1,
-            order: 2,
-        };
-
-        // Encontramos el máximo valor en los datos de typeGeneral
-        let maxGeneral = 0;
-        for (let i = 0; i < typeGeneral.data.length; i++) {
-            if (typeGeneral.data[i] > maxGeneral) {
-                maxGeneral = typeGeneral.data[i];
-            }
-        }
-
-        // Encontramos el máximo valor en los datos typePremium
-        let maxPremium = 0;
-        for (let i = 0; i < typePremium.data.length; i++) {
-            if (typePremium.data[i] > maxPremium) {
-                maxPremium = typePremium.data[i];
-            }
-        }
-
-        // Calculamos el máximo entre los dos valores máximos de cada tipo
-        let maxValue = Math.max(maxGeneral, maxPremium) + 1;
-
-        new Chart(ctx1,{
-            type:'bar',
-            data:{
+        new Chart(ctx1, {
+            type: 'line',
+            // Definición de la gráfica
+            data: {
                 labels: month,
-                datasets: [
-                    typeGeneral,
-                    typePremium,
-                ]
-            },
+                datasets: [{
+                    label: '€ euros',
+                    data: amountValues,
+                    borderColor: '#ee0213',
+                    backgroundColor: '#ee0213',
+                    tension: 0.4,
+                    borderWidth: 1,
+                    pointHoverBackgroundColor: '#ee0213'
+            }]},
+            // Opciones de personalización de la gráfica
             options: {
-                responsive: true,
-                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Inscritos de cada tipo en cada mes',
+                        text: 'Ganancias mensuales 2023',
                         font: {
                             size: 30
                         }
-                    }
-                },
-                scales:{
-                    y: {
-                        beginAtZero: true, // Iniciar el eje Y desde cero
-                        stepSize: 1, // Paso entre los valores del eje Y
-                         // Establecemos el máximo como el mayor valor + 1
-                        max: maxValue
                     },
-                    x: {
-                        ticks: {
-                        autoSkip: true,
-                        maxTicksLimit: 20
+                    subtitle: {
+                        display: true,
+                        text: 'Todos los suscripciones premium del año 2023',
+                        font: {
+                            size: 15
+                        }
+                    },
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: 'rgb(128,128,128)'
                         }
                     }
                 }
             }
-        })
+        });
     </script>
 </body>
 </html>
