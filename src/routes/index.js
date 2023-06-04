@@ -74,59 +74,6 @@ router.get('/profileA', verifyToken, function(req, res, next) {
 	res.render('profileA', { title: 'Plantarium', locals: res.locals});
 });
 
-// Deniega el acceso en el caso de que no cumpla que sea administrador con rol administrador, 
-// o que no sea administrador con rol no administrador
-// Recibe el res, el usuario user y un boolean isAdmin donde programando se le indica si es 
-// usuario administrador o no
-function verifyRoleUser(res, user, isAdmin) {
-	if (!(isAdmin && user.role === ROLE_ADMIN) && !(!isAdmin && user.role !== ROLE_ADMIN))  {
-		res.status(401).send('Access not allowed!');
-	}
-}
-
-async function verifyToken(req, res, next) {
-	
-	try {
-		if (!req.headers.authorization) {
-			return res.status(401).send('Unauhtorized Request');
-		}
-		let token = req.headers.authorization.split(' ')[1];
-		if (token === 'null') {
-			// return res.render('errorPage', { title: 'Plantarium', btnNav: 'Session', 
-			// numError: '401', title_error: 'Unauhtorized Request', message: 'To access the page, log in or register.' })
-			return res.status(401).send('Unauhtorized Request');
-		}
-		const payloadUser = await jwt.verify(token, process.env.JWT_SECRET);
-		console.log(payloadUser)
-		if (!payloadUser) {
-			return res.status(401).send('Unauhtorized Request');
-		}
-		req.userId = payloadUser.userId;
-		next();
-	} catch(e) {
-		//console.log(e)
-		return res.status(401).send('Unauhtorized Request');
-	}
-}
-
-/**
- * Funcion que captura la cookie que se genera al loguear y se pueda navegar
- * entre páginas. 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- * @returns 
- */
-function verifyCookiesToken(req, res, next){
-	console.log("userid: " + req.cookies.userid);
-
-	if(req.cookies.userid=="undefined" || req.cookies.userid==undefined){
-		return res.status(401).send('Unauthorized Request');
-	}
-	
-	next()
-}
-
 /* GET edit user edit admin page. */
 router.get('/user/editA', verifyCookiesToken , async function(req, res, next) {
 	
@@ -167,6 +114,7 @@ router.get('/user/editS', verifyCookiesToken , async function(req, res, next) {
 	
 });
 
+/* CLOSE Session and delete cookie */
 router.get('/logout', function(req, res, next) {
 	res.clearCookie('userid');
 	res.clearCookie('token');
@@ -222,6 +170,64 @@ router.get('/edit-plant', verifyCookiesToken, async (req, res, next) => {
 		console.error(`Error: ${error}`);
 	}
 })
+
+/* GET edit plant*/
+router.get('/grafic-plants', verifyCookiesToken, async (req, res, next) => {		
+	res.render('grafic-plants', { title: 'Plantarium', btnNav: 'Logout'});
+})
+
+// Deniega el acceso en el caso de que no cumpla que sea administrador con rol administrador, 
+// o que no sea administrador con rol no administrador
+// Recibe el res, el usuario user y un boolean isAdmin donde programando se le indica si es 
+// usuario administrador o no
+function verifyRoleUser(res, user, isAdmin) {
+	if (!(isAdmin && user.role === ROLE_ADMIN) && !(!isAdmin && user.role !== ROLE_ADMIN))  {
+		res.status(401).send('Access not allowed!');
+	}
+}
+
+async function verifyToken(req, res, next) {
+	
+	try {
+		if (!req.headers.authorization) {
+			return res.status(401).send('Unauhtorized Request');
+		}
+		let token = req.headers.authorization.split(' ')[1];
+		if (token === 'null') {
+			// return res.render('errorPage', { title: 'Plantarium', btnNav: 'Session', 
+			// numError: '401', title_error: 'Unauhtorized Request', message: 'To access the page, log in or register.' })
+			return res.status(401).send('Unauhtorized Request');
+		}
+		const payloadUser = await jwt.verify(token, process.env.JWT_SECRET);
+		console.log(payloadUser)
+		if (!payloadUser) {
+			return res.status(401).send('Unauhtorized Request');
+		}
+		req.userId = payloadUser.userId;
+		next();
+	} catch(e) {
+		//console.log(e)
+		return res.status(401).send('Unauhtorized Request');
+	}
+}
+
+/**
+ * Funcion que captura la cookie que se genera al loguear y se pueda navegar
+ * entre páginas. 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
+function verifyCookiesToken(req, res, next){
+	console.log("userid: " + req.cookies.userid);
+
+	if(req.cookies.userid=="undefined" || req.cookies.userid==undefined){
+		return res.status(401).send('Unauthorized Request');
+	}
+	
+	next()
+}
 
 async function listerProveedores(){
 	try {

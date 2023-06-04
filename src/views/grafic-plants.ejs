@@ -16,8 +16,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">You Are Currently Here!</li>
                 <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
-                <li class="breadcrumb-item text-uppercase text-white"><a href="">Profile</a></li>
-                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">STATICS SUMMARY</li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="">acciones</a></li>
+                <li class="breadcrumb-item text-uppercase text-white"><a href="/statics">estadisticas</a></li>
+                <li class="breadcrumb-item text-uppercase text-white active" aria-current="page">plantas</li>
             </ol>
         </nav>
     </div>
@@ -27,19 +28,19 @@
     <div class="container-fluid">
         <div class="row m-auto mb-3 border-bottom border-success border-2">
             <div class="border-bottom border-success border-2">
-                <h1 class="text-center mt-2">Panel de control</h1>
+                <h3 class="text-center mt-2"> ESTADISTICAS DE PLANTAS</h3>
             </div>
             <!-- Columna menú lateral -->
             <div class="col-md-2 p-0">
                 <ul class="nav flex-column bg-light py-0 h-100" >
-                    <li class="nav-item py-3 border-bottom border-dark border-1 bg-success">
-                        <a class="nav-link text-white" aria-current="page" href="/statics">
+                    <li class="nav-item py-3 border-bottom border-dark border-1">
+                        <a class="nav-link text-dark" aria-current="page" href="/statics">
                             <i class="bi bi-bar-chart-line-fill"></i>
                             Inicio 
                         </a>
                     </li>
-                    <li class="nav-item py-3 border-bottom border-dark border-1">
-                        <a class="nav-link text-dark" href="/grafic-plants">
+                    <li class="nav-item py-3 border-bottom border-dark border-1 bg-success">
+                        <a class="nav-link text-white" href="/grafic-plants">
                             <i class="fa-brands fa-pagelines"></i>
                             Plantas
                         </a>
@@ -67,33 +68,9 @@
             <!-- Columna info principal -->
             <div class="col-sm-8 my-0 ms-sm-5">
                 <div class="container mt-4">
-                    <div class="my-1 py-3">
-                        <a href="/grafic-plants" type="button" class="btn btn-outline-success w-100 fs-5">
-                            <i class="fa-brands fa-pagelines"></i>
-                            PLANTAS
-                            <div class="fs-6">
-                                TITULO DE LA PLANTA MÁS AÑADIDA
-                            </div>
-                        </a>
-                    </div>
-                    <div class="my-1 py-3">
-                        <button type="button" class="btn btn-outline-danger w-100 fs-5">
-                            <i class="bi bi-person-vcard"></i>
-                            INSCRIPCIONES
-                            <div class="fs-6">
-                                35.678 personas
-                            </div>
-                        </button>
-                    </div>
-                    <div class="my-1 py-3">
-                        <button type="button" class="btn btn-outline-warning w-100 fs-5">
-                            <i class="bi bi-currency-exchange"></i>
-                            GANANCIAS
-                            <div class="fs-6">
-                                66.666 €
-                            </div>
-                        </button>
-                    </div>
+                    <canvas id="categoriaPlanta">
+
+                    </canvas>
                 </div>
             </div>
         </div>
