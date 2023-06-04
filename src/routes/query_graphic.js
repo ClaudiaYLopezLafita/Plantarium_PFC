@@ -36,13 +36,35 @@ router.get('/categoriPlant', async(req, res, next) =>{
                     }
                 }
                 ]).exec();
-              
+            
+            const result2 = await Plant.aggregate([
+                {
+                    $project: {
+                        _id: 0,
+                        sciName: 1,
+                        gardenCount: { $size: "$gardens" }
+                    }
+                },
+                {
+                    $sort: {
+                    gardenCount: -1
+                    }
+                },
+                {
+                    $limit: 5
+                }
+            ])
+            .exec();
+
             console.log(result)
-            res.render('grafic-plants', { title: 'Plantarium', btnNav: 'Logout',  data: result}); // Devolver los resultados como JSON
+            console.log(result2)
+
+            res.render('grafic-plants', { title: 'Plantarium', btnNav: 'Logout',  data: result, data2: result2}); // Devolver los resultados como JSON
         } catch (error) {
         console.error(error);
         res.status(500).send('Error en el servidor');
         } 
 } )
+
 
 module.exports = router;

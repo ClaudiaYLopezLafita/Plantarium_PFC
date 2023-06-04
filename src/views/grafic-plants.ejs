@@ -68,12 +68,11 @@
             <!-- Columna info principal -->
             <div class="col-sm-10 my-0 d-lg-flex mb-3">
                     <div class="container w-75">
-                        <h1>otra grafica</h1>
+                        <canvas id="top5"></canvas>
                     </div>
                     <!-- grafica rosco-->
                     <div class="container w-50">
-                        <canvas class="col-sm-5" id="categoriaPlanta">
-                        </canvas>
+                        <canvas id="categoriaPlanta"></canvas>
                     </div>
             </div>
         </div>
@@ -93,7 +92,7 @@
     <script>
         // definimos donde colocar las gráficas
         const ctx1 = document.getElementById('categoriaPlanta'); //categoriaPlanta
-
+        const ctx2 = document.getElementById('top5'); //top5
 
         /* 1. CATEGORIAS */
 
@@ -173,6 +172,69 @@
                 }
             }
         });
+    
+        /* 2. TOP CINCO PLANTAS MÁS AÑADIDAS */
+
+        const topFive = JSON.parse('<%- JSON.stringify(data2) %>');
+        const keys = topFive.map(item => item.sciName);
+        const values2 = topFive.map(item => item.gardenCount);
+
+
+        const dataRanking = {
+            labels: keys,
+            datasets: [{
+                axis: 'Ranking Plantas',
+                label: 'Las más añadidas',
+                data: values2,
+                fill: false,       
+                backgroundColor: [
+                    '#5F6F52',
+                    '#A9B388',
+                    '#FEFAE0',
+                    '#F9EBC7',
+                    '#B99470',
+                ],
+                borderColor: [
+                    '#5F6F52',
+                    '#A9B388',
+                    '#FEFAE0',
+                    '#F9EBC7',
+                    '#B99470',
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(ctx2,{
+            type: 'bar',
+            data: dataRanking,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Ranking Plantas',
+                        font: {
+                            size: 30
+                        }
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'Las más añadidas',
+                        font: {
+                            size: 15
+                        }
+                    }
+                },
+                scale: {
+                    pointLabels :{
+                        fontStyle: "bold",
+                    }
+                }
+            }
+        })
+    
     </script>
 </body>
 </html>
