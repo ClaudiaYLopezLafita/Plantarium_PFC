@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-
+var express = require('express');
+var router = express.Router();
 //modelos usados
 const Plant = require('../models/Plant')
 const Garden = require('../models/Garden')
@@ -10,32 +11,37 @@ const Attendance = require('../models/Attendance');
 //conexion bbdd
 var db = mongoose.connection;
 
-const numPlantForCategorie = Plant.aggregate([
-    {
-        // agrupamos por categoriad
-        $group: {
-        _id: '$categories',
-        count: { $sum: 1 }
-        }
-    },
-    {
-        // un registro por categoría
-        $unwind: '$_id'
-    },
-    {
-        // ordenación
-        $sort: {
-        _id: 1
-        }
-    }
-])
-.exec((err, result) => {
-    if (err) {
-        reject(err);
-    } else {
-        console.log(result);
-        resolve(result);
-    }
-});
+router.get('/categoriPlant', async(req, res, next) =>{
+        try {
+            
+            const result = await Plant.aggregate([
+                {
+                    $unwind: {
+                        path: "$categories",
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $group: {
+                        _id: {
+                        $ifNull: ["$categories", 0]
+                        },
+                        count: { $sum: 1 }
+                    }
+                },
+                {
+                    $sort: {
+                        _id: 1
+                    }
+                }
+                ]).exec();
+              
+            console.log(result)
+            res.render('grafic-plants', { title: 'Plantarium', btnNav: 'Logout',  data: result}); // Devolver los resultados como JSON
+        } catch (error) {
+        console.error(error);
+        res.status(500).send('Error en el servidor');
+        } 
+} )
 
-module.exports = {numPlantForCategorie}
+module.exports = router;

@@ -23,7 +23,7 @@ var plantsRouter = require('./routes/plants');
 var suppliersRouter = require('./routes/suppliers');
 var attendancesRouter = require('./routes/attendances');
 var symptomsRouter = require('./routes/symptoms');
-
+var queryRouter = require('./routes/query_graphic')
 
 var app = express();
 
@@ -46,6 +46,7 @@ app.use('/plants', plantsRouter);
 app.use('/attendances', attendancesRouter)
 app.use('/suppliers', suppliersRouter);
 app.use('/symptoms', symptomsRouter);
+app.use('/query_graphic', queryRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

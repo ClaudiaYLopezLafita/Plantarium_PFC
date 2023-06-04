@@ -87,5 +87,93 @@
         <%- include('partials/footer');%>
     </footer>
     <!-- END FOOTER -->
+    <script>
+        // definimos donde colocar las gráficas
+        const ctx1 = document.getElementById('categoriaPlanta'); //categoriaPlanta
+
+
+        /* 1. CATEGORIAS */
+        // const numPlantForCategorie = JSON.parse('<%- JSON.stringify(data) %>');
+        // const values = numPlantForCategorie.map(item => item.count);
+        // console.log(values);
+        const categories = ["Caduca", "Carnivora","Con Flor", "Exótica", "Exterior", "Herbácea", 
+        "Interior", "Leñosa", "Perenne", "Sin Flor","Suculenta"]
+
+        const numPlantForCategorie = JSON.parse('<%- JSON.stringify(data) %>');
+
+        // Crear un mapa para acceder eficientemente a los datos existentes
+        const existingDataMap = new Map(numPlantForCategorie.map(item => [item._id, item.count]));
+
+        // Agregar las categorías faltantes con valor cero
+        categories.forEach(category => {
+        if (!existingDataMap.has(category)) {
+            numPlantForCategorie.push({ _id: category, count: 0 });
+        }
+        });
+
+        // Ordenar los resultados por categoría
+        numPlantForCategorie.sort((a, b) => a._id.localeCompare(b._id));
+
+        const values = numPlantForCategorie.map(item => item.count);
+
+        console.log(numPlantForCategorie)
+        // Datos de la gráfica
+
+        const datosCategorie ={
+            data: values, 
+            backgroundColor: [
+                '#9c84e3',
+                '#ad7eda',
+                '#bc79d1',
+                '#c974c6',
+                '#d46fbb',
+                '#dd6bae',
+                '#e369a1',
+                '#e86794',
+                '#ea6787',
+                '#eb687a',
+                '#e96b6e'
+            ],// Color de fondo
+            borderColor: [
+                '#ffff'
+            ],// Color del borde
+            borderWidth: 1,// Ancho del borde
+        };
+
+        new Chart(ctx1, {
+            type: 'doughnut',// Tipo de gráfica. Puede ser doughnut o pie
+            data: {
+                labels: categories,
+                datasets: [
+                    datosCategorie,
+                ]
+            },
+            options:{
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Nº de plantas por Categoría',
+                        font: {
+                            size: 30
+                        }
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'Segun la categoría',
+                        font: {
+                            size: 15
+                        }
+                    }
+                },
+                animateRotate:true,
+                animateScale:true,
+                layout: {
+                    auropadding:true
+                }
+            }
+        });
+    </script>
 </body>
 </html>
