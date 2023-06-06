@@ -39,8 +39,8 @@ router.get('/list/:id', async (req, res, next) => {
     try {
         const sppExist = await Supplier.findById(req.params.id);
         if (sppExist) {
-            // res.status(200).json(plantExist)
-            res.render('edit-supplier',{title: 'Plantarium', btnNav: 'Logout',proveedor: sppExist});
+            const listPlants = await Plant.find();
+            res.render('edit-supplier',{title: 'Plantarium', btnNav: 'Logout',proveedor: sppExist, plantas :listPlants});
         } else {
             res.status(404).send('Plant not found');
         }

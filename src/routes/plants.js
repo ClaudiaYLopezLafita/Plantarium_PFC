@@ -33,7 +33,6 @@ router.get('/lister-plants', async(req, res, next) => {
     .catch(err => res.status(500).json({ message: err }));
 });
 
-
 /* GET only one plant for edit plants*/
 router.get('/plantas/:id', async (req, res, next) => {
     console.error(req.params.id);

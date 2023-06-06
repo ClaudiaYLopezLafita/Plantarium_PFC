@@ -29,8 +29,8 @@
             <div class="m-auto my-4">
                 <h3 class="text-center">EDITAR PROVEEDOR: <%= proveedor.codSupplier %></h3>
             </div>
-            <div class="col-sm-8 m-auto" id="editForm">
-                <form method="post" action="/suppliers/update" class="row g-3 justify-content-around" >
+            <div class="col-sm-8 m-auto mt-5" id="editForm">
+                <form method="post" action="/suppliers/update" class="row g-4 justify-content-around mx-3" >
                     <input id="id" name="_id" type="text" value="<%= proveedor._id %>" hidden>
                     <div class="col-sm-5">
                         <div class="form-floating mb-2">
@@ -60,12 +60,48 @@
                             <label for="phone">Teléfono</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" class="form-control" name="plants" id="plants" value="<%= proveedor.plants %>" placeholder="Plantas">
-                            <label for="plants">Plantas</label>
+                            <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitud">
+                            <label class="mx-2" for="latitude">Latitud</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" class="form-control" name="ubicacion" id="ubicacion" value="<%= proveedor.ubicacion.coordinates %>" placeholder="Plantas">
-                            <label for="ubicacion">Coordenadas</label>
+                            <div class=" col form-floating mb-2">
+                                <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitud">
+                                <label class="mx-2" for="longitude">Longitud</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mx-0">
+                    <div class=" pt-3 bg-light">
+                        <h5>Selección de Plantas</h5>
+                        <div class="mx-4">
+                            <table class="table table-striped table-hover ">
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col" class="text-center text-uppercase">código</th>
+                                        <th scope="col" class="text-center text-uppercase">nombre científico</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(plantas && plantas.length > 0) { %>
+                                        <% plantas.forEach((planta) =>{ %> 
+                                            <tr>
+                                                <td class="text-center"><%= planta.codPlant %></td>
+                                                <td class="text-center"><%= planta.sciName %></td>
+                                                <td class="text-center">
+                                                <input type="checkbox" name="plants" value="<%= planta._id %>" id="<%= planta._id %>">
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                <% } else {%>
+                                        <tr>
+                                            <td colspan="3">
+                                                <p class="text-center text-uppercase fs-6"> sin datos para mostrar </p>
+                                            </td>
+                                        </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-lg-center mb-3">
