@@ -60,12 +60,12 @@
                             <label for="phone">Teléfono</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitud">
+                            <input type="text" class="form-control" name="latitude" id="latitude" value="<%= proveedor.ubicacion.coordinates[0] %>" placeholder="Latitud">
                             <label class="mx-2" for="latitude">Latitud</label>
                         </div>
                         <div class="form-floating mb-2">
                             <div class=" col form-floating mb-2">
-                                <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitud">
+                                <input type="text" class="form-control" name="longitude" id="longitude" value="<%= proveedor.ubicacion.coordinates[1] %>" placeholder="Longitud">
                                 <label class="mx-2" for="longitude">Longitud</label>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                                                 <td class="text-center"><%= planta.codPlant %></td>
                                                 <td class="text-center"><%= planta.sciName %></td>
                                                 <td class="text-center">
-                                                <input type="checkbox" name="plants" value="<%= planta._id %>" id="<%= planta._id %>">
+                                                <input type="checkbox" name="plants" value="<%= planta._id %>" id="<%= planta._id %>" <% if (proveedor.plants.some(s => s._id.toString() === planta._id.toString())) { %>checked<% } %>>
                                                 </td>
                                             </tr>
                                         <% }) %>

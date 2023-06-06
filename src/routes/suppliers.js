@@ -103,7 +103,7 @@ async (req, res, next)=>{
 /* POST update suppliers */
 router.post('/update', async (req, res, next)=>{
     const {_id, codSupplier, name, email, url, 
-        address, phone, locality, plants} = req.body;
+        address, phone, locality, latitude, longitude,  plants} = req.body;
     try {
         
         const supplierExist = await Supplier.findById(_id);
@@ -111,7 +111,48 @@ router.post('/update', async (req, res, next)=>{
         if(!supplierExist){
             return res.status(404).send('Supplier no encontrado')
         } else{
-            const supplierUpdate = await Supplier.findByIdAndUpdate(_id, req.body )
+            // Obtener las plantas relacionadas actualmente con el proveedor
+            const currentPlants = supplierExist.plants;
+
+            // Comprobar si alguna de las plantas relacionadas ha sido eliminada del array "plants" enviado en la solicitud
+            const deletedPlants = currentPlants.filter(plantId => !plants.includes(plantId));
+
+            // Comprobar si alguna de las plantas enviadas en el array "plants" no está actualmente relacionada con el proveedor
+            const addedPlants = plants.filter(plantId => !currentPlants.includes(plantId));
+            
+            const supplierUpdate = await Supplier.findByIdAndUpdate(_id, {
+                codSupplier,
+                name, 
+                email,
+                address, 
+                url, 
+                phone, 
+                locality, 
+                plants,
+                ubicacion: {
+                    type: 'Point',
+                    coordinates: [parseFloat(latitude), parseFloat(longitude)]
+                }
+            } )
+
+            // Eliminar las referencias al proveedor en las plantas eliminadas
+            await Plant.updateMany(
+                { _id: { $in: deletedPlants } },
+                { $pull: { suppliers: _id } }
+            );
+
+            // Agregar las referencias del proveedor en las plantas añadidas
+            await Plant.updateMany(
+                { _id: { $in: addedPlants } },
+                { $addToSet: { suppliers: _id } }
+            );
+
+            // Actualizar las referencias del proveedor en las plantas existentes
+            await Plant.updateMany(
+                { _id: { $in: currentPlants } },
+                { $set: { suppliers: plants } }
+            );
+
             const suppliers = await Supplier.find()
             res.render('suppliers', { title: 'Plantarium', btnNav: 'Logout', proveedores: suppliers });
         }
