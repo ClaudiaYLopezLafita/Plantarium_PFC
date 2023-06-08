@@ -66,24 +66,21 @@
                         <input type="text" class="form-control" name="phone" id="phone" value="<%= user.phone %>" placeholder="Telefono">
                         <label for="phone">Teléfono</label>
                     </div>
-                    <div class="mb-2">
-                        <label for="subscripcion" class="form-label">Suscripción</label>
-                        <select class="form-select" id="subscripcion" aria-label="Select_subscripcion">
-                            <option selected></option>
-                            <option value="PRM">Premium</option>
-                            <option value="GRL">General</option>
+                    <div class="form-floating mb-2">
+                        <select class="form-select" id="selectTypeSubscripcion" aria-label="Floating label select example">
+                            <option value="general" selected>General</option>
+                            <option value="premium">Premium</option>
                         </select>
+                        <label for="selectTypeSubscripcion">Tipo Suscripción</label>
                     </div>
-                    <fieldset disabled>
-                        <div class="form-floating mb-2">
-                            <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI/NIE">
-                            <label for="dni">DNI</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input type="text" class="form-control" name="num_tarjeta" id="num_tarjeta" placeholder="DNI/NIE">
-                            <label for="num_tarjeta">Número de tarjeta</label>
-                        </div>
-                    </fieldset>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI/NIE" disabled>
+                        <label for="dni">DNI</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" name="num_tarjeta" id="num_tarjeta" placeholder="DNI/NIE" disabled>
+                        <label for="num_tarjeta">Número de tarjeta</label>
+                    </div>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-2 mt-1">
                     <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnUpdate">MODIFICAR CAMBIOS</button>
@@ -104,5 +101,26 @@
         <%- include('../partials/footer');%>
     </footer>
     <!-- END FOOTER-->
+
+    <script>
+        const selectField = document.getElementById('selectTypeSubscripcion');
+        const dniField = document.getElementById('dni');
+        const numTarjetaField = document.getElementById('num_tarjeta');
+
+        selectField.addEventListener('change', function() {
+            const selectedValue = selectField.value;
+            if (selectedValue === 'premium') {
+            dniField.disabled = false;
+            numTarjetaField.disabled = false;
+            } else {
+            dniField.disabled = true;
+            numTarjetaField.disabled = true;
+            }
+        });
+
+        // Deshabilitar los campos por defecto
+        dniField.disabled = true;
+        numTarjetaField.disabled = true;
+    </script>
 </body>
 

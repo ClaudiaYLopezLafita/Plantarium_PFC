@@ -129,19 +129,24 @@ router.post('/',
 /* UPDATE user*/
 router.post('/update', async (req, res, next)=>{
   const { _id, username, fullname, email, 
-    phone, birthdate, address, locality } = req.body;
+    phone, birthdate, address, locality, subscription } = req.body;
 
   try {
     const user = await User.findById(_id);
     if(user){
-      const updatedUser = await User.findByIdAndUpdate(_id, req.body);
-      //capturamos el usuario actualizado
-      const updateData = await User.findById(_id);
-      const imageUrl = updateData.photo;
-      const fecha = moment(updateData.birthdate).format('DD/MM/YYYY');
-      //redirigimos a la página de perfil
-      RedirectUsers(res, updateData, imageUrl, fecha);
-      return;
+      // Comprobamos el rol de usuario 
+      if(user.role !== ROLE_ADMIN){
+        
+      }else{
+        const updatedUser = await User.findByIdAndUpdate(_id, req.body);
+        //capturamos el usuario actualizado
+        const updateData = await User.findById(_id);
+        const imageUrl = updateData.photo;
+        const fecha = moment(updateData.birthdate).format('DD/MM/YYYY');
+        //redirigimos a la página de perfil
+        RedirectUsers(res, updateData, imageUrl, fecha);
+        return;
+      }
     } else {
       res.sendStatus(500).send('El usuario no existe');
     }
