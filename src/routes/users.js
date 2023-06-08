@@ -252,20 +252,29 @@ router.post('/reset-password',
       if (!user) {
         return res.status(401).send('El usuario no existe');
         // res.render('reset-password', { message: 'Usuario no encontrado' });
+      }else{
+        // Verificar si las contraseñas coinciden
+        if (password !== passwordCf) {
+          return res.status(401).send('Las contraseñas no coinciden');
+          // res.render('reset-password', { message: 'Las contraseñas no coinciden' });
+        }else{
+          // Encriptar la nueva contraseña
+          const hashedPassword = await bcrypt.hash(password, 10);
+          // console.log(hashedPassword)
+          //Actualizar la contraseña del usuario
+          try {
+            const updatedUser = await User.findOneAndUpdate({ email: email }, { password: hashedPassword }, { new: true });
+            console.log(updatedUser);
+            // Resto del código para manejar el usuario actualizado
+            return res.status(200).send('Contraseña cambiada correctamente');
+          } catch (error) {
+            // Manejar el posible error
+            return res.status(400).send('Error: ' + error);
+          }
+        }
+        
       }
-      // Verificar si las contraseñas coinciden
-      if (password !== passwordCf) {
-        return res.status(401).send('Las contraseñas no coinciden');
-        // res.render('reset-password', { message: 'Las contraseñas no coinciden' });
-      }
-      // Encriptar la nueva contraseña
-      const hashedPassword = await bcrypt.hash(password, 10);
-      console.log(hashedPassword)
-      // Actualizar la contraseña del usuario
-      User.findOneAndUpdate({email},{ password: hashedPassword })
-      // Redireccionar o mostrar mensaje de éxito
-      return res.status(200).send('Contraseña cambiada correctamente');
-      // res.redirect('/login');
+      
     }
     
   } catch (error) {

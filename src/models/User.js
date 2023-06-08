@@ -58,6 +58,10 @@ var UserSchema = new Schema({
         type: String, 
         required: false
     },
+    numCard:{
+        type: String, 
+        required: false
+    },
     payments: [{
         type: Schema.ObjectId,
         ref: 'Pay',
