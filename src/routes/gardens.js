@@ -19,23 +19,26 @@ router.get('/',function(req, res, next) {
 /* POST create garden */
 router.post('/', async (req, res, next) => {
 
-  const subscription = req.body.subscription;
-  // console.log("SUBSCRIPTION: " + subscription);
+  const subscriptionIdent = req.body.subscriptionId;
+  console.log("SUBSCRIPTION: " + subscriptionIdent);
 
   try {
-    const subscriptionExist = await Subscription.findOne({codSubscription: subscription}).populate();
-    // console.log(subscriptionExist)
+    const subscriptionExist = await Subscription.findById(subscriptionIdent);
+    const userInfo = await User.findOne({subscription: subscriptionIdent})
+    console.log(userInfo)
 
     if(subscriptionExist){
         const codGarden = generateCodGarden();
-        const name = generateNameGarden(subscriptionExist.user);
-        // const subscription = subscriptionExist.codSubscription;
+        console.log(codGarden)
+        const name = generateNameGarden(userInfo.username);
+        console.log(name)
+
         const newGarden = await Garden.create({
           codGarden,
           name,
-          subscription
+          subscriptionIdent
         });
-        subscriptionExist.garden = codGarden;
+        subscriptionExist.garden = newGarden._id;
         subscriptionExist.save();
         res.status(200).send("Jardin creado correctamente");
     } else {
@@ -53,10 +56,10 @@ router.get('/:id', async (req, res, next) =>{
     const userExist = await User.findById(req.params.id);
 
     if(userExist){
-      const subscriptionExist = await Subscription.findOne({codSubscription: userExist.subscription})
+      const subscriptionExist = await Subscription.findById(userExist.subscription)
 
       if(subscriptionExist){
-        const gardenExist = await Garden.findOne({subscription: subscriptionExist.codSubscription})
+        const gardenExist = await Garden.findOne({subscriptionIdent: subscriptionExist._id})
         .populate([{
           path: 'plants',
           model: 'Plant',

@@ -22,12 +22,12 @@ var PaySchema = new Schema({
         default: 5.95
     },
     subscription:{
-        type: Schema.Types.String, 
+        type: Schema.Types.ObjectId, 
         ref: 'Subscription', 
         required: false
     },
     user:{
-        type: Schema.Types.String, 
+        type: Schema.Types.ObjectId, 
         ref: 'User', 
         required: true
     }

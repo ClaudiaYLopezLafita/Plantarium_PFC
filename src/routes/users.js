@@ -104,7 +104,7 @@ router.post('/',
 
           // si no es admin
           if (role !== ROLE_ADMIN){
-            createSubscription(userCreate.username);
+            createSubscription(userCreate._id);
 
             // guardar el token en las cookies
             res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
@@ -136,7 +136,7 @@ router.post('/update', async (req, res, next)=>{
     if(user){
       // Comprobamos el rol de usuario 
       if(user.role !== ROLE_ADMIN){
-        
+
       }else{
         const updatedUser = await User.findByIdAndUpdate(_id, req.body);
         //capturamos el usuario actualizado
@@ -312,10 +312,10 @@ function RedirectUsers(res, user, imageUrl, fecha)
   }
 }
 
-async function createSubscription(username){
+async function createSubscription(_id){
   try {
     const response = await axios.post('http://localhost:5000/subscriptions', {
-            username: username
+            id: _id
         });
   } catch (error) {
     console.error(`Error: ${error}`);

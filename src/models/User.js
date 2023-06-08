@@ -64,7 +64,7 @@ var UserSchema = new Schema({
         default: null
     }],
     subscription: {
-        type: Schema.Types.String,
+        type: Schema.Types.ObjectId,
         ref: 'Subscription',
     }
 })

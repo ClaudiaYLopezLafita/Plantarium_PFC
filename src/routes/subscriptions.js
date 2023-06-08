@@ -21,18 +21,19 @@ router.get('/',function(req, res, next) {
 /* POST create subscription */ 
 router.post('/', async (req, res) =>{
     // console.log(req.body)
-    const user = req.body.username;
+    const userId = req.body.id;
     try {
-        const userinfo = await User.findOne({ username: user }).populate('subscription');
+        const userinfo = await User.findById(userId).populate('subscription');
         if (userinfo) {
-            const codSubscription = generateRandomNumSubscription(user);
+            const codSubscription = generateRandomNumSubscription(userinfo.username);
             const newSubscriptions = await Subscription.create({
                 codSubscription,
-                user
+                userId
             });
-            userinfo.subscription = codSubscription;
+            userinfo.subscription = newSubscriptions._id;
             userinfo.save();
-            createGarden(codSubscription);
+            const subscriptionExist = await Subscription.findOne({codSubscription: codSubscription});
+            createGarden(subscriptionExist._id);
             res.status(200).send("Suscripcion realizada correctamente");
             
         } else {
@@ -58,10 +59,10 @@ function generateRandomNumSubscription(username) {
     return result; 
 }
 
-async function createGarden(subscription) {
+async function createGarden(id) {
     try {
         const response = await axios.post('http://localhost:5000/gardens', {
-            subscription: subscription
+            subscriptionId: id
         });
         console.log(response.data);
     } catch (error) {

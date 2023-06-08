@@ -19,10 +19,17 @@ router.get('/',function(req, res, next) {
 
 /* POST new Pay */
 router.post('/', async (req, res) =>{
-    const {codPay, date, amount, subscription, user} = req.body;
-    console.log(user)
+    const {codPay, subscription, user} = req.body;
+    
     try {
-        const userinfo = await User.findOne({ username: user });
+        const userinfo = await User.findById(user).populate(
+            {
+                path: 'subscription',
+                model: 'Subscription',
+                select: '' 
+            }
+        );
+        console.log(userinfo)
         if (userinfo) {
             const newPay = await Pay.create(req.body);
             userinfo.payments.push(newPay);

@@ -33,8 +33,8 @@ var SubscriptionSchema = new Schema({
         ref: 'Garden', 
         required: false
     },
-    user:{
-        type:Schema.Types.String, 
+    userId:{
+        type:Schema.Types.ObjectId, 
         ref: 'User', 
         required: true
     }

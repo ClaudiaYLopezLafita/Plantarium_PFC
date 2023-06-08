@@ -13,8 +13,8 @@ var GardenSchema = new Schema({
         type: String, 
         required: true 
     },
-    subscription:{
-        type: Schema.Types.String, 
+    subscriptionIdent:{
+        type: Schema.Types.ObjectId, 
         ref: 'Subscription', 
         required: true
     },
