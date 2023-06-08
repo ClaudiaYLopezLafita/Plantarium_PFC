@@ -19,7 +19,7 @@ router.get('/',function(req, res, next) {
 
 /* POST new Pay */
 router.post('/', async (req, res) =>{
-    const {codPay, subscription, user} = req.body;
+    const {user} = req.body;
     
     try {
         const userinfo = await User.findById(user).populate(
@@ -29,9 +29,14 @@ router.post('/', async (req, res) =>{
                 select: '' 
             }
         );
-        console.log(userinfo)
+        
         if (userinfo) {
-            const newPay = await Pay.create(req.body);
+            const codigo = createCodigo(userinfo.username)
+            const newPay = await Pay.create({
+                codPay: codigo,
+                subscription: userinfo.subscription._id,
+                user
+            });
             userinfo.payments.push(newPay);
             userinfo.save();
             res.status(200).send("Pago realizado correctamente");
@@ -44,5 +49,18 @@ router.post('/', async (req, res) =>{
         res.status(500).send("Pago no realizado")
     }
 })
+
+function createCodigo(username){
+    // Obtenemos los tres primeros caracteres de la cadena
+    const tresPrimeros = username.slice(0, 3);
+
+    // Obtenemo la fecha actual en formato yyyy-mm-dd
+    const fechaActual = new Date().toISOString().slice(0, 10);
+
+    // Concatenamos los tres primeros caracteres con la fecha actual
+    const codigo = `${tresPrimeros}-${fechaActual}`.toUpperCase();
+
+    return codigo
+}
 
 module.exports = router;
