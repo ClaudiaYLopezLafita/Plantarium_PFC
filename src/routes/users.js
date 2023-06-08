@@ -174,38 +174,51 @@ router.post('/delete', async(req, res,next) =>{
 })
 
 /* POST login User */
-router.post('/signin', async (req, res) => {
+router.post('/signin', [
+  check('email').exists().isEmail(),
+  check('password').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s:])([^\s]){7,}$/)
+]
+,async (req, res) => {
   try {
-    // datos a capturar
-    const { email, password } = req.body;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      // Mostrar un único mensaje de error
+      const errorMessages = ['Email y/o contraseña incorrecto'];
+      // redirigimos con los alerts de fallos
+      res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errorMessages});
+    }else{
+      // datos a capturar
+      const { email, password } = req.body;
 
-    // localización del usuario
-    const user = await User.findOne({ email });
-    // si no se localiza
-    if (!user) {
-      return res.status(401).send('El usuario no existe');
+      // localización del usuario
+      const user = await User.findOne({ email });
+      // si no se localiza
+      if (!user) {
+        return res.status(401).send('El usuario no existe');
+      } else{
+        // se localiza y se comprueba contraseña
+        const comparePassword = bcrypt.compareSync(password, user.password);
+        if (!comparePassword) {
+          
+          return res.status(401).send('Contraseña incorrecta');
+        }else{
+          //capturanos la direccion de la foto de perfil
+          const imageUrl = user.photo;
+          const fecha = moment(user.birthdate).format('DD/MM/YYYY');
+
+          // Crear payload y token de usuario
+          const payloadUser = { name: user.username, userId: user._id, role: user.role };
+          const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
+
+          // guardar el token en las cookies
+          res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
+          // crear una cookie
+          res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
+        
+          RedirectUsers(res, user, imageUrl, fecha);
+        }
+      }
     }
-
-    // se localiza y se comprueba contraseña
-    const comparePassword = bcrypt.compareSync(password, user.password);
-    if (!comparePassword) {
-      return res.status(401).send('Contraseña incorrecta');
-    }
-    //capturanos la direccion de la foto de perfil
-    const imageUrl = user.photo;
-    const fecha = moment(user.birthdate).format('DD/MM/YYYY');
-
-    // Crear payload y token de usuario
-    const payloadUser = { name: user.username, userId: user._id, role: user.role };
-    const token = jwt.sign(payloadUser, process.env.JWT_SECRET, { expiresIn: '30m' });
-
-    // guardar el token en las cookies
-    res.cookie('token', token, { maxAge: 1800000, httpOnly: true });
-    // crear una cookie
-    res.cookie('userid', payloadUser.userId, { maxAge: 1800000, httpOnly: true });
-  
-    RedirectUsers(res, user, imageUrl, fecha);
-
   } catch (error) {
     console.error(error);
     res.status(500).send('Error interno del servidor');
