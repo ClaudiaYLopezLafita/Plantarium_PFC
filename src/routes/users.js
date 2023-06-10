@@ -249,15 +249,16 @@ router.post('/reset-password',
       const { email, password, passwordCf } = req.body;
       // Verificar si el usuario existe
       const user = await User.findOne({ email });
+      if (!user || user === null) {
+        // verificamos que el usuario no exite
+        console.log(user)
 
-      if (!user) {
-        return res.status(401).send('El usuario no existe');
-        // res.render('reset-password', { message: 'Usuario no encontrado' });
+        return res.render('reset', {title: 'Plantarium', btnNav: 'Session', messageError: 'Usuario no existente', messageSuccess: undefined});
       }else{
         // Verificar si las contraseñas coinciden
         if (password !== passwordCf) {
-          return res.status(401).send('Las contraseñas no coinciden');
-          // res.render('reset-password', { message: 'Las contraseñas no coinciden' });
+          return res.render('reset', {title: 'Plantarium', btnNav: 'Session', messageError: 'Las constraseñas no coindicen', messageSuccess: undefined});
+          // return res.status(401).send('Las contraseñas no coinciden');
         }else{
           // Encriptar la nueva contraseña
           const hashedPassword = await bcrypt.hash(password, 10);
@@ -265,12 +266,11 @@ router.post('/reset-password',
           //Actualizar la contraseña del usuario
           try {
             const updatedUser = await User.findOneAndUpdate({ email: email }, { password: hashedPassword }, { new: true });
-            console.log(updatedUser);
-            // Resto del código para manejar el usuario actualizado
-            return res.status(200).send('Contraseña cambiada correctamente');
+            return res.render('reset', {title: 'Plantarium', btnNav: 'Session', messageSuccess: 'Contraseña cambiada correctamente.',messageError: undefined});
           } catch (error) {
             // Manejar el posible error
-            return res.status(400).send('Error: ' + error);
+            return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			      message: 'Por favor intentelo más tarde'})
           }
         }
         
@@ -279,7 +279,8 @@ router.post('/reset-password',
     }
     
   } catch (error) {
-    return res.status(500).send('Error interno del Servidor');
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			message: 'Por favor intentelo más tarde'})
   }
 })
 

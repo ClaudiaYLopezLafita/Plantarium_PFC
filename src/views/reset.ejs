@@ -42,6 +42,20 @@
                                 <input type="password" class="form-control" name="passwordCf" id="passwordCf" placeholder="Contraseña">
                                 <label for="password"> Confirmar Contraseña</label>
                             </div>
+                            <!-- Errores de comprobación en bbdd -->
+                            <% if (typeof messageError !== 'undefined') { %>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong><i class="bi bi-exclamation-octagon"></i></strong> <%= messageError %>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <% } %>
+                            <!-- Mensaje exito -->
+                            <% if (typeof messageSuccess !== 'undefined') { %>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong><i class="bi bi-check-circle"></i></strong> <%= messageSuccess %>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <% } %>
                             
                             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                 <button type="submit" class="btn ml-auto rounded-pill px-5" id="btnReset">ACEPTAR</button>
