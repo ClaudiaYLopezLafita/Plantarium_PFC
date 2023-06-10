@@ -45,6 +45,17 @@ router.post('/', async (req, res) =>{
     }
 })
 
+router.post('/delete', async ( req, res, next) =>{
+    try {
+        const id = req.body.id;
+        deleteGarden(id)
+        await Subscription.findByIdAndRemove(id);
+    } catch (error) {
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			message: 'Por favor intentelo más tarde'})
+    }
+})
+
 function generateRandomNumSubscription(username) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let code = '';
@@ -62,6 +73,17 @@ function generateRandomNumSubscription(username) {
 async function createGarden(id) {
     try {
         const response = await axios.post('http://localhost:5000/gardens', {
+            subscriptionId: id
+        });
+        console.log(response.data);
+    } catch (error) {
+        console.error(`Error: ${error}`);
+    }
+}
+
+async function deleteGarden(id) {
+    try {
+        const response = await axios.post('http://localhost:5000/gardens/delete', {
             subscriptionId: id
         });
         console.log(response.data);

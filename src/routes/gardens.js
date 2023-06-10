@@ -76,27 +76,48 @@ router.get('/:id', async (req, res, next) =>{
   }
 })
 
+/* GET delete garden */
+router.post('/delete', async (req, res, next) =>{
+  try {
+    //capturamos el identificador de jardin
+    const subsId = req.body.subscriptionId;
+
+    const gardenExist = await Garden.findOne({subscriptionIdent: subsId})
+    // borramos las referencias del jardin en el array de plantas
+    await Plant.updateMany(
+      { gardens: gardenExist._id }, // Filtramos las plants que tienen el ID del jardin
+      { $pull: { gardens: gardenExist._id } } // Eliminamos el ID del jardin del array de gardens
+    );
+
+    await Garden.findByIdAndRemove(gardenExist._id);
+  } catch (error) {
+    return res.status(500).send('Problemas en el servidor')
+  }
+})
+
 /* POST insert plant */
 router.post('/insert-plant', async (req, res, next) =>{
   // capturar el cookie con id user
   const {idPlant} = req.body;
   const iduser = req.cookies.userid
+  console.log("ID PLANTA: "+ idPlant)
   console.log('COOKIE: '+iduser)
   try {
     const userExist = await User.findById(iduser);
-
+    console.log(userExist)
     if(userExist){
-      const subscriptionExist = await Subscription.findOne({codSubscription: userExist.subscription})
-      
+      const subscriptionExist = await Subscription.findById(userExist.subscription)
+      console.log(subscriptionExist)
       if(subscriptionExist){
         
-        const gardenExist = await Garden.findOne({subscription: subscriptionExist.codSubscription}).populate([
+        const gardenExist = await Garden.findOne({subscriptionIdent: subscriptionExist._id}).populate([
             {
             path: 'plants',
             model: 'Plant',
             select: '' 
           }
         ])
+        console.log(gardenExist)
         if(gardenExist){
           // Agregar la nueva planta al array existente
           if (gardenExist.plants && gardenExist.plants.length > 0) {
@@ -106,7 +127,7 @@ router.post('/insert-plant', async (req, res, next) =>{
             gardenExist.plants.push(idPlant);
           }
           await gardenExist.save()
-
+          //añadimos el id del jardin al array de gardens de la planta
           const planta = await Plant.findById(idPlant);
           planta.gardens.push(gardenExist._id);
 

@@ -227,14 +227,11 @@ router.post('/update', async (req, res, next)=>{
 /* DELETE user */
 router.post('/delete', async(req, res,next) =>{
   const idUser = req.body.id;
-  console.log(idUser)
   try {
-    const user = await User.findById({_id: idUser});
-    console.log(user)
+    const subscripcionUser = await Subscription.findOneAndRemove({userId:idUser})
 
-    if(!user){
-      res.status(500).send('El usuario no existe');
-    }
+    deleteSubscription(subscripcionUser._id)
+
     const userDelete = await User.findOneAndRemove({_id: idUser});
     if(userDelete){
       res.render('session', { title: 'Plantarium', btnNav: 'Session' });
@@ -409,5 +406,16 @@ async function createPay(_id){
     console.error(`Error: ${error}`);
   }
 }
+
+async function deleteSubscription(_id){
+  try {
+    const response = await axios.post('http://localhost:5000/subscriptions/delete', {
+            id: _id
+        });
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+}
+
 
 module.exports = router;
