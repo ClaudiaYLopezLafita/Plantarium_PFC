@@ -75,7 +75,6 @@ router.post('/',
     try {
       //compromabamos las validaciones
       const errors = validationResult(req).array();
-      console.log(errors)
       if (errors.length > 0 ) {
         const valores_form = req.body;
         // redirigimos con los alerts de fallos
