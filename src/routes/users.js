@@ -42,8 +42,7 @@ router.get('/',function(req, res, next) {
 /* POST CREATE user */
 router.post('/', 
   [//definimos las validaciones     
-    check('username').exists().isAlphanumeric().withMessage('Nombre de usuario alfanumérico'),
-    check('username').isLength({ min: 5 }).withMessage('Nombre de usuario con mínimo 5 caratéres.'),
+    check('username').isAlphanumeric().withMessage('Nombre de usuario alfanumérico con mínimo 5 caratéres'),
     check('email').exists().isEmail().withMessage('El email debe ser válido'),
     check('fullname').custom((value) => {
       const words = value.split(' ');
@@ -55,7 +54,7 @@ router.post('/',
       }
       return true;
     }),
-    check('birthdate').custom((value) => {
+    check('birthdate').exists().custom((value) => {
       const date = new Date(value);
       const now = new Date();
       if (date > now) {
@@ -63,6 +62,8 @@ router.post('/',
       }
       return true;
     }),
+    check('phone').matches(/^(\+34|0034|34)?[6789]\d{8}$/)
+    .withMessage('El teléfono debe ser un número de teléfono válido en España'),
     check('address').notEmpty().withMessage('La dirección es requerida'),
     check('locality').notEmpty().withMessage('La localidad es requerida'),
     check('password').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s:])([^\s]){7,}$/)
@@ -73,11 +74,12 @@ router.post('/',
 
     try {
       //compromabamos las validaciones
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
+      const errors = validationResult(req).array();
+      console.log(errors)
+      if (errors.length > 0 ) {
         const valores_form = req.body;
         // redirigimos con los alerts de fallos
-        res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors.array(), valores: valores_form });
+        res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors, valores: valores_form });
       }else{
         //capturamos los datos del formulario
         const { username, password, creationdate, role, 
