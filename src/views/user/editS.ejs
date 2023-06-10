@@ -16,8 +16,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">You Are Currently Here!</li>
                 <li class="breadcrumb-item text-uppercase text-white"><a href="/">Home</a></li>
-                <li class="breadcrumb-item text-uppercase text-white" aria-current="page">PROFILE</li>
-                <li class="breadcrumb-item text-uppercase text-white active" ria-current="page"> EDIT PROFILE</li>
+                <li class="breadcrumb-item text-uppercase text-white" aria-current="page"> <%= user.username %> </li>
+                <li class="breadcrumb-item text-uppercase text-white active" ria-current="page"> EDITAR PERFIL </li>
             </ol>
         </nav>
     </div>
@@ -74,11 +74,11 @@
                         <label for="selectTypeSubscripcion">Tipo Suscripción</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI/NIE" disabled>
+                        <input type="text" class="form-control" name="dni" id="dni" value="<%= user.dni %>" placeholder="DNI/NIE" disabled>
                         <label for="dni">DNI</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" name="numCard" id="num_tarjeta" placeholder="DNI/NIE" disabled>
+                        <input type="text" class="form-control" name="numCard" id="num_tarjeta" value="<%= user.numCard %>" placeholder="DNI/NIE" disabled>
                         <label for="numCard">Número de tarjeta</label>
                     </div>
                 </div>

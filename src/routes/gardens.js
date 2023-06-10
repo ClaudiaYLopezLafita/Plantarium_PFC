@@ -63,7 +63,7 @@ router.get('/:id', async (req, res, next) =>{
         .populate([{
           path: 'plants',
           model: 'Plant',
-          select: '-_id -codSupplier' 
+          select: ' -codSupplier' 
         }])
 
         if(gardenExist){
