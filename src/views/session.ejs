@@ -50,9 +50,9 @@
                                 <!-- <div class="valid-feedback">
                                     Todos los campos son obligatorios
                                 </div> -->
-                                <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                                <% if (typeof errorLogin !== 'undefined' && errorLogin.length > 0) { %>
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <small><%= errors %></small>
+                                            <small><%= errorLogin %></small>
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 <% } %>

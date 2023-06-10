@@ -190,7 +190,7 @@ router.post('/signin', [
       // Mostrar un único mensaje de error
       const errorMessages = ['Email y/o contraseña incorrecto'];
       // redirigimos con los alerts de fallos
-      res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errorMessages});
+      res.render('session', {title: 'Plantarium', btnNav: 'Session', errorLogin: errorMessages});
     }else{
       // datos a capturar
       const { email, password } = req.body;
