@@ -62,8 +62,6 @@ router.post('/',
       }
       return true;
     }),
-    check('phone').matches(/^(\+34|0034|34)?[6789]\d{8}$/)
-    .withMessage('El teléfono debe ser un número de teléfono válido en España'),
     check('address').notEmpty().withMessage('La dirección es requerida'),
     check('locality').notEmpty().withMessage('La localidad es requerida'),
     check('password').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s:])([^\s]){7,}$/)
@@ -127,17 +125,86 @@ router.post('/',
   }
 )
 
-/* UPDATE user*/
+// /* UPDATE user*/
+// router.post('/update', async (req, res, next)=>{
+//   const { _id, username, fullname, email, 
+//     phone, birthdate, address, locality, subscription } = req.body;
+
+//   try {
+//     const user = await User.findById(_id);
+//     if(user){
+//       // Comprobamos el rol de usuario 
+//       if(user.role !== ROLE_ADMIN){
+
+//       }else{
+//         const updatedUser = await User.findByIdAndUpdate(_id, req.body);
+//         //capturamos el usuario actualizado
+//         const updateData = await User.findById(_id);
+//         const imageUrl = updateData.photo;
+//         const fecha = moment(updateData.birthdate).format('DD/MM/YYYY');
+//         //redirigimos a la página de perfil
+//         RedirectUsers(res, updateData, imageUrl, fecha);
+//         return;
+//       }
+//     } else {
+//       res.sendStatus(500).send('El usuario no existe');
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Error interno del servidor');
+//   }
+// });
+
+/* UPDATE user */
 router.post('/update', async (req, res, next)=>{
   const { _id, username, fullname, email, 
-    phone, birthdate, address, locality, subscription } = req.body;
+    phone, birthdate, address, locality, subscription, dni, numCard } = req.body;
 
   try {
     const user = await User.findById(_id);
     if(user){
       // Comprobamos el rol de usuario 
       if(user.role !== ROLE_ADMIN){
+          
+          const subscripcionUser = await Subscription.findOne({userId: _id})
 
+          if(subscription == user.subscription || !(subscripcionUser.type == "general" && subscription == "premium")) 
+          {
+            // Cuando sea la misma o cuando sea que pase de premium a general
+            const updatedUser = await User.findByIdAndUpdate(_id, {
+              username, fullname, email, 
+              phone, birthdate, address, locality
+            });
+            //capturamos el usuario actualizado
+            const updateData = await User.findById(_id);
+            const imageUrl = updateData.photo;
+            const fecha = moment(updateData.birthdate).format('DD/MM/YYYY');
+            //redirigimos a la página de perfil
+            RedirectUsers(res, updateData, imageUrl, fecha);
+            return;
+          } else {
+            // Modificar el a premium
+            const updatedUser = await User.findByIdAndUpdate(_id, {
+              username, fullname, email, 
+              phone, birthdate, address, locality, dni, numCard
+            });
+
+            // Modificamos el tipo de subscripcion
+            subscripcionUser.type = "premium";
+            subscripcionUser.save()
+
+            // Crear pago
+            createPay(_id);
+
+            // redireccion de la página
+            const updateData = await User.findById(_id);
+            const imageUrl = updateData.photo;
+            const fecha = moment(updateData.birthdate).format('DD/MM/YYYY');
+            //redirigimos a la página de perfil
+            RedirectUsers(res, updateData, imageUrl, fecha);
+            return;
+          }
+          
       }else{
         const updatedUser = await User.findByIdAndUpdate(_id, req.body);
         //capturamos el usuario actualizado
@@ -327,6 +394,16 @@ async function createSubscription(_id){
   try {
     const response = await axios.post('http://localhost:5000/subscriptions', {
             id: _id
+        });
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+}
+
+async function createPay(_id){
+  try {
+    const response = await axios.post('http://localhost:5000/pays', {
+            user: _id
         });
   } catch (error) {
     console.error(`Error: ${error}`);

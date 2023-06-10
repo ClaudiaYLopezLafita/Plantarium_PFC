@@ -23,13 +23,13 @@ var SubscriptionSchema = new Schema({
         default: 'general'
     },
     payments:[{
-        type: Schema.Types.String,
+        type: Schema.Types.ObjectId,
         ref: 'Pay', 
         required:false,
         default: null
     }],
     garden:{
-        type:Schema.Types.String, 
+        type:Schema.Types.ObjectId, 
         ref: 'Garden', 
         required: false
     },

@@ -31,14 +31,21 @@ router.post('/', async (req, res) =>{
         );
         
         if (userinfo) {
+            //creamos el codigo del pago
             const codigo = createCodigo(userinfo.username)
+            //creamos el pago
             const newPay = await Pay.create({
                 codPay: codigo,
                 subscription: userinfo.subscription._id,
                 user
             });
+            //añadimos pago al array de pago del usuario
             userinfo.payments.push(newPay);
             userinfo.save();
+            // añadimos pago al array de pago de la subscripción
+            const subcripcionUser = await Subscription.findById(userinfo.subscription._id)
+            subcripcionUser.payments.push(newPay);
+            subcripcionUser.save();
             res.status(200).send("Pago realizado correctamente");
         } else {
             res.status(500).send("Usuario no localizado");

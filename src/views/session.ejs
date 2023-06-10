@@ -47,9 +47,6 @@
                                     <label class="form-check-label" for="recordarLogin"><small>Recordar</small></label>
                                     <small class=""><a href="/reset">Forgot your password?</a></small>
                                 </div>
-                                <!-- <div class="valid-feedback">
-                                    Todos los campos son obligatorios
-                                </div> -->
                                 <% if (typeof errorLogin !== 'undefined' && errorLogin.length > 0) { %>
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             <small><%= errorLogin %></small>
@@ -178,15 +175,6 @@
                             <input type="text" class="form-control" name="phone" id="phone" placeholder="Telefono">
                             <label for="phone">Teléfono</label>
                         </div>
-                        <!-- mensajse de error -->
-                        <% if (typeof errors !== 'undefined' && errors.some(error => error.path === 'phone')) { %>
-                            <% errors.filter(error => error.path === 'phone').forEach(error => { %>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <small><i class="bi bi-exclamation-octagon"></i> <%= error.msg %></small>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            <% }) %>
-                        <% } %>
                         <div class="my-3 form-check">
                             <input type="checkbox" class="form-check-input" id="newsletter" checked>
                             <label class="form-check-label" for="newsletter"><small>Quiero recibir información con las novedades</small></label>
