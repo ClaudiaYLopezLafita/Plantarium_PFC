@@ -100,14 +100,11 @@ router.post('/insert-plant', async (req, res, next) =>{
   // capturar el cookie con id user
   const {idPlant} = req.body;
   const iduser = req.cookies.userid
-  console.log("ID PLANTA: "+ idPlant)
-  console.log('COOKIE: '+iduser)
+
   try {
     const userExist = await User.findById(iduser);
-    console.log(userExist)
     if(userExist){
       const subscriptionExist = await Subscription.findById(userExist.subscription)
-      console.log(subscriptionExist)
       if(subscriptionExist){
         
         const gardenExist = await Garden.findOne({subscriptionIdent: subscriptionExist._id}).populate([
@@ -117,7 +114,6 @@ router.post('/insert-plant', async (req, res, next) =>{
             select: '' 
           }
         ])
-        console.log(gardenExist)
         if(gardenExist){
           // Agregar la nueva planta al array existente
           if (gardenExist.plants && gardenExist.plants.length > 0) {
