@@ -49,16 +49,21 @@ body {
 }
 
 .error{
-  background-image: url('/images/page/fondo.jpg');
+  background-image: url('/images/page/fondo1.avif');
   background-repeat: no-repeat;
   background-size: 100%;
-  background-size: cover;
-  border-radius: 20%;
+}
+
+.error h1{
+  font-size: 16rem;
+}
+.error .message{
+  font-size: 3.5rem;
 }
 
 /* 2. NAVBAR RULES */
 
-.btn-Session, #delete_profile, #error .goHome{
+.btn-Session, #delete_profile, #errorPage .goHome{
   background-color: #006837;
   color: white;
 }

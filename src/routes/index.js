@@ -13,7 +13,7 @@ router.get('/error', function(req, res, next) {
 
 /* GET eror page. */
 router.get('/error-info', function(req, res, next) {
-	res.render('errorPage', { title: 'Plantarium' });
+	res.render('error-info', { title: 'Plantarium' });
 });
 
 /* GET home page. */
