@@ -4,12 +4,12 @@
     <%- include('partials/head');%>
 </head>
 <body id="errorPage" class="error">
-    <div class="m-5 d-flex align-items-center justify-content-center">
-        <div class="p-5 text-center">
-            <h1 class="display-1 fw-bold">404</h1>
-            <p class="fs-1 title"> <span class="text-danger fw-bold">Opps!</span> <strong>PRUEBA</strong></p>
+    <div class="m-3 row d-flex align-items-center justify-content-end">
+        <div class="col-sm-9 p-2 text-center">
+            <h1 class="display-1 fw-bold"><%= codStatus %></h1>
+            <p class="fs-1 title"> <span class="text-danger fw-bold">Opps!</span> <strong><%= info %></strong></p>
             <p class="lead message">
-                MENSAJE
+                <%= message %>
             </p>
             <a href="/" class="btn btnHome rounded-pill goHome"><i class="bi bi-house-door-fill"></i> | Inicio</a>
         </div>

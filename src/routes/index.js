@@ -192,7 +192,8 @@ router.get('/grafic-pays', verifyCookiesToken, async (req, res, next) => {
 // usuario administrador o no
 function verifyRoleUser(res, user, isAdmin) {
 	if (!(isAdmin && user.role === ROLE_ADMIN) && !(!isAdmin && user.role !== ROLE_ADMIN))  {
-		res.status(401).send('Access not allowed!');
+		return res.render('error-info', {title: 'Plantarium', codStatus: '401', info:'¡Acceso no permitido!',
+			message: 'Carece de credenciales autenticación inicie sesión o regístrese'})
 	}
 }
 
@@ -200,24 +201,29 @@ async function verifyToken(req, res, next) {
 	
 	try {
 		if (!req.headers.authorization) {
-			return res.status(401).send('Unauhtorized Request');
+			return res.render('error-info', {title: 'Plantarium', codStatus: '401', info:'¡Acceso no permitido!',
+			message: 'Carece de credenciales de autenticación inicie sesión o regístrese'})
+			// return res.status(401).send('Unauhtorized Request');
 		}
 		let token = req.headers.authorization.split(' ')[1];
 		if (token === 'null') {
-			// return res.render('errorPage', { title: 'Plantarium', btnNav: 'Session', 
-			// numError: '401', title_error: 'Unauhtorized Request', message: 'To access the page, log in or register.' })
-			return res.status(401).send('Unauhtorized Request');
+			// return res.status(401).send('Unauhtorized Request');
+			return res.render('error-info', {title: 'Plantarium', codStatus: '401', info:'¡Acceso no permitido!',
+			message: 'Carece de credenciales de autenticación inicie sesión o regístrese'})
 		}
 		const payloadUser = await jwt.verify(token, process.env.JWT_SECRET);
 		console.log(payloadUser)
 		if (!payloadUser) {
-			return res.status(401).send('Unauhtorized Request');
+			return res.render('error-info', {title: 'Plantarium', codStatus: '401', info:'¡Acceso no permitido!',
+			message: 'Carece de credenciales de autenticación inicie sesión o regístrese'})
+			// return res.status(401).send('Unauhtorized Request');
 		}
 		req.userId = payloadUser.userId;
 		next();
 	} catch(e) {
 		//console.log(e)
-		return res.status(401).send('Unauhtorized Request');
+		return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			message: 'Por favor intentelo más tarde'})
 	}
 }
 
@@ -233,7 +239,8 @@ function verifyCookiesToken(req, res, next){
 	console.log("userid: " + req.cookies.userid);
 
 	if(req.cookies.userid=="undefined" || req.cookies.userid==undefined){
-		return res.status(401).send('Unauthorized Request');
+		return res.render('error-info', {title: 'Plantarium', codStatus: '401', info:'Solicitud no autorizada',
+		message: 'Carece de credenciales de autenticación inicie sesión o regístrese'})
 	}
 	
 	next()
