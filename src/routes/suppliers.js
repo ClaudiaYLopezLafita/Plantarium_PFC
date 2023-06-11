@@ -67,7 +67,8 @@ async (req, res, next)=>{
         }else{
             const {name, email, url, address, phone, locality, plants, latitude, longitude} = req.body;
             const codSupplier = generateCodigo(name);
-            console.log(req.body)
+            const coordinadas =[parseFloat(latitude), parseFloat(longitude)];
+            console.log(coordinadas)
             const newSupplier = await Supplier.create({
                 codSupplier,
                 name, 
@@ -79,7 +80,7 @@ async (req, res, next)=>{
                 plants,
                 ubicacion: {
                     type: 'Point',
-                    coordinates: [parseFloat(latitude), parseFloat(longitude)]
+                    coordinates: coordinadas
                 }
             })
 
@@ -103,22 +104,17 @@ async (req, res, next)=>{
 /* POST update suppliers */
 router.post('/update', async (req, res, next)=>{
     const {_id, codSupplier, name, email, url, 
-        address, phone, locality, latitude, longitude,  plants} = req.body;
+        address, phone, locality, latitude, longitude, plants} = req.body;
     try {
         
         const supplierExist = await Supplier.findById(_id);
-
         if(!supplierExist){
             return res.status(404).send('Supplier no encontrado')
         } else{
             // Obtener las plantas relacionadas actualmente con el proveedor
             const currentPlants = supplierExist.plants;
-
-            // Comprobar si alguna de las plantas relacionadas ha sido eliminada del array "plants" enviado en la solicitud
-            const deletedPlants = currentPlants.filter(plantId => !plants.includes(plantId));
-
-            // Comprobar si alguna de las plantas enviadas en el array "plants" no está actualmente relacionada con el proveedor
-            const addedPlants = plants.filter(plantId => !currentPlants.includes(plantId));
+            const coordinadas =[parseFloat(latitude), parseFloat(longitude)];
+            console.log(coordinadas)
             
             const supplierUpdate = await Supplier.findByIdAndUpdate(_id, {
                 codSupplier,
@@ -131,10 +127,16 @@ router.post('/update', async (req, res, next)=>{
                 plants,
                 ubicacion: {
                     type: 'Point',
-                    coordinates: [parseFloat(latitude), parseFloat(longitude)]
+                    coordinates: coordinadas
                 }
             } )
 
+            // Comprobar si alguna de las plantas relacionadas ha sido eliminada del array "plants" enviado en la solicitud
+            const deletedPlants = currentPlants.filter(plantId => !plants.includes(plantId));
+
+            // Comprobar si alguna de las plantas enviadas en el array "plants" no está actualmente relacionada con el proveedor
+            const addedPlants = plants.filter(plantId => !currentPlants.includes(plantId));
+            
             // Eliminar las referencias al proveedor en las plantas eliminadas
             await Plant.updateMany(
                 { _id: { $in: deletedPlants } },
