@@ -51,7 +51,6 @@
                 <button type="submit" class="btn btn-outline-success"> Add | <i class="bi bi-plus-circle-fill"></i></button>
             </form>
         </div>
- 
         <!-- ROW 2 - mosaic images plant -->
         <div class="row mx-5 mb-4 justify-content-evenly">
             <div class="row m-auto mx-5">
@@ -123,7 +122,7 @@
         <!-- ROW 4 - tabs informations plant -->
         <div class="row mx-5 my-3">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs ">
                 <li class="nav-item">
                     <a class="nav-link active text-dark" data-bs-toggle="tab" href="#information">Información</a>
                 </li>
@@ -162,8 +161,8 @@
                     <% if (userCookie === '') { %>
                         <div class="m-5 bg-light bg-opacity-75 p-5 content">
                             <div>
-                                <p class="fs-3 text-center">If you want more information</p>
-                                <p class="fs-3 text-center"><a href="../../session"> Log in</a>.</p>
+                                <p class="fs-3 text-center">Si quiere ver más información </p>
+                                <p class="fs-3 text-center"><a href="../../session"> Inicie sesión</a>.</p>
                                 <img src="/images/page/Logo_Small.png" class="logo_reducido  mx-auto d-block" alt="Logo reducido de plantarium">
                             </div>
                         </div>
@@ -194,8 +193,8 @@
                     <% if (userCookie === '') { %>
                         <div class="m-5 bg-light bg-opacity-75 p-5 content">
                             <div>
-                                <p class="fs-3 text-center">If you want more information</p>
-                                <p class="fs-3 text-center"><a href="../../session"> Log in</a>.</p>
+                                <p class="fs-3 text-center">Si quiere ver más información</p>
+                                <p class="fs-3 text-center"><a href="../../session"> Inicie sesión</a>.</p>
                                 <img src="/images/page/Logo_Small.png" class="logo_reducido  mx-auto d-block" alt="Logo reducido de plantarium">
                             </div>
                         </div>
@@ -274,7 +273,8 @@
         <%- include('partials/footer');%>
     </footer>
     <!-- END FOOTER-->
-    <script>
+    <script>           
+        
         document.addEventListener('DOMContentLoaded', function() {
             const mapLinks = document.getElementsByClassName('map-link');
             const modal = new bootstrap.Modal(document.getElementById('mapModal'));

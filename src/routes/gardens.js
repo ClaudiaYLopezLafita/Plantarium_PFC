@@ -100,13 +100,11 @@ router.post('/insert-plant', async (req, res, next) =>{
   // capturar el cookie con id user
   const {idPlant} = req.body;
   const iduser = req.cookies.userid
-
   try {
     const userExist = await User.findById(iduser);
     if(userExist){
       const subscriptionExist = await Subscription.findById(userExist.subscription)
       if(subscriptionExist){
-        
         const gardenExist = await Garden.findOne({subscriptionIdent: subscriptionExist._id}).populate([
             {
             path: 'plants',
