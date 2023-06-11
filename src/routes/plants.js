@@ -256,7 +256,7 @@ router.post('/update', async (req, res, next)=>{
                 { _id: { $in: plantUpdate.suppliers } },
                 { $pull: { plants: id } }
             );
-            //buscamos en la colección de sintomas aquellos documentos cuyo _id esté presente en el array suppliers
+            //buscamos en la colección de proveedores aquellos documentos cuyo _id esté presente en el array suppliers
             await Supplier.updateMany(
                 { _id: { $in: suppliers } },
                 { $addToSet: { plants: id } }
