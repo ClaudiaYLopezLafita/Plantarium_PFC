@@ -90,8 +90,8 @@ router.get('/subscriptions', async(req, res, next) =>{
                             },
                             in: {
                             // para obtener el nombre del mes correspondiente al número de mes en
-                            // el _id.month
-                                $arrayElemAt: ['$$monthsInString', '$_id.month']
+                            // el _id.month debemos de restarle 1 dado que el rango va de 1->12
+                                $arrayElemAt: ['$$monthsInString', { $subtract: ['$_id.month', 1] }]
                             }
                         }
                     }
