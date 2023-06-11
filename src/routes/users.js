@@ -74,9 +74,9 @@ router.post('/',
       //compromabamos las validaciones
       const errors = validationResult(req).array();
       if (errors.length > 0 ) {
-        const valores_form = req.body;
         // redirigimos con los alerts de fallos
-        res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors, valores: valores_form });
+        res.render('session', {title: 'Plantarium', btnNav: 'Session', errors: errors, 
+        messageEmail:undefined, messageUsernmae: undefined});
       }else{
         //capturamos los datos del formulario
         const { username, password, creationdate, role, 
@@ -85,8 +85,10 @@ router.post('/',
         // Comprobar si el usuario ya está registrado
         const emailExists = await User.findOne({ email });
         const usernameExists = await User.findOne({ username });
-        if (emailExists) return res.status(401).send('Usuario ya creado');
-        if (usernameExists) return res.status(401).send('Nombre de usuario ya existente');
+        if (emailExists) return res.render('session', {title: 'Plantarium', btnNav: 'Session', 
+            messageEmail: 'Usuario ya registrado, inicie sesión', errors: undefined});
+        if (usernameExists) return res.render('session', {title: 'Plantarium', btnNav: 'Session', 
+            messageUsernmae: 'Nombre de usuario en uso, pruebe otro', errors: undefined});
 
         // Registrar usuario
         const user = await User.create(req.body);
