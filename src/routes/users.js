@@ -250,27 +250,27 @@ router.post('/signin', [
 ]
 ,async (req, res) => {
   try {
+    // Mostrar un único mensaje de error
+    const errorMessages = ['Email y/o contraseña incorrecto'];
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-      // Mostrar un único mensaje de error
-      const errorMessages = ['Email y/o contraseña incorrecto'];
       // redirigimos con los alerts de fallos
       res.render('session', {title: 'Plantarium', btnNav: 'Session', errorLogin: errorMessages});
     }else{
       // datos a capturar
       const { email, password } = req.body;
-
       // localización del usuario
       const user = await User.findOne({ email });
       // si no se localiza
       if (!user) {
-        return res.status(401).send('El usuario no existe');
+        res.render('session', {title: 'Plantarium', btnNav: 'Session', errorLogin: errorMessages});
       } else{
         // se localiza y se comprueba contraseña
         const comparePassword = bcrypt.compareSync(password, user.password);
         if (!comparePassword) {
-          
-          return res.status(401).send('Contraseña incorrecta');
+          // Mostrar un único mensaje de error
+          // redirigimos con los alerts de fallos
+          res.render('session', {title: 'Plantarium', btnNav: 'Session', errorLogin: errorMessages});
         }else{
           //capturanos la direccion de la foto de perfil
           const imageUrl = user.photo;
