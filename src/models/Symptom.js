@@ -8,8 +8,6 @@ var treatmentSchema = new Schema({
     codTreatment:{
         type: String, 
         required: true, 
-        index:{unique:true},
-        unique:true
     },
     period: {
         type: String, 
@@ -30,7 +28,6 @@ var diseaseSchema = new Schema({
     codDisease: {
         type: String, 
         required: true, 
-        index:{unique:true}
     },
     name: {
         type: String, 

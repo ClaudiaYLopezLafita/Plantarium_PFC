@@ -27,7 +27,7 @@ router.post('/', async (req,res,next)=>{
 
         const codSymptom = generateCodSymptom(title);
 
-        const newSymptom = Symptom.create({
+        const newSymptom = await Symptom.create({
             codSymptom,
             title,
             description,
