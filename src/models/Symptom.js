@@ -35,7 +35,7 @@ var diseaseSchema = new Schema({
     },
     cause: {
         type: String, 
-        enum: ['Cuidados erróneos', 'Patógeno']
+        enum: ['Cuidados erróneos', 'Patógeno', 'Ciclo de vida']
     },
     description: {
         type: String, 
