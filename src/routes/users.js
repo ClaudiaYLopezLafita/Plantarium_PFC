@@ -276,6 +276,7 @@ router.post('/signin', [
         }else{
           //capturanos la direccion de la foto de perfil
           const imageUrl = user.photo;
+          console.log(imageUrl)
           const fecha = moment(user.birthdate).format('DD/MM/YYYY');
 
           // Crear payload y token de usuario

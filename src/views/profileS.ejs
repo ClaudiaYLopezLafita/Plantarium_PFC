@@ -52,7 +52,11 @@
         <div class="container-fluid">
             <div class="row m-5">
                 <div class="col-sm-4 m-auto">
-                    <img src="<%= imageUrl %>" alt="Imagen de perfil">
+                    <% if(imageUrl !== undefined && imageUrl !== null && imageUrl !== "") { %>
+                        <img src="<%= imageUrl %>" alt="Imagen de perfil">
+                    <% } else {%>
+                        <img src="/images/users/perfil.png" alt="Imagen de perfil">
+                    <%}%>
                 </div>
                 <div class="col-sm-4 m-auto" id="infoUser">
                     <p><b>Nombre:</b> <%= user.fullname %></p>
@@ -79,7 +83,7 @@
                 <h2 class="text-center mb-0">MI JARDIN</h2>
                 <%- include('partials/dividing_line');%>
                 <div class="card px-0 mt-2" style="width:500px">
-                    <img class="card-img-top" src="/users/images/img_card_backgroud.webp"  alt="Card image garden">
+                    <img class="card-img-top" src="/images/page/img_card_backgroud.webp"  alt="Card image garden">
                     <div class="card-img-overlay" >
                             <div class="fondoGarden mb-2 p-2">
                                 <p class="card-text text-wrap">
