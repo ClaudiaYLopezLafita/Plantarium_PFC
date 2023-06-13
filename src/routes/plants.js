@@ -117,17 +117,18 @@ router.get('/list/:id', async (req, res, next) => {
             var categorias = plantExist.categories;
             const listaCategorias = categorias.join(" | ")
             if(req.cookies.userid!="undefined" && req.cookies.userid!=undefined){
-
                 res.render('filePlant', { title: 'Plantarium', btnNav: 'Logout',  planta: plantExist, categories: listaCategorias, userCookie: req.cookies.userid});
             }else{
                 res.render('filePlant', { title: 'Plantarium', btnNav: 'Session',  planta: plantExist, categories: listaCategorias, userCookie: "" });
             }
         } else {
-            res.status(404).send('Plant not found');
+            return res.render('error-info', {title: 'Plantarium', codStatus: '404', info:'Planta no encontrada',
+			message: 'La planta que buscas no se cuentra ahora mismo en nuestra base de datos'})
         }
     } catch (error) {
         console.error(`Error: ${error}`);
-        res.status(500).send('Internal server error');
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			message: 'Por favor intentelo más tarde'})
     }
 });
 

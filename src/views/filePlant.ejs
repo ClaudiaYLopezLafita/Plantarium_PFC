@@ -4,7 +4,7 @@
     <%- include('partials/head');%>
 </head>
 <body id="filePlant">
-    <!-- MODAL -->
+    <!-- STAR MODAL -->
     <div id="mapModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -18,6 +18,8 @@
             </div>
         </div>
     </div>
+    <!-- END MODAL-->
+   
     <!-- START HEADER-->
     <header>
         <% if (userCookie === '') { %>
@@ -170,7 +172,7 @@
                         <div class="p-4">
                             <h6 class="mb-3"> <i class="bi bi-bookmark-fill"></i> Categorias: <%= categories %> </h6>
                             <div class="row py-2 justify-content-around bg-light bg-opacity-75 rounded-2">
-                                <% if (planta.attendance !== undefined) { %>
+                                <% if (planta.attendance !== undefined && planta.attendance!== null) { %>
                                 <div class="col-sm-5">
                                     <p><b>Riego:</b> <%= planta.attendance.water %> </p>
                                     <p><b>Sustrato: </b> <%= planta.attendance.soil %></p>
