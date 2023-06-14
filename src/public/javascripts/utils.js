@@ -6,28 +6,31 @@
      * Función que nos mostrará la pestaña "deseada"
      * */
     function showTab(n) {
-    var x = document.getElementsByClassName("step");
-    x[n].style.display = "block";
-    // muestra o no los botones necesarios
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-    }
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").remove();
-        let botonEnviar = document.createElement('button');
-        
-        // Configura los atributos y propiedades del botón
-        botonEnviar.textContent = 'Enviar';
-        botonEnviar.type = 'submit';
-        let formFooter = document.querySelector('.form-footer');
-        formFooter.appendChild(botonEnviar);
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-    }
-    // controlamos la barra de progreso
-    fixStepIndicator(n)
+        var x = document.getElementsByClassName("step");
+        if(x!="undefined" && x!=undefined && x.length>0)
+        {
+            x[n].style.display = "block";
+            // muestra o no los botones necesarios
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+                document.getElementById("nextBtn").remove();
+                let botonEnviar = document.createElement('button');
+                
+                // Configura los atributos y propiedades del botón
+                botonEnviar.textContent = 'Enviar';
+                botonEnviar.type = 'submit';
+                let formFooter = document.querySelector('.form-footer');
+                formFooter.appendChild(botonEnviar);
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next";
+            }
+            // controlamos la barra de progreso
+            fixStepIndicator(n)
+        }
     }
 
     /*
