@@ -72,7 +72,8 @@ router.get('/:id', async (req, res, next) =>{
       }
     }
   } catch (error) {
-    return res.status(500).send('Problemas en el servidor')
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 })
 
@@ -91,7 +92,8 @@ router.post('/delete', async (req, res, next) =>{
 
     await Garden.findByIdAndRemove(gardenExist._id);
   } catch (error) {
-    return res.status(500).send('Problemas en el servidor')
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 })
 
@@ -131,7 +133,8 @@ router.post('/insert-plant', async (req, res, next) =>{
       }
     }
   } catch (error) {
-    return res.status(500).send('Problemas en el servidor')
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 })
 
@@ -161,7 +164,8 @@ router.post('/delete-plant', async (req, res, next) =>{
       return res.status(404).send('Garden no localizado')
     }
   } catch (error) {
-    return res.status(500).send('Problemas en el servidor')
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 
 })
