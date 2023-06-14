@@ -96,25 +96,28 @@
 
         /* 1. CATEGORIAS */
 
-        const categories = ["Caduca", "Carnivora","Con Flor", "Exótica", "Exterior", "Herbácea", 
-        "Interior", "Leñosa", "Perenne", "Sin Flor","Suculenta"]
-
+        const categories = ["Caduca", "Carnívora", "Con Flor", "Exótica", "Exterior", "Herbácea", "Interior", "Leñosa", "Perenne", "Sin Flor", "Suculenta"];
         const numPlantForCategorie = JSON.parse('<%- JSON.stringify(data) %>');
 
         // Crear un mapa para acceder eficientemente a los datos existentes
         const existingDataMap = new Map(numPlantForCategorie.map(item => [item._id, item.count]));
 
+        // Crear un nuevo array para almacenar los resultados actualizados
+        const updatedData = [];
+
         // Agregamos las categorías faltantes con valor cero
         categories.forEach(category => {
-        if (!existingDataMap.has(category)) {
-            numPlantForCategorie.push({ _id: category, count: 0 });
+        if (existingDataMap.has(category)) {
+            updatedData.push({ _id: category, count: existingDataMap.get(category) });
+        } else {
+            updatedData.push({ _id: category, count: 0 });
         }
         });
 
         // Ordenanamos los resultados por categoría
-        numPlantForCategorie.sort((a, b) => a._id.localeCompare(b._id));
+        updatedData.sort((a, b) => a._id.localeCompare(b._id));
 
-        const values = numPlantForCategorie.map(item => item.count);
+        const values = updatedData.map(item => item.count);
 
         // Datos de la gráfica
         const datosCategorie ={
