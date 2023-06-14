@@ -140,10 +140,10 @@ router.post('/', async (req, res, next) =>{
     categories,images, attendance, gardens,suppliers, symptoms
     } = req.body;
     const imagesArray = images.split(',');
-
+    console.log(req.body)
     try {
         const codPlant = generateCodPlant(sciName);
-
+        console.log(codPlant)
         const newPlant = await Plant.create({
             codPlant,sciName,comName, genus, family, distribution, 
             habitat, description, curiosities, precautions,categories,
@@ -180,30 +180,9 @@ router.post('/', async (req, res, next) =>{
             }
         }
         
-        //relacionamos la planta con los sintomas
-        if (Array.isArray(symptoms)) {
-            // viene un array
-            symptoms.forEach( async element => {
-                const symptomEx = Symptom.findById(element);
-                if(symptomEx){
-                    const arrayPlants = symptomEx.plants || []; 
-                    arrayPlants.push(idPlant)
-                    await symptomEx.save()
-                }
-            });
-        } else {
-            // viene un solo elemento
-            const symptomEx = await Symptom.findById(symptoms);
-            if (symptomEx) {
-                const arrayPlants = symptomEx.plants || []; 
-                arrayPlants.push(idPlant)
-                symptomEx.plants = arrayPlants;
-                await symptomEx.save()
-            }
-        }
-
         res.redirect(req.get('referer'));
     } catch (error) {
+        console.log(error)
         return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
 			message: 'Por favor intentelo más tarde'})
     }
@@ -248,13 +227,17 @@ router.post('/update', async (req, res, next)=>{
     const {id, sciName, comName, genus, family,
         distribution, habitat, description, curiosities, precautions,
         categories,images, suppliers, attendance, symptoms } = req.body;
+    
+        const imagesArray = images.split(',');
         
     try {
         const plantExist = await Plant.findById(id);
-        console.log(plantExist)
         if(plantExist){
-            const plantUpdate = await Plant.findByIdAndUpdate(id, req.body);
-            console.log(plantUpdate)
+            const plantUpdate = await Plant.findByIdAndUpdate(id, {
+                sciName, comName, genus, family,
+                distribution, habitat, description, curiosities, precautions,
+                categories,images: imagesArray, suppliers, attendance, symptoms
+            });
             // Actualizar referencias en la colección de suppliers
             await Supplier.updateMany(
                 { _id: { $in: plantUpdate.suppliers } },
@@ -352,8 +335,8 @@ router.get('/filter', async (req, res, next)=>{
         query.where('categories').in([category]);
         }
         // Aplica el orden según el parámetro de orden
-        query.sort({ sciName: orden === 'DESC' ? -1 : 1 })
-        query.sort({ sciName: orden === 'ASC' ? 1 : -1 })
+        query.sort({ comName: orden === 'DESC' ? -1 : 1 })
+        query.sort({ comName: orden === 'ASC' ? 1 : -1 })
 
         // Ejecutamos la consulta
         const plantas = await query.exec();

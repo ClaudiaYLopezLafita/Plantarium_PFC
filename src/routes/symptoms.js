@@ -43,7 +43,7 @@ router.post('/', async (req,res,next)=>{
 })
 
 /* UPDATE Symptom */
-router.put('/', async(req,res,next)=>{
+router.post('/', async(req,res,next)=>{
     const {id, title, description, disease, plants} = req.body;
     try {
         const symptomExist = await Symptom.findById(id);
