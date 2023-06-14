@@ -67,11 +67,12 @@ router.get('/plantas/:id', async (req, res, next) => {
             res.render('edit-plant', { title: 'Plantarium', btnNav: 'Logout',  planta: plantExist, categories: listaCategorias,
             attendances: cuidados, symptoms: sintomas, suppliers: proveedores});
         } else {
-            res.status(404).send('Plant not found');
+            return res.render('error-info', {title: 'Plantarium', codStatus: '404', info:'Planta no encontreada',
+			message: 'En estos momentos no podemos encontrar la planta, intentelo más tarde'})
         }
     } catch (error) {
-        console.error(`Error: ${error}`);
-        res.status(500).send('Internal server error');
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
     }
 });
 
@@ -203,7 +204,8 @@ router.post('/', async (req, res, next) =>{
 
         res.redirect(req.get('referer'));
     } catch (error) {
-        console.error(`Error: ${error}`);
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			message: 'Por favor intentelo más tarde'})
     }
 })
 
@@ -236,7 +238,8 @@ router.post('/delete', async (req, res, next)=>{
         const plantDelete = await Plant.findByIdAndRemove(id);
         res.redirect(req.get('referer'));
     } catch (error) {
-        console.error(`Error: ${error}`);
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			message: 'Por favor intentelo más tarde'})
     }
 })
 
@@ -284,7 +287,8 @@ router.post('/update', async (req, res, next)=>{
             res.redirect(req.get('referer'));
         }
     } catch (error) {
-        console.error(`Error: ${error}`);
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			message: 'Por favor intentelo más tarde'})
     }
 })
 
@@ -318,7 +322,8 @@ router.get('/filter-admin', async (req, res, next)=>{
         res.render('list-plants' ,{ title: 'Plantarium', btnNav: 'Logout', plantas: plants });
         
     } catch (error) {
-        return res.status(500).json({ message: error });
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			message: 'Por favor intentelo más tarde'})
     }
 })
 
@@ -360,7 +365,8 @@ router.get('/filter', async (req, res, next)=>{
         }
         // res.status(200).json(plants);
     } catch (error) {
-        console.error(`Error: ${error}`);
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+			message: 'Por favor intentelo más tarde'})
     }
 })
 
