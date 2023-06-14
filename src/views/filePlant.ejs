@@ -283,24 +283,32 @@
             const modal = new bootstrap.Modal(document.getElementById('mapModal'));
             
             for (let i = 0; i < mapLinks.length; i++) {
+
                 mapLinks[i].addEventListener('click', function(event) {
                     //evitamos el comportamiento predeterminado de click
                     event.preventDefault();
                     //capturamos las coordenadas del proveedor
                     const coordinates = this.getAttribute('data-coordinates').split(',').map(Number);
                     // creamos una intancia de mapa map 
-                    const supplierMap = L.map('supplierMap').setView(coordinates, 15);
+                    const supplierMap = L.map('supplierMap').setView(coordinates, 18);
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-                        maxZoom:19
+                        maxZoom:20,
+                        attribution:  '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     }).addTo(supplierMap);
                     // se añade el iconito de ubicacion al mapa
                     L.marker(coordinates).addTo(supplierMap);
                     //mostreamos el modal
                     modal.show();
+                    // Actualizar el tamaño del mapa después de mostrar el modal
+                    setTimeout(function () {
+                        window.dispatchEvent(new Event("resize"));
+                    }, 500);
                 });
+                //fin del evento
             }
+            //fin for
         });
+
     </script>
 </body>
 </html>
