@@ -113,7 +113,10 @@ img{
 .fondoGarden, .text_fondo{
   background-color: rgba(255, 255, 255, 0.75);
 }
-
+.celda_planta{
+  max-width: 420px;
+  min-height: 240.953px;
+}
 #admin #infoUser{
   font-size: large;
 }

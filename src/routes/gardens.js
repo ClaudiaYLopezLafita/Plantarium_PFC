@@ -117,7 +117,6 @@ router.post('/insert-plant', async (req, res, next) =>{
         if(gardenExist){
           // Agregar la nueva planta al array existente
           if (gardenExist.plants && gardenExist.plants.length > 0) {
-            // operador spread para agregar todos los elementos que vengan
             gardenExist.plants.unshift(idPlant);
           }else{
             gardenExist.plants.push(idPlant);
