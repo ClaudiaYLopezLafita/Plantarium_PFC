@@ -126,7 +126,8 @@ img{
   border-width: 2px;
   border-style: solid;
   border-color: #006837;
-
+  padding-top: 1.7%;
+  padding-bottom: 1.7%;
 }
 
 #action1 a,
