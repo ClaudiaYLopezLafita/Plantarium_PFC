@@ -273,6 +273,17 @@ img{
   background-size: cover;
 }
 
+.padre_img{
+  width: 20.2rem; 
+  height: 17.2rem;
+}
+
+.padre_img img{
+  object-fit: fill; 
+  width: 20.2rem; 
+  height: 15.2rem;
+}
+
 
 /* FOOTER RULES*/
 
