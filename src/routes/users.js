@@ -121,7 +121,8 @@ router.post('/',
       }
     } catch (error) {
       console.error(error);
-      res.status(500).send('Error interno del servidor'+error);
+      return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
     }
 
   }
@@ -218,11 +219,14 @@ router.post('/update', async (req, res, next)=>{
         return;
       }
     } else {
-      res.sendStatus(500).send('El usuario no existe');
+      return res.render('error-info', {title: 'Plantarium', codStatus: '401', info:'¡Usuario no localizado!',
+			message: 'El usuario que intenta modificar no existe'})
+			
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error interno del servidor');
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 });
 
@@ -294,7 +298,8 @@ router.post('/signin', [
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error interno del servidor');
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 });
 
@@ -364,11 +369,13 @@ router.post('/back', async (req, res, next)=>{
       RedirectUsers(res, user, imageUrl, fecha);
       return;
     } else {
-      res.sendStatus(500).send('El usuario no existe');
+      return res.render('error-info', {title: 'Plantarium', codStatus: '404', info:'¡Acceso no permitido!',
+			message: 'El usuario no existe'})
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error interno del servidor');
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 });
 
@@ -397,6 +404,8 @@ async function createSubscription(_id){
         });
   } catch (error) {
     console.error(`Error: ${error}`);
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 }
 
@@ -407,6 +416,8 @@ async function createPay(_id){
         });
   } catch (error) {
     console.error(`Error: ${error}`);
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 }
 
@@ -417,6 +428,8 @@ async function deleteSubscription(_id){
         });
   } catch (error) {
     console.error(`Error: ${error}`);
+    return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
   }
 }
 
