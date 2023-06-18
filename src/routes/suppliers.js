@@ -42,11 +42,12 @@ router.get('/list/:id', async (req, res, next) => {
             const listPlants = await Plant.find();
             res.render('edit-supplier',{title: 'Plantarium', btnNav: 'Logout',proveedor: sppExist, plantas :listPlants});
         } else {
-            res.status(404).send('Plant not found');
+            return res.render('error-info', {title: 'Plantarium', codStatus: '404', info:'No encontrada',
+        message: 'Proveedor no localizado'})
         }
     } catch (error) {
-        console.error(`Error: ${error}`);
-        res.status(500).send('Internal server error');
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
     }
 });
 
@@ -68,7 +69,6 @@ async (req, res, next)=>{
             const {name, email, url, address, phone, locality, plants, latitude, longitude} = req.body;
             const codSupplier = generateCodigo(name);
             const coordinadas =[parseFloat(latitude), parseFloat(longitude)];
-            console.log(coordinadas)
             const newSupplier = await Supplier.create({
                 codSupplier,
                 name, 
@@ -97,7 +97,8 @@ async (req, res, next)=>{
         }
         
     } catch (error) {
-        return res.status(500).json({ message: error })
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
     }
 })
 
@@ -127,7 +128,6 @@ router.post('/update', async (req, res, next)=>{
                     coordinates: coordinadas
                 }
             } )
-
             // Actualizar referencias en la colección de suppliers
             await Plant.updateMany(
                 { _id: { $in: supplierUpdate.plants } },
@@ -143,14 +143,14 @@ router.post('/update', async (req, res, next)=>{
         }
         
     } catch (error) {
-        return res.status(500).json({ message: error });
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
     }
 })
 
 /* POST delete suppliers */
 router.post('/delete', async (req, res, next)=>{
     const {id} = req.body;
-    console.log(id)
     try {
         
         const supplierExist = await Supplier.findById(id);
@@ -171,7 +171,8 @@ router.post('/delete', async (req, res, next)=>{
         }
         
     } catch (error) {
-        return res.status(500).json({ message: error });
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
     }
 })
 
@@ -201,7 +202,8 @@ router.get('/filter', async (req, res, next)=>{
         res.render('suppliers' ,{ title: 'Plantarium', btnNav: 'Logout', proveedores: suppliers });
         
     } catch (error) {
-        return res.status(500).json({ message: error });
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
     }
 })
 

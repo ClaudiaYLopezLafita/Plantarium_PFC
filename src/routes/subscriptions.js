@@ -20,7 +20,6 @@ router.get('/',function(req, res, next) {
 
 /* POST create subscription */ 
 router.post('/', async (req, res) =>{
-    // console.log(req.body)
     const userId = req.body.id;
     try {
         const userinfo = await User.findById(userId).populate('subscription');
@@ -75,7 +74,6 @@ async function createGarden(id) {
         const response = await axios.post('http://localhost:5000/gardens', {
             subscriptionId: id
         });
-        console.log(response.data);
     } catch (error) {
         console.error(`Error: ${error}`);
     }
@@ -86,7 +84,6 @@ async function deleteGarden(id) {
         const response = await axios.post('http://localhost:5000/gardens/delete', {
             subscriptionId: id
         });
-        console.log(response.data);
     } catch (error) {
         console.error(`Error: ${error}`);
     }

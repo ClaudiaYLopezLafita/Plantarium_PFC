@@ -54,13 +54,11 @@ router.get('/categoriPlant', async(req, res, next) =>{
             ])
             .exec();
 
-            console.log(result)
-            console.log(result2)
-
             res.render('grafic-plants', { title: 'Plantarium', btnNav: 'Logout',  data: result, data2: result2}); // Devolver los resultados como JSON
         } catch (error) {
-        console.error(error);
-        res.status(500).send('Error en el servidor');
+            console.error(error);
+            return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+            message: 'Por favor intentelo más tarde'})
         } 
 } )
 
@@ -106,14 +104,11 @@ router.get('/subscriptions', async(req, res, next) =>{
                 }
             }
         ]).exec(); 
-        
-        console.log(result);
-
         res.render('grafic-subscriptions', { title: 'Plantarium', btnNav: 'Logout',  data: result}); // Devolver los resultados como JSON
 
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error en el servidor');
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
     }
 })
 
@@ -159,8 +154,8 @@ router.get('/summary-pays', async (req, res, next)=>{
         res.render('grafic-pays', { title: 'Plantarium', btnNav: 'Logout',  data: result}); // Devolver los resultados como JSON
 
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error en el servidor');
+        return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
+        message: 'Por favor intentelo más tarde'})
     }
 })
 module.exports = router;

@@ -115,18 +115,39 @@ router.post('/insert-plant', async (req, res, next) =>{
           }
         ])
         if(gardenExist){
-          // Agregar la nueva planta al array existente
-          if (gardenExist.plants && gardenExist.plants.length > 0) {
-            gardenExist.plants.unshift(idPlant);
-          }else{
-            gardenExist.plants.push(idPlant);
-          }
-          await gardenExist.save()
-          //añadimos el id del jardin al array de gardens de la planta
-          const planta = await Plant.findById(idPlant);
-          planta.gardens.push(gardenExist._id);
+          const tipoSubscripcion = subscriptionExist.type;
+          const numPlantsInGarden = gardenExist.plants.length;
 
-          await planta.save()
+          // Verificar si el tipo de suscripción es "general" y ya hay cinco plantas en el perfil del usuario
+          if (tipoSubscripcion === 'general' && numPlantsInGarden >= 5) {
+            return res.render('error-info', {
+              title: 'Plantarium',
+              codStatus: '400',
+              info: 'Límite de plantas alcanzado',
+              message: 'El tipo de suscripción general solo permite tener hasta cinco plantas en tu jardín.'
+            });
+          }
+
+          // Verificar si la planta ya existe en el jardín
+          const existingPlant = gardenExist.plants.find((plant) => plant.id === idPlant);
+          if (existingPlant) {
+            return res.render('error-info', {
+              title: 'Plantarium',
+              codStatus: '400',
+              info: 'Planta duplicada',
+              message: 'La planta seleccionada ya existe en tu jardín.'
+            });
+          }
+
+          // Agregar la nueva planta al array existente
+          gardenExist.plants.unshift(idPlant);
+          await gardenExist.save();
+
+          // Añadir el ID del jardín al array de gardens de la planta
+          const plant = await Plant.findById(idPlant);
+          plant.gardens.push(gardenExist._id);
+          await plant.save();
+
           res.redirect(req.get('referer'));
         }
       }
@@ -141,8 +162,6 @@ router.post('/insert-plant', async (req, res, next) =>{
 router.post('/delete-plant', async (req, res, next) =>{
 
   const{idPlant, idGarden} = req.body
-  console.log(`Borrando planta ${idPlant}`)
-  console.log(`Borrando en el jardin ${idGarden}`)
   try {
     const gardenExist = await Garden.findById(idGarden);
     if(gardenExist){      
