@@ -141,26 +141,27 @@ router.post('/insert-plant', async (req, res, next) =>{
 router.post('/delete-plant', async (req, res, next) =>{
 
   const{idPlant, idGarden} = req.body
+  console.log(`Borrando planta ${idPlant}`)
+  console.log(`Borrando en el jardin ${idGarden}`)
   try {
     const gardenExist = await Garden.findById(idGarden);
-    // console.log(gardenExist)
-    if(gardenExist){
-      //borramos la planta del array de plants del jardin
-      const plantArray = gardenExist.plants;
-      const indice = plantArray.indexOf(idPlant);
-      plantArray.splice(indice);
+    if(gardenExist){      
+      // Borramos el jardín del array de jardines de la planta
+      const plant = await Plant.findOne({ codPlant: idPlant });
+      plant.gardens.pull(idGarden);
 
-      // borramos el jardin del array de jardines de la planta
-      const plant = await Plant.findOne({codPlant: idPlant})
-      const gardenArray = plant.gardens
-      const indiceP = gardenArray.indexOf(idGarden);
-      gardenArray.splice(indiceP)
+      // Borramos la planta del array de plants del jardín
+      gardenExist.plants.pull(plant._id);
 
+      // guardamos los cambios. 
       await gardenExist.save();
-      await plant.save()
-      res.redirect(req.get('referer'));      
+      await plant.save();
+
+      res.redirect(req.get('referer'));
     }else{
       return res.status(404).send('Garden no localizado')
+      return res.render('error-info', {title: 'Plantarium', codStatus: '404', info:'No localizado',
+        message: 'Jardín no localizado.'})
     }
   } catch (error) {
     return res.render('error-info', {title: 'Plantarium', codStatus: '500', info:'Error interno del servidor',
